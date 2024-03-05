@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:include="base-theme"></th:block>
+    <th:block th:insert="base-theme"></th:block>
     <title>Home</title>
 </head>
 <body>
-<th:block th:include="navbar"></th:block>
+<th:block th:insert="navbar"></th:block>
 
-<div class="page-content">
+<section class="page-content">
     <h2 class="title">articoli</h2>
 
     <a href="/">
-
-        <div class="article segmented-border">
+        <article class="article segmented-border">
             <p>Date</p>
             <h3>Titolo Titolo Titolo Titolo Titolo Titolo Titolo </h3>
             <p>Contenuto</p>
-        </div>
+        </article>
     </a>
-</div>
+</section>
 
-<th:block th:include="footer"></th:block>
+<th:block th:insert="footer"></th:block>
 </body>
 </html>
