@@ -1,4 +1,4 @@
-package it.tino.blog;
+package it.tino.blog.application;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -9,5 +9,4 @@ public class ServletInitializer extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(BlogApplication.class);
     }
-
 }
