@@ -1,4 +1,4 @@
-package it.tino.blog.application;
+package it.tino.blog;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

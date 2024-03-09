@@ -1,4 +1,4 @@
-package it.tino.blog.application;
+package it.tino.blog;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

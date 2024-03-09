@@ -1,4 +1,4 @@
-package it.tino.blog.application;
+package it.tino.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
