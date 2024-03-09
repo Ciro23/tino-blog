@@ -34,8 +34,8 @@ public class WebSecurityConfig {
                 (form) -> form
                         .loginPage("/login")
                         .permitAll()
-                )
-                ;
+                        .defaultSuccessUrl("/admin/articles")
+                );
 
         return http.build();
     }

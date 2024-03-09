@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <th:block th:insert="base-theme"></th:block>
-    <title>Login</title>
+    <th:block th:insert="~{base-theme}"></th:block>
+    <title>login</title>
 </head>
 <body>
-<th:block th:insert="navbar"></th:block>
+<th:block th:insert="~{navbar}"></th:block>
 
 <section class="page-content">
     <form class="login-form" method="post" th:action="@{/login}">
@@ -23,10 +23,10 @@
             <input type="password" name="password" placeholder="password">
         </label>
 
-        <button type="submit">Login</button>
+        <button type="submit" class="button">Login</button>
     </form>
 </section>
 
-<th:block th:insert="footer"></th:block>
+<th:block th:insert="~{footer}"></th:block>
 </body>
 </html>

@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <th:block th:insert="~{base-theme}"></th:block>
-    <title>home</title>
+    <title>articles manager</title>
 </head>
 <body>
 <th:block th:insert="~{navbar}"></th:block>
 
 <section class="page-content">
-    <h2 class="title">articoli</h2>
+    <h2 class="title">articles manager</h2>
 
-    <a href="/">
-        <article class="article segmented-border">
-            <p>Date</p>
-            <h3>Titolo Titolo Titolo Titolo Titolo Titolo Titolo </h3>
-            <p>Contenuto</p>
-        </article>
+    <a th:href="@{/admin/articles/new}">
+        <button class="button">Add article</button>
     </a>
+
 </section>
 
-<th:block th:insert=~{footer}></th:block>
+
+<th:block th:insert="~{footer}"></th:block>
 </body>
 </html>
