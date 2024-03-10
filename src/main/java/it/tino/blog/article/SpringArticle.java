@@ -2,7 +2,9 @@ package it.tino.blog.article;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -15,9 +17,16 @@ public class SpringArticle {
     private UUID id;
 
     @Column(nullable = false)
-    private String title;
+    private String title = "";
+
+    @Column(nullable = false)
+    private String shortDescription = "";
 
     @Column(nullable = false)
     @Lob
-    private String content;
+    private String content = "";
+
+    @Column(nullable = false)
+    @CreationTimestamp
+    private Instant creationDateTime;
 }

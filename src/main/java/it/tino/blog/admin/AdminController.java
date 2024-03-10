@@ -16,7 +16,8 @@ public class AdminController {
     private final ArticleRepository articleRepository;
 
     @GetMapping("admin/articles")
-    public String articlesManager() {
+    public String articlesManager(Model model) {
+        model.addAttribute("articles", articleRepository.findAll());
         return "/article/manager";
     }
 

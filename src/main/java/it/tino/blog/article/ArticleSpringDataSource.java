@@ -37,7 +37,9 @@ public class ArticleSpringDataSource implements ArticleRepository {
         SpringArticle a = new SpringArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
+        a.setShortDescription(article.getShortDescription());
         a.setContent(article.getContent());
+        a.setCreationDateTime(article.getCreationDateTime());
         return a;
     }
 
@@ -51,7 +53,9 @@ public class ArticleSpringDataSource implements ArticleRepository {
         Article a = new Article();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
+        a.setShortDescription(article.getShortDescription());
         a.setContent(article.getContent());
+        a.setCreationDateTime(article.getCreationDateTime());
         return a;
     }
 }
