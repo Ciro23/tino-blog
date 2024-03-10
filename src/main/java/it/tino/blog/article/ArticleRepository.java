@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface ArticleRepository {
 
+    Article save(Article article);
+
     List<Article> findAll();
     Optional<Article> findById(UUID id);
 }
