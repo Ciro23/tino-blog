@@ -10,7 +10,11 @@
 <th:block th:insert="~{navbar}"></th:block>
 
 <section class="page-content">
-    <form class="login-form" method="post" th:action="@{/login}">
+    <form
+            class="form login-form"
+            method="post"
+            th:action="@{/login}"
+            style="width: 28rem; margin-top: 5rem">
         <h1 class="title">Login</h1>
 
         <label>

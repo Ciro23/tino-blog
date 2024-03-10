@@ -10,8 +10,26 @@
 <th:block th:insert="~{navbar}"></th:block>
 
 <section class="page-content">
-    <h2 class="title">Create a new article</h2>
+    <form
+            class="form"
+            method="post"
+            th:action="@{/admin/articles/save}">
+        <h1 class="title">Create a new article</h1>
 
+        <label>
+            Title
+            <input type="text" name="title" placeholder="title">
+        </label>
+        <label>
+            Content
+            <textarea
+                    name="content"
+                    placeholder="content"
+                    class="infinite-textarea"
+                    style="resize: none"></textarea>
+        </label>
+        <button type="submit" class="button">Publish</button>
+    </form>
 </section>
 
 

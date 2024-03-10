@@ -2,17 +2,23 @@ package it.tino.blog.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller("/admin")
+@Controller
 public class AdminController {
 
-    @GetMapping("articles")
+    @GetMapping("admin/articles")
     public String articlesManager() {
-        return "article/manager";
+        return "/article/manager";
     }
 
-    @GetMapping("articles/new")
+    @GetMapping("admin/articles/new")
     public String showNewArticleForm() {
-        return "article/new";
+        return "/article/new";
+    }
+
+    @PostMapping("admin/articles/save")
+    public String saveNewArticle() {
+        return "redirect:/admin/articles";
     }
 }
