@@ -22,8 +22,8 @@ public class SpringArticle {
     @Column(nullable = false)
     private String shortDescription = "";
 
-    @Column(nullable = false)
     @Lob
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String content = "";
 
     @Column(nullable = false)

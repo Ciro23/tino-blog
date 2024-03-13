@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:insert="~{base-theme}"></th:block>
+    <title>article</title>
+</head>
+<body>
+<th:block th:insert="~{navbar}"></th:block>
+
+<section class="page-content">
+    <article class="article" style="display: block; margin-top: 2rem; min-height: 20rem">
+        <div style="display: flex; align-items: baseline; justify-content: space-between">
+            <h1 th:text="${article.title}" class="title"></h1>
+            <p th:text="${article.formattedCreationDate}"></p>
+        </div>
+
+        <p th:text="${article.content}"></p>
+    </article>
+</section>
+
+<th:block th:insert="~{footer}"></th:block>
+</body>
+</html>

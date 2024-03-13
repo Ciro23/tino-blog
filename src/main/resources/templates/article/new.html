@@ -23,14 +23,24 @@
                     th:field="*{title}"
                     type="text"
                     name="title"
-                    placeholder="title">
+                    placeholder="Title">
         </label>
+
+        <label>
+            Short description
+            <input
+                    th:field="*{shortDescription}"
+                    type="text"
+                    name="short_description"
+                    placeholder="Short description">
+        </label>
+
         <label>
             Content
             <textarea
                     th:field="*{content}"
                     name="content"
-                    placeholder="content"
+                    placeholder="Content"
                     class="infinite-textarea"
                     style="resize: none"></textarea>
         </label>

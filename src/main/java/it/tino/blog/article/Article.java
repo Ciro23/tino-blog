@@ -11,9 +11,9 @@ import java.util.UUID;
 public class Article {
 
     private UUID id;
-    private String title;
-    private String shortDescription;
-    private String content;
+    private String title = "";
+    private String shortDescription = "";
+    private String content = "";
     private Instant creationDateTime;
 
     public String getFormattedCreationDate() {

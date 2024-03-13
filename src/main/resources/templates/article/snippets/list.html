@@ -1,10 +1,13 @@
 <!--/*@thymesVar id="articles" type="it.tino.blog.article.Article"*/-->
 <div class="article-list">
-    <article class="article segmented-border" th:each="article: ${articles}">
-        <a th:href="@{/articles/{id}(id=${article.id})}" >
+    <a
+            th:href="@{/articles/{id}(id=${article.id})}"
+            th:each="article: ${articles}"
+            class="article segmented-border">
+        <article>
             <p th:text="${article.formattedCreationDate}"></p>
             <h3 th:text="${article.title}"></h3>
             <p th:text="${article.shortDescription}"></p>
-        </a>
-    </article>
+        </article>
+    </a>
 </div>
