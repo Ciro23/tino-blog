@@ -7,10 +7,15 @@
 html {
     font-size: 14px;
     background: linear-gradient(to top, #1E1E1E, #2E2E2E);
-    color: white;
-    min-height: 100%;
+    color: #f0f0f0;
     font-family: "JetBrains Mono", serif;
     text-transform: lowercase;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 a {
@@ -19,8 +24,9 @@ a {
 }
 
 .page-content {
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
+    flex-grow: 1;
 }
 
 .title {
@@ -85,4 +91,14 @@ a {
 .infinite-textarea {
     resize: none;
     overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+    html {
+        width: 100%;
+    }
+
+    .page-content {
+        width: 90%;
+    }
 }

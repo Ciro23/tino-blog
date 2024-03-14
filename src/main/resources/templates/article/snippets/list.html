@@ -3,7 +3,7 @@
     <a
             th:href="@{/articles/{id}(id=${article.id})}"
             th:each="article: ${articles}"
-            class="article segmented-border">
+            class="article-snippet segmented-border">
         <article>
             <p th:text="${article.formattedCreationDate}"></p>
             <h3 th:text="${article.title}"></h3>

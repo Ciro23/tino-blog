@@ -10,8 +10,8 @@
 <th:block th:insert="~{navbar}"></th:block>
 
 <section class="page-content">
-    <article class="article" style="display: block; margin-top: 2rem; min-height: 20rem">
-        <div style="display: flex; align-items: baseline; justify-content: space-between">
+    <article class="full-article">
+        <div>
             <h1 th:text="${article.title}" class="title"></h1>
             <p th:text="${article.formattedCreationDate}"></p>
         </div>
