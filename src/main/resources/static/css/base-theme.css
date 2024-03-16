@@ -6,7 +6,7 @@
 
 html {
     font-size: 14px;
-    background: linear-gradient(to top, #1E1E1E, #2E2E2E);
+    background: radial-gradient(#212121, #1E1E1E);
     color: #f0f0f0;
     font-family: "JetBrains Mono", serif;
     text-transform: lowercase;
@@ -20,7 +20,7 @@ body {
 
 a {
     text-decoration: none;
-    color: white;
+    color: #f0f0f0;
 }
 
 .page-content {

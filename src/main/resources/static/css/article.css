@@ -1,13 +1,12 @@
 .article-snippet {
-    display: inline-block;
     padding: 1.8rem;
     border-radius: 0.4rem;
-    background: #333333;
-    box-shadow: 0 0.5rem 0.7rem 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.3rem 0.7rem 0.1rem rgba(0, 0, 0, 0.4);
+    min-height: 9rem;
 }
 
 .article-snippet:hover {
-    box-shadow: 0 0.5rem 0.7rem 0 rgba(0, 0, 0, 0.4);
+    background: #2c2c2c;
 }
 
 .article-snippet h3 {
@@ -15,8 +14,13 @@
 }
 
 .article-snippet p:first-child {
-    text-align: end;
     margin-bottom: 0.55rem;
+    font-size: 0.95rem;
+}
+
+.article-snippet h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.7rem;
 }
 
 .article-list {
@@ -36,7 +40,6 @@
 }
 
 .full-article {
-    width: 70%;
     display: block;
     min-height: 20rem;
     margin: 3rem auto 0;
@@ -56,7 +59,9 @@
     justify-content: space-between;
 }
 
-.full-article p {
+.full-article > p {
+    margin: 0 auto;
+    width: 70%;
     font-size: 1.2rem;
     line-height: 2rem;
 }

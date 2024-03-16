@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
 
-@Controller("/")
+@Controller
 @RequiredArgsConstructor
 public class HomeController {
 
@@ -20,7 +20,7 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String login(Principal principal) {
         if (principal == null) {
             return "login";
