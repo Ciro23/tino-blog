@@ -47,7 +47,6 @@ a {
 }
 
 .button:hover {
-    border-color: transparent;
     box-shadow: 0 0.3rem 0.7rem 0 rgba(0, 0, 0, 0.4);
 }
 
@@ -100,5 +99,9 @@ a {
 
     .page-content {
         width: 90%;
+    }
+
+    .form {
+        padding: 1rem;
     }
 }

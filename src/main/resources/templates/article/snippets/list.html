@@ -1,13 +1,18 @@
 <!--/*@thymesVar id="articles" type="it.tino.blog.article.Article"*/-->
-<div class="article-list">
-    <a
-            th:href="@{/articles/{id}(id=${article.id})}"
-            th:each="article: ${articles}"
-            >
-        <article class="article-snippet segmented-border">
-            <p th:text="${article.formattedCreationDate}"></p>
-            <h4 th:text="${article.title}"></h4>
-            <p th:text="${article.shortDescription}"></p>
-        </article>
-    </a>
+<div class="article-list" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div th:each="article: ${articles}">
+        <div class="article-actions" sec:authorize="isAuthenticated()">
+            <a th:href="@{/articles/delete/{id}(id=${article.id})}"
+               class="delete-button">Delete</a>
+            <a th:href="@{/articles/edit/{id}(id=${article.id})}"
+               class="edit-button">Edit</a>
+        </div>
+        <a th:href="@{/articles/{id}(id=${article.id})}">
+            <article class="article-snippet segmented-border">
+                <p th:text="${article.formattedCreationDate}"></p>
+                <h4 th:text="${article.title}"></h4>
+                <p th:text="${article.shortDescription}"></p>
+            </article>
+        </a>
+    </div>
 </div>

@@ -1,5 +1,6 @@
 package it.tino.blog;
 
+import it.tino.blog.article.Article;
 import it.tino.blog.article.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.security.Principal;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,7 +19,8 @@ public class HomeController {
 
     @GetMapping({"/", "home"})
     public String home(Model model) {
-        model.addAttribute("articles", articleRepository.findAll());
+        Set<Article> articles = new TreeSet<>(articleRepository.findAll());
+        model.addAttribute("articles", articles);
         return "home";
     }
 

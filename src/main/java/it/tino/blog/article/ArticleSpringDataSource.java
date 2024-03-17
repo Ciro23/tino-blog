@@ -33,6 +33,11 @@ public class ArticleSpringDataSource implements ArticleRepository {
                 .map(this::dbToDomain);
     }
 
+    @Override
+    public void deleteById(UUID id) {
+        articleDao.deleteById(id);
+    }
+
     private SpringArticle domainToDb(Article article) {
         SpringArticle a = new SpringArticle();
         a.setId(article.getId());

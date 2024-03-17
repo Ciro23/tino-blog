@@ -17,6 +17,9 @@
             th:object="${article}">
         <h1 class="title">Create a new article</h1>
 
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{creationDateTime}" />
+
         <label>
             Title
             <input

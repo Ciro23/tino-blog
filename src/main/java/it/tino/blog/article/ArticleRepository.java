@@ -10,4 +10,6 @@ public interface ArticleRepository {
 
     List<Article> findAll();
     Optional<Article> findById(UUID id);
+
+    void deleteById(UUID id);
 }
