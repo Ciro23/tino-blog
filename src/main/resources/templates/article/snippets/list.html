@@ -1,7 +1,8 @@
 <!--/*@thymesVar id="articles" type="it.tino.blog.article.Article"*/-->
+<!--/*@thymesVar id="show_article_actions" type="java.lang.Boolean"*/-->
 <div class="article-list" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div th:each="article: ${articles}">
-        <div class="article-actions" sec:authorize="isAuthenticated()">
+        <div class="article-actions" sec:authorize="isAuthenticated()" th:if="${show_article_actions ?: false}">
             <a th:href="@{/articles/delete/{id}(id=${article.id})}"
                class="delete-button">Delete</a>
             <a th:href="@{/articles/edit/{id}(id=${article.id})}"

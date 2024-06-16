@@ -24,6 +24,8 @@ public class AdminController {
     public String articlesManager(Model model) {
         Set<Article> articles = new TreeSet<>(articleRepository.findAll());
         model.addAttribute("articles", articles);
+        model.addAttribute("show_article_actions", true);
+
         return "/article/manager";
     }
 
