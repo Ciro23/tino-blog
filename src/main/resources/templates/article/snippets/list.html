@@ -3,9 +3,9 @@
 <div class="article-list" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div th:each="article: ${articles}">
         <div class="article-actions" sec:authorize="isAuthenticated()" th:if="${show_article_actions ?: false}">
-            <a th:href="@{/articles/delete/{id}(id=${article.id})}"
+            <a th:href="@{/admin/articles/delete/{id}(id=${article.id})}"
                class="delete-button">Delete</a>
-            <a th:href="@{/articles/edit/{id}(id=${article.id})}"
+            <a th:href="@{/admin/articles/edit/{id}(id=${article.id})}"
                class="edit-button">Edit</a>
         </div>
         <a th:href="@{/articles/{id}(id=${article.id})}">

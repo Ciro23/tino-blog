@@ -1,4 +1,4 @@
-package it.tino.blog;
+package it.tino.blog.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
