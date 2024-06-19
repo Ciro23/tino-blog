@@ -1,7 +1,7 @@
 .article-list {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2.5rem;
 }
 
 .article-list > div {
@@ -15,20 +15,20 @@
     padding: 1.8rem;
     border-radius: 0.4rem;
     min-height: 9rem;
+    background: var(--secondary-color);
 }
 
 .article-snippet:hover {
-    background: #2c2c2c;
+    background: #2F2F47;
 }
 
 .article-actions {
     display: flex;
     justify-content: space-between;
     border: none;
-    background: #333333;
+    background: var(--tertiary-color);
     box-shadow: 0 0.2rem 0.5rem 0 rgba(0, 0, 0, 0.2);
     border-radius: 0.2rem 0.2rem 0 0;
-    color: #fff;
     cursor: pointer;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .article-actions a:hover {
-    background: #444444;
+    background: #47465f;
 }
 
 .article-snippet h4 {
