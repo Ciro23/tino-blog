@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <th:block th:insert="~{base-theme}"></th:block>
-    <title>home</title>
+    <title>all articles</title>
 </head>
 <body>
 <th:block th:insert="~{navbar}"></th:block>
 
 <section class="page-content">
-    <h2 class="title">Latest articles</h2>
-
-    <span style="display: flex; flex-direction: column; gap: 1.8rem">
-        <th:block th:insert="~{/article/snippets/list}"></th:block>
-        <a class="button" th:href="@{/articles}">Load all</a>
-    </span>
+    <h2 class="title">All available articles</h2>
+    <th:block th:insert="~{/article/snippets/list}"></th:block>
 </section>
 
 <th:block th:insert="~{footer}"></th:block>

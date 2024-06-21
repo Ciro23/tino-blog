@@ -9,6 +9,7 @@ public interface ArticleRepository {
     Article save(Article article);
 
     List<Article> findAll();
+    List<Article> findWithLimit(int numberOfArticlesToLoad);
     Optional<Article> findById(UUID id);
 
     void deleteById(UUID id);

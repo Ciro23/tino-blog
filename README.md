@@ -1,5 +1,5 @@
 ## Compiling from source
-This application requires connecting to a MySQL database, which must be created manually.
+This application requires connecting to a MySQL database, which must be created manually (all the tables are then created automatically by Spring during the first boot of the application).
 The default name is _tino-blog_, changing it also requires to update the name reference in `application.properties`.  
 The first admin user must be created manually inserting a new row in the `users` table, but before doing that, the password must be encrypted using _Bcrypt_ with strength "12": this [online generator](https://bcrypt-generator.com/) comes very handy.
 ```mysql

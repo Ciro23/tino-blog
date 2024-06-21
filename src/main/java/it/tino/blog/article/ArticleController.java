@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -17,6 +18,14 @@ import java.util.UUID;
 public class ArticleController {
 
     private final ArticleRepository articleRepository;
+
+    @GetMapping("/articles")
+    public String showAllArticles(Model model) {
+        List<Article> articles = articleRepository.findAll();
+        model.addAttribute("articles", articles);
+
+        return "article/articles";
+    }
 
     @GetMapping("/articles/{id}")
     public String showFullArticle(@PathVariable UUID id, Model model) {

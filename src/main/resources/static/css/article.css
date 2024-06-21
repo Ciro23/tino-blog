@@ -1,7 +1,7 @@
 .article-list {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1.5rem;
 }
 
 .article-list > div {
@@ -47,6 +47,11 @@
     margin-bottom: 0.7rem;
 }
 
+.article-snippet h4,
+.article-snippet p {
+    text-transform: none;
+}
+
 .article-manager {
     display: flex;
     flex-direction: column;
@@ -68,9 +73,16 @@
     font-size: 3rem;
     letter-spacing: -0.15rem;
     color: #d8bfe6;
+    text-transform: none;
 }
 
-.full-article > div {
+.manage-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.title-and-date {
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
@@ -82,6 +94,7 @@
     width: 70%;
     font-size: 1.2rem;
     line-height: 2rem;
+    text-transform: none;
 }
 
 @media screen and (max-width: 767px) {

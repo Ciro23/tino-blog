@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,16 @@
 
 <section class="page-content">
     <article class="full-article">
-        <div>
-            <h1 th:text="${article.title}" class="title"></h1>
-            <p th:text="${article.formattedCreationDate}"></p>
+        <div style="display: flex; flex-direction: column; gap: 1.5rem">
+            <div class="manage-buttons" sec:authorize="isAuthenticated()">
+                <a class="button" th:href="@{/admin/articles/delete/{id}(id=${article.id})}">Delete</a>
+                <a class="button" th:href="@{/admin/articles/edit/{id}(id=${article.id})}">Edit</a>
+            </div>
+
+            <div class="title-and-date">
+                <h1 th:text="${article.title}" class="title"></h1>
+                <p th:text="${article.formattedCreationDate}"></p>
+            </div>
         </div>
 
         <p th:text="${article.content}"></p>

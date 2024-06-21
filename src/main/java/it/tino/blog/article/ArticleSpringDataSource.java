@@ -1,6 +1,8 @@
 package it.tino.blog.article;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -24,6 +26,12 @@ public class ArticleSpringDataSource implements ArticleRepository {
     @Override
     public List<Article> findAll() {
         return dbToDomain(articleDao.findAll());
+    }
+
+    @Override
+    public List<Article> findWithLimit(int numberOfArticlesToLoad) {
+        Page<SpringArticle> limitedNumberOfArticles = articleDao.findAll(PageRequest.of(0, numberOfArticlesToLoad));
+        return dbToDomain(limitedNumberOfArticles.getContent());
     }
 
     @Override

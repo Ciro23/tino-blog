@@ -19,7 +19,7 @@ public class HomeController {
 
     @GetMapping({"/", "home"})
     public String home(Model model) {
-        Set<Article> articles = new TreeSet<>(articleRepository.findAll());
+        Set<Article> articles = new TreeSet<>(articleRepository.findWithLimit(5));
         model.addAttribute("articles", articles);
         return "home";
     }
