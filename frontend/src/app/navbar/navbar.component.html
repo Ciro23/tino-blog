@@ -1,0 +1,5 @@
+<nav class="navbar segmented-border">
+  <a routerLink="/" class="nav-link">/</a>
+  <a *ngIf="!authService.isTokenValid()" routerLink="/login" class="nav-link">/user</a>
+  <a *ngIf="authService.isTokenValid()" routerLink="/articles/manager" class="nav-link">/user</a>
+</nav>

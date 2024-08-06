@@ -1,0 +1,40 @@
+.full-article {
+  display: block;
+  min-height: 20rem;
+  margin: 3rem auto 0;
+}
+
+.full-article h1 {
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: -0.15rem;
+  color: #d8bfe6;
+  text-transform: none;
+}
+
+.manage-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.title-and-date {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.full-article > p {
+  margin: 0 auto;
+  width: 50%;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  text-transform: none;
+}
+
+@media screen and (max-width: 767px) {
+  .full-article {
+    width: 90%;
+  }
+}

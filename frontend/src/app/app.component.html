@@ -1,0 +1,30 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+<meta name="theme-color" content="#1E1E1E">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    resizeTextAreaAutomatically();
+  });
+
+  /**
+   * All elements with the class "infinite-textarea" will
+   * resize vertically automatically based on the content.
+   */
+  function resizeTextAreaAutomatically() {
+    $(".infinite-textarea").each(function () {
+    }).on("input", function () {
+      this.style.height = this.scrollHeight + "px";
+    });
+  }
+</script>
+
+<app-navbar></app-navbar>
+
+<section class="page-content">
+  <router-outlet></router-outlet>
+</section>
+
+<app-footer></app-footer>

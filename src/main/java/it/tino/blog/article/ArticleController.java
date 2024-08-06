@@ -1,76 +1,71 @@
 package it.tino.blog.article;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.UUID;
 
-@Controller
+@RestController
+@RequestMapping("articles")
 @RequiredArgsConstructor
 public class ArticleController {
 
     private final ArticleRepository articleRepository;
 
-    @GetMapping("/articles")
-    public String showAllArticles(Model model) {
-        List<Article> articles = articleRepository.findAll();
-        model.addAttribute("articles", articles);
+    @GetMapping
+    public ResponseEntity<List<Article>> getArticles(
+            @RequestParam(name = "limit", required = false) Integer limit
+    ) {
+        List<Article> articles;
+        if (limit == null || limit == 0) {
+            articles = articleRepository.findAll();
+        } else {
+            articles = articleRepository.findWithLimit(limit);
+        }
 
-        return "article/articles";
+        return new ResponseEntity<>(articles, HttpStatus.OK);
     }
 
-    @GetMapping("/articles/{id}")
-    public String showFullArticle(@PathVariable UUID id, Model model) {
-        Article article = articleRepository
+    @GetMapping("{id}")
+    public ResponseEntity<Article> getArticle(@PathVariable UUID id) {
+        return articleRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Article not found"));
-        model.addAttribute("article", article);
-
-        return "article/article";
+                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/admin/articles")
-    public String showArticlesManager(Model model) {
-        Set<Article> articles = new TreeSet<>(articleRepository.findAll());
-        model.addAttribute("articles", articles);
-        model.addAttribute("show_article_actions", true);
-
-        return "/article/manager";
+    @PostMapping
+    public ResponseEntity<Article> createArticle(@RequestBody Article article) {
+        Article savedArticle = articleRepository.save(article);
+        return new ResponseEntity<>(savedArticle, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/articles/new")
-    public String showNewArticleForm(Model model) {
-        model.addAttribute("article", new Article());
-        return "/article/new";
+    @PutMapping("{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable UUID id, @RequestBody Article article) {
+        return articleRepository.findById(id)
+                .map(a -> {
+                    a.setTitle(article.getTitle());
+                    a.setCreationDateTime(article.getCreationDateTime());
+                    a.setShortDescription(article.getShortDescription());
+                    a.setContent(article.getContent());
+
+                    Article savedArticle = articleRepository.save(a);
+                    return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+                })
+                .orElseGet(() -> {
+                    Article savedArticle = articleRepository.save(article);
+                    return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+                });
     }
 
-    @GetMapping("/admin/articles/edit/{id}")
-    public String showEditArticleForm(@PathVariable UUID id, Model model) {
-        Article article = articleRepository
-                .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid article Id:" + id));
-        model.addAttribute("article", article);
-
-        return "/article/new";
-    }
-
-    @PostMapping("/admin/articles/save")
-    public String saveNewArticle(@ModelAttribute Article article) {
-        articleRepository.save(article);
-        return "redirect:/admin/articles";
-    }
-
-    @GetMapping("/admin/articles/delete/{id}")
-    public String deleteArticle(@PathVariable UUID id) {
-        articleRepository.deleteById(id);
-        return "redirect:/admin/articles";
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable UUID id) {
+        if (articleRepository.deleteById(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

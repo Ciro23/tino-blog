@@ -1,0 +1,40 @@
+.article-actions {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  background: var(--tertiary-color);
+  box-shadow: 0 0.2rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 0.2rem 0.2rem 0 0;
+  cursor: pointer;
+}
+
+.article-actions a {
+  flex: 1;
+  padding: 0.7rem;
+  text-align: center;
+}
+
+.article-actions a:hover {
+  background: #47465f;
+}
+
+.article-snippet {
+  padding: 1.8rem;
+  border-radius: 0.4rem;
+  min-height: 9rem;
+  background: var(--secondary-color);
+}
+
+.article-snippet:hover {
+  background: #2F2F47;
+}
+
+.article-snippet h4 {
+  font-size: 1.3rem;
+  margin-bottom: 0.7rem;
+}
+
+.article-snippet h4,
+.article-snippet p {
+  text-transform: none;
+}

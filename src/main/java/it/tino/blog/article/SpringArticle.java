@@ -22,7 +22,6 @@ public class SpringArticle {
     @Column(nullable = false)
     private String shortDescription = "";
 
-    @Lob
     @Column(nullable = false)
     private String content = "";
 

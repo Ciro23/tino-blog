@@ -12,5 +12,5 @@ public interface ArticleRepository {
     List<Article> findWithLimit(int numberOfArticlesToLoad);
     Optional<Article> findById(UUID id);
 
-    void deleteById(UUID id);
+    boolean deleteById(UUID id);
 }

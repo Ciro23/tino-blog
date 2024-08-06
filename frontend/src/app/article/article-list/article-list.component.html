@@ -1,0 +1,6 @@
+<div *ngFor="let article of articles" class="article-list">
+  <app-article-snippet
+    [article]="article"
+    [onDelete]="onDeleteArticle"
+    [allowArticleActions]="allowArticleActions"></app-article-snippet>
+</div>

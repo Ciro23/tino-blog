@@ -1,0 +1,13 @@
+<div>
+  <div class="article-actions" *ngIf="authService.isTokenValid() && allowArticleActions">
+    <a (click)="onDelete(article.id)" class="delete-button">Delete</a>
+    <a [routerLink]="['/articles', article.id, 'edit']" class="edit-button">Edit</a>
+  </div>
+  <a [routerLink]="['/articles', article.id]">
+    <article class="article-snippet segmented-border">
+      <p>{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
+      <h4>{{ article.title }}</h4>
+      <p>{{ article.shortDescription }}</p>
+    </article>
+  </a>
+</div>

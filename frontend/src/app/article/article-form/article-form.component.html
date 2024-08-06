@@ -1,0 +1,44 @@
+<form
+  class="form"
+  (ngSubmit)="onSubmit(form)"
+  #form="ngForm">
+  <h1 *ngIf="!articleId" class="title">Create a new article</h1>
+  <h1 *ngIf="articleId" class="title">Edit article</h1>
+
+  <input type="hidden" [(ngModel)]="article.id" name="id" />
+  <input type="hidden" [(ngModel)]="article.creationDateTime" name="creationDateTime" />
+
+  <label>
+    Title
+    <input
+      [(ngModel)]="article.title"
+      name="title"
+      type="text"
+      placeholder="Title"
+      required>
+  </label>
+
+  <label>
+    Short description
+    <input
+      [(ngModel)]="article.shortDescription"
+      name="shortDescription"
+      type="text"
+      placeholder="Short description"
+      required>
+  </label>
+
+  <label>
+    Content
+    <textarea
+      [(ngModel)]="article.content"
+      name="content"
+      placeholder="Content"
+      class="infinite-textarea"
+      style="resize: none"
+      required></textarea>
+  </label>
+
+  <button *ngIf="!articleId" type="submit" class="button">Publish</button>
+  <button *ngIf="articleId" type="submit" class="button">Save changes</button>
+</form>

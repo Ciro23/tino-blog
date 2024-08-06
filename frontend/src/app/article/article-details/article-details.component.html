@@ -1,0 +1,16 @@
+<article class="full-article">
+  <div style="display: flex; flex-direction: column; gap: 1.5rem">
+    <!-- Manage buttons are only shown if the user is authenticated -->
+    <div class="manage-buttons" *ngIf="authService.isTokenValid()">
+      <button (click)="deleteArticle()" class="button">Delete</button>
+      <a [routerLink]="['/articles', article.id, 'edit']" class="button">Edit</a>
+    </div>
+
+    <div class="title-and-date">
+      <h1 class="title">{{ article.title }}</h1>
+      <p>{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
+    </div>
+  </div>
+
+  <p>{{ article.content }}</p>
+</article>

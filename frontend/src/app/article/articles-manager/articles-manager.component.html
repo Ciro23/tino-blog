@@ -1,0 +1,12 @@
+<h2 class="title">Articles Manager</h2>
+
+<div class="article-manager">
+  <div class="buttons">
+      <button class="button logout-button" (click)="logout()">Logout</button>
+    <a routerLink="/articles/new">
+      <button class="button">Add Article</button>
+    </a>
+  </div>
+
+  <app-article-list [allowArticleActions]="true"></app-article-list>
+</div>

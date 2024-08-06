@@ -42,8 +42,12 @@ public class ArticleSpringDataSource implements ArticleRepository {
     }
 
     @Override
-    public void deleteById(UUID id) {
-        articleDao.deleteById(id);
+    public boolean deleteById(UUID id) {
+        if (articleDao.existsById(id)) {
+            articleDao.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     private SpringArticle domainToDb(Article article) {

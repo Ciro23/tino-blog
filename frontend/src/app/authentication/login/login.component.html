@@ -1,0 +1,22 @@
+<form
+  class="form login-form"
+  [formGroup]="loginForm"
+  (ngSubmit)="login()"
+  style="max-width: 28rem; margin-top: 5rem">
+
+  <h1 class="title">Login</h1>
+
+  <label>
+    Email
+    <input type="email" formControlName="username" placeholder="email">
+  </label>
+
+  <label>
+    Password
+    <input type="password" formControlName="password" placeholder="password">
+  </label>
+
+  <button type="submit" class="button">Login</button>
+
+  <p *ngIf="wrongCredentials">Wrong credentials!</p>
+</form>
