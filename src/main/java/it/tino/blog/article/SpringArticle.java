@@ -23,7 +23,7 @@ public class SpringArticle {
     private String shortDescription = "";
 
     @Lob
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Column(nullable = false)
     private String content = "";
 
     @Column(nullable = false)
