@@ -11,7 +11,6 @@ import {AuthService} from "../../authentication/auth.service";
     ArticleListComponent
   ],
   templateUrl: './articles-manager.component.html',
-  styleUrl: './articles-manager.component.css'
 })
 export class ArticlesManagerComponent {
 

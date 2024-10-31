@@ -1,0 +1,33 @@
+// 1. Import Bootstrap Functions (keep this at the top)
+@import "../../node_modules/bootstrap/scss/functions";
+
+// 2. Define your custom variables here (before importing any Bootstrap SCSS files)
+// Right now only dark mode is supported.
+$primary: rgb(38, 44, 54);
+$secondary: #2D2D44;
+$body-bg: rgb(13, 17, 23);
+$code-color: $secondary;
+$danger: #a22323;
+
+// 3. Now import the required Bootstrap SCSS files
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/variables-dark";
+@import "../../node_modules/bootstrap/scss/maps";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/root";
+
+// Optional Bootstrap components here
+@import "../../node_modules/bootstrap/scss/reboot";
+@import "../../node_modules/bootstrap/scss/type";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+blockquote {
+  border-left: 0.25rem solid $secondary-text-emphasis-dark;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  color: $secondary-text-emphasis-dark;
+}
+
+blockquote p {
+  margin: 0;
+}

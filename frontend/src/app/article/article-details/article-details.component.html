@@ -1,16 +1,20 @@
-<article class="full-article">
-  <div style="display: flex; flex-direction: column; gap: 1.5rem">
+<article class="d-block mt-4 mb-0 mx-auto">
+  <div class="d-flex flex-column gap-4">
     <!-- Manage buttons are only shown if the user is authenticated -->
-    <div class="manage-buttons" *ngIf="authService.isTokenValid()">
-      <button (click)="deleteArticle()" class="button">Delete</button>
-      <a [routerLink]="['/articles', article.id, 'edit']" class="button">Edit</a>
+    <div class="d-flex gap-3 justify-content-center" *ngIf="authService.isTokenValid()">
+      <button (click)="deleteArticle()" class="btn btn-danger">
+        <i class="bi bi-trash3-fill"></i>
+      </button>
+      <a [routerLink]="['/articles', article.id, 'edit']" class="btn btn-secondary">
+        <i class="bi bi-pencil-square"></i>
+      </a>
     </div>
 
-    <div class="title-and-date">
-      <h1 class="title">{{ article.title }}</h1>
+    <div class="d-flex flex-column justify-content-between align-items-center">
       <p>{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
+      <h1 class="h1 text-center ">{{ article.title }}</h1>
     </div>
   </div>
 
-  <p>{{ article.content }}</p>
+  <p class="p mx-auto w-50 fs-5">{{ article.content }}</p>
 </article>

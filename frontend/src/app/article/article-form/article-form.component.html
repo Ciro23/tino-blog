@@ -1,5 +1,5 @@
 <form
-  class="form"
+  class="d-flex flex-column gap-3"
   (ngSubmit)="onSubmit(form)"
   #form="ngForm">
   <h1 *ngIf="!articleId" class="title">Create a new article</h1>
@@ -8,37 +8,37 @@
   <input type="hidden" [(ngModel)]="article.id" name="id" />
   <input type="hidden" [(ngModel)]="article.creationDateTime" name="creationDateTime" />
 
-  <label>
+  <label class="d-flex flex-column">
     Title
     <input
       [(ngModel)]="article.title"
       name="title"
       type="text"
-      placeholder="Title"
+      class="form-control"
       required>
   </label>
 
-  <label>
+  <label class="d-flex flex-column">
     Short description
     <input
       [(ngModel)]="article.shortDescription"
       name="shortDescription"
       type="text"
-      placeholder="Short description"
+      class="form-control"
       required>
   </label>
 
-  <label>
+  <label class="d-flex flex-column">
     Content
     <textarea
       [(ngModel)]="article.content"
       name="content"
-      placeholder="Content"
-      class="infinite-textarea"
+      class="form-control"
       style="resize: none"
+      appAutoResize
       required></textarea>
   </label>
 
-  <button *ngIf="!articleId" type="submit" class="button">Publish</button>
-  <button *ngIf="articleId" type="submit" class="button">Save changes</button>
+  <button *ngIf="!articleId" type="submit" class="btn btn-primary">Publish</button>
+  <button *ngIf="articleId" type="submit" class="btn btn-primary">Save changes</button>
 </form>

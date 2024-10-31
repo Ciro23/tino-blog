@@ -1,10 +1,12 @@
 <h2 class="title">Articles Manager</h2>
 
-<div class="article-manager">
-  <div class="buttons">
-      <button class="button logout-button" (click)="logout()">Logout</button>
+<div class="d-flex flex-column gap-4">
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-danger" (click)="logout()">
+      <i class="bi bi-box-arrow-left"></i> Logout
+    </button>
     <a routerLink="/articles/new">
-      <button class="button">Add Article</button>
+      <button class="btn btn-primary">Add Article</button>
     </a>
   </div>
 

@@ -6,17 +6,7 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-transform: lowercase; /* I don't like capitalization. This setting is overridden where it makes sense */
   font-family: "JetBrains Mono", serif;
-}
-
-html {
-  font-size: 14px;
-  background: var(--primary-color);
-  color: var(--text-color);
 }
 
 body {
@@ -27,7 +17,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #f0f0f0;
+  color: inherit;
 }
 
 .page-content {
@@ -40,60 +30,6 @@ a {
   font-size: 1.5rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-.button {
-  font-size: 1.2rem;
-  padding: 0.8rem 1.4rem;
-  border: none;
-  background: var(--tertiary-color);
-  box-shadow: 0 0.2rem 0.5rem 0 rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
-  color: #fff;
-  cursor: pointer;
-  text-align: center;
-}
-
-.button:hover {
-  box-shadow: 0 0.3rem 0.7rem 0 rgba(0, 0, 0, 0.4);
-}
-
-.form {
-  margin: 2rem auto 0;
-  padding: 3.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
-  box-shadow: 0 0.5rem 0.7rem 0 rgba(0, 0, 0, 0.2);
-}
-
-.form h1 {
-  text-align: center;
-}
-
-.form label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  text-align: right;
-}
-
-.form input,
-.form textarea {
-  padding: 0.7rem;
-  border: none;
-  border-radius: 0 0.3rem;
-  border-bottom: 0.1rem solid var(--text-color);
-  border-left: 0.1rem solid var(--text-color);
-  background: var(--secondary-color);
-  font-size: 1rem;
-  color: var(--text-color);
-  text-transform: none;
-}
-
-.form textarea {
-  resize: vertical;
-  min-height: 20rem;
 }
 
 .infinite-textarea {

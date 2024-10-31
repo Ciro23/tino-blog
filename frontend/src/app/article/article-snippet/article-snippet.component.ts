@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {Article} from "../article";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
@@ -12,7 +12,8 @@ import {ArticleService} from "../article-service";
   templateUrl: './article-snippet.component.html',
   imports: [
     RouterLink,
-    NgIf
+    NgIf,
+    NgClass
   ],
   styleUrls: ['./article-snippet.component.css']
 })

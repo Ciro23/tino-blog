@@ -4,13 +4,15 @@ import {Article} from "../article";
 import {ArticleService} from "../article-service";
 import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {AutoResizeDirective} from "../../auto-resize.directive";
 
 @Component({
   selector: 'app-article-form',
   standalone: true,
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    AutoResizeDirective
   ],
   templateUrl: './article-form.component.html',
 })

@@ -30,7 +30,6 @@ import {NotFoundComponent} from "./not-found/not-found.component";
     NotFoundComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'frontend';

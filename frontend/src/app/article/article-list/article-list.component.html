@@ -1,6 +1,8 @@
-<div *ngFor="let article of articles" class="article-list">
-  <app-article-snippet
-    [article]="article"
-    [onDelete]="onDeleteArticle"
-    [allowArticleActions]="allowArticleActions"></app-article-snippet>
+<div class="d-flex flex-column gap-4">
+  <div *ngFor="let article of articles">
+      <app-article-snippet
+        [article]="article"
+        [onDelete]="onDeleteArticle"
+        [allowArticleActions]="allowArticleActions"></app-article-snippet>
+  </div>
 </div>

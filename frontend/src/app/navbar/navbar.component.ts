@@ -12,7 +12,6 @@ import {asyncScheduler} from "rxjs";
     NgIf
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
 

@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {ArticleSnippetComponent} from "../article-snippet/article-snippet.component";
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {Article} from "../article";
-import {ArticleService} from "../article-service";
 import {ArticleListComponent} from "../article-list/article-list.component";
 
 @Component({
@@ -16,7 +15,6 @@ import {ArticleListComponent} from "../article-list/article-list.component";
     RouterLink,
     ArticleListComponent
   ],
-  styleUrls: ['./latest-articles.component.css']
 })
 export class LatestArticlesComponent {
   articles: Article[] = [];

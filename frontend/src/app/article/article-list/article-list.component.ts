@@ -13,7 +13,6 @@ import {ActivatedRoute} from "@angular/router";
     NgForOf
   ],
   templateUrl: './article-list.component.html',
-  styleUrl: './article-list.component.css'
 })
 export class ArticleListComponent implements OnInit {
   /**

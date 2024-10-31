@@ -38,7 +38,7 @@ export class LoginComponent {
     result.subscribe({
       next: success => {
         if (success) {
-          void this.router.navigate(["/articles/manager"]);
+          void window.history.back();
         } else {
           this.wrongCredentials = true;
         }
