@@ -1,9 +1,38 @@
 ## Compiling from source
-This application requires connecting to a MySQL database, which must be created manually (all the tables are then created automatically by Spring during the first boot of the application).
-The default name is _tino-blog_, changing it also requires to update the name reference in `application.properties`.  
-The first admin user must be created manually inserting a new row in the `users` table, but before doing that, the password must be encrypted using _Bcrypt_ with strength "12": this [online generator](https://bcrypt-generator.com/) comes very handy.
-```mysql
-INSERT INTO users (id, email, password, username) 
-VALUES ('6516feadbed44947b69e70509e0dc763', 'admin@test.org', '$2a$12$FlMmt3gTI1gWlaAtwj/CiesZ/jD14ROHiG3YdS.5.ZC25GQ0V5ONq', 'admin');
-# the 'x" before the id string is required as it's stored as binary(16)
-```
+### Requirements
+- Java 21
+- PostgreSQL 16
+- Angular CLI
+
+### Steps
+1. The database must be created manually using PostgreSQL: the default name is "tino-blog", but it can be customized via `application.properties`: the tables will be created by Spring during the first run.
+2. The first admin user must be created manually inserting a new row in the `users` table, but before doing that, the password must be encrypted using _Bcrypt_ with strength "12": this [online generator](https://bcrypt-generator.com/) comes very handy.
+   ```postgresql
+   INSERT INTO users (id, email, password, username) 
+   VALUES ('6516feadbed44947b69e70509e0dc763', 'admin@test.org', '$2a$12$FlMmt3gTI1gWlaAtwj/CiesZ/jD14ROHiG3YdS.5.ZC25GQ0V5ONq', 'admin');
+   ```
+3. Navigate to the repository root and compile the backend:
+   ```shell
+   mvn clean package
+   ```
+4. Run the backend:
+   ```shell
+   java -jar target/tino-blog-0.0.1-SNAPSHOT.war
+   ```
+5. Navigate to the `frontend` directory and run it:
+   ```shell
+   ng serve
+   ```
+
+#### Customize Bootstrap theme
+Some Bootstrap colors were changed in the file `frontend/src/custom_bootstrap/custom.scss`.  
+If the SASS is changed, then it needs to be compiled again in CSS:
+1. Install SASS:
+   ```shell
+   npm install -g sass
+   ```
+2. Compile the `.scss` file to `.css`:
+   ```shell
+   sass --watch frontend/src/custom_bootstrap/custom.scss frontend/src/custom_bootstrap/custom.css
+   ```
+The full reference can be found [here](https://getbootstrap.com/docs/5.3/customize/sass/).
