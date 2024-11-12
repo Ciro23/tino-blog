@@ -22,7 +22,7 @@ public class SpringArticle {
     @Column(nullable = false)
     private String shortDescription = "";
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content = "";
 
     @Column(nullable = false)

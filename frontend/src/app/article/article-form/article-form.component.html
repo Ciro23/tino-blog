@@ -15,27 +15,31 @@
       name="title"
       type="text"
       class="form-control"
+      autocomplete="off"
       required>
   </label>
 
   <label class="d-flex flex-column">
-    Short description
+    <span>Short description <span class="small">(displayed only in the preview)</span></span>
     <input
       [(ngModel)]="article.shortDescription"
       name="shortDescription"
       type="text"
       class="form-control"
+      autocomplete="off"
       required>
   </label>
 
   <label class="d-flex flex-column">
-    Content
+    <span>Content <span class="small">(with Markdown support) </span></span>
     <textarea
       [(ngModel)]="article.content"
       name="content"
       class="form-control"
       style="resize: none"
+      rows="10"
       appAutoResize
+      autocomplete="off"
       required></textarea>
   </label>
 

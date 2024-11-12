@@ -6,11 +6,12 @@ import {ArticleService} from "../article-service";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {MarkdownComponent} from "ngx-markdown";
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NgIf, RouterLink],
+    imports: [NgIf, RouterLink, MarkdownComponent],
   templateUrl: './article-details.component.html',
   styleUrls: ['./article-details.component.css']
 })

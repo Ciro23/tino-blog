@@ -37,6 +37,28 @@ a {
   overflow: hidden;
 }
 
+/* Styling for markdown support */
+.markdown-clipboard-button {
+  display: none;
+  border: none;
+  background: rgb(91, 91, 91);
+  color: white;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  transition: 0.15s;
+}
+
+div:has(> pre):hover .markdown-clipboard-button {
+  display: block;
+}
+
+.markdown-clipboard-button:hover {
+  background: rgb(101, 101, 101);
+  color: white;
+}
+/* End of styling for markdown support */
+
 @media screen and (max-width: 767px) {
   html {
     width: 100%;

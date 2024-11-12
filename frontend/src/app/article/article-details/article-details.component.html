@@ -1,5 +1,5 @@
 <article class="d-block mt-4 mb-0 mx-auto">
-  <div class="d-flex flex-column gap-4">
+  <div class="d-flex flex-column gap-4 mb-3">
     <!-- Manage buttons are only shown if the user is authenticated -->
     <div class="d-flex gap-3 justify-content-center" *ngIf="authService.isTokenValid()">
       <button (click)="deleteArticle()" class="btn btn-danger">
@@ -16,5 +16,9 @@
     </div>
   </div>
 
-  <p class="p mx-auto w-50 fs-5">{{ article.content }}</p>
+  <div class="w-75 mx-auto">
+    <markdown clipboard
+      [data]="article.content">
+    </markdown>
+  </div>
 </article>

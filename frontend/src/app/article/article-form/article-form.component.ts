@@ -5,6 +5,7 @@ import {ArticleService} from "../article-service";
 import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {AutoResizeDirective} from "../../auto-resize.directive";
+import {MarkdownComponent} from "ngx-markdown";
 
 @Component({
   selector: 'app-article-form',
@@ -12,7 +13,8 @@ import {AutoResizeDirective} from "../../auto-resize.directive";
   imports: [
     FormsModule,
     NgIf,
-    AutoResizeDirective
+    AutoResizeDirective,
+    MarkdownComponent
   ],
   templateUrl: './article-form.component.html',
 })
