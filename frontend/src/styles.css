@@ -65,10 +65,6 @@ div:has(> pre):hover .markdown-clipboard-button {
   }
 
   .page-content {
-    width: 90%;
-  }
-
-  .form {
-    padding: 1rem;
+    width: 95%;
   }
 }
