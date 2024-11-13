@@ -3,6 +3,7 @@ package it.tino.blog.article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -30,7 +31,12 @@ public class ArticleSpringDataSource implements ArticleRepository {
 
     @Override
     public List<Article> findWithLimit(int numberOfArticlesToLoad) {
-        Page<SpringArticle> limitedNumberOfArticles = articleDao.findAll(PageRequest.of(0, numberOfArticlesToLoad));
+        PageRequest pageable = PageRequest.of(
+                0,
+                numberOfArticlesToLoad,
+                Sort.by("creationDateTime").descending()
+        );
+        Page<SpringArticle> limitedNumberOfArticles = articleDao.findAll(pageable);
         return dbToDomain(limitedNumberOfArticles.getContent());
     }
 

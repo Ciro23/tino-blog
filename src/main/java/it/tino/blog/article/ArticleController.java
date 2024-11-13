@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 @RestController
@@ -16,7 +18,7 @@ public class ArticleController {
     private final ArticleRepository articleRepository;
 
     @GetMapping
-    public ResponseEntity<List<Article>> getArticles(
+    public ResponseEntity<Set<Article>> getArticles(
             @RequestParam(name = "limit", required = false) Integer limit
     ) {
         List<Article> articles;
@@ -26,7 +28,7 @@ public class ArticleController {
             articles = articleRepository.findWithLimit(limit);
         }
 
-        return new ResponseEntity<>(articles, HttpStatus.OK);
+        return new ResponseEntity<>(new TreeSet<>(articles), HttpStatus.OK);
     }
 
     @GetMapping("{id}")

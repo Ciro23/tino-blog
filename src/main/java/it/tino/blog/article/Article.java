@@ -20,6 +20,12 @@ public class Article implements Comparable<Article> {
         if (dateComparison != 0) {
             return dateComparison;
         }
+
+        int titleComparison = this.title.compareTo(that.title);
+        if (titleComparison != 0) {
+            return titleComparison;
+        }
+
         return this.id.compareTo(that.id);
     }
 }
