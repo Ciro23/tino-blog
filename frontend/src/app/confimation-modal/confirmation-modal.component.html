@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ title }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+</div>
+<div class="modal-body">
+  <p>{{ message }}</p>
+</div>
+<div class="modal-footer">
+  <button
+    (click)="confirm()"
+    [ngClass]="{'btn-primary': type === 'primary', 'btn-danger': type === 'danger'}"
+    type="button"
+    class="btn">Confirm</button>
+  <button (click)="cancel()" type="button" class="btn btn-secondary">Cancel</button>
+</div>

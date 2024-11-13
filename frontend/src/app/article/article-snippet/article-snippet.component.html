@@ -21,7 +21,7 @@
     class="d-flex flex-column justify-content-between"
     style="cursor: pointer; min-width: 5%">
     <button
-      (click)="onDelete(article.id)"
+      (click)="openDeleteConfirmationDialog(article.id)"
       class="flex-grow-1 btn btn-danger rounded-0 rounded-end">
       <i class="bi bi-trash3-fill"></i>
     </button>

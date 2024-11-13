@@ -1,10 +1,11 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
 import {Article} from "../article";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {ArticleService} from "../article-service";
+import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-article-snippet',
@@ -27,7 +28,18 @@ export class ArticleSnippetComponent {
    */
   @Input() allowArticleActions: boolean = false;
 
-  constructor(protected authService: AuthService) {}
+  constructor(
+    protected authService: AuthService,
+    private modalService: NgbModal,
+  ) {}
 
   protected readonly getFormattedCreationDateTime = getFormattedCreationDateTime;
+
+  openDeleteConfirmationDialog(id: string) {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.title = "Confirm deletion";
+    modalRef.componentInstance.message = "Are you sure you want to delete this article?";
+    modalRef.componentInstance.type = "danger";
+    modalRef.componentInstance.confirmed.subscribe(() => this.onDelete(id));
+  }
 }

@@ -7,6 +7,8 @@ import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {MarkdownComponent} from "ngx-markdown";
+import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-article',
@@ -29,6 +31,7 @@ export class ArticleDetailsComponent implements OnInit {
     protected authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
   ) {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
   }
@@ -41,7 +44,15 @@ export class ArticleDetailsComponent implements OnInit {
     });
   }
 
-  deleteArticle(): void {
+  openDeleteConfirmationDialog() {
+    const modalRef = this.modalService.open(ConfirmationModalComponent);
+    modalRef.componentInstance.title = "Confirm deletion";
+    modalRef.componentInstance.message = "Are you sure you want to delete this article?";
+    modalRef.componentInstance.type = "danger";
+    modalRef.componentInstance.confirmed.subscribe(() => this.deleteArticle());
+  }
+
+  private deleteArticle(): void {
     this.articleService.deleteArticle(this.articleId).subscribe({
       next: response => {
         if (response.status === 204) {
