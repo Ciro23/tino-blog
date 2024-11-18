@@ -1,0 +1,17 @@
+<h2 *ngIf="selectedArticle == undefined" class="title">Articles from useful RSS feeds</h2>
+
+<div class="d-flex flex-column gap-4">
+  <button
+    *ngIf="authService.isTokenValid() && selectedArticle == undefined"
+    (click)="loadRssArticles()"
+    class="btn btn-secondary bi bi-arrow-clockwise align-self-end"> Reload cache</button>
+
+  <app-article-list
+    *ngIf="selectedArticle == undefined"
+    [articles]="articles"
+    [onViewArticle]="openArticle"></app-article-list>
+</div>
+
+<app-rss-article-details
+  *ngIf="selectedArticle != undefined"
+  [article]="selectedArticle!"></app-rss-article-details>

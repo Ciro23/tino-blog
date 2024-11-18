@@ -3,12 +3,10 @@ package it.tino.blog.article;
 import lombok.Data;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Data
 public class Article implements Comparable<Article> {
 
-    private UUID id;
     private String title = "";
     private String shortDescription = "";
     private String content = "";
@@ -21,11 +19,6 @@ public class Article implements Comparable<Article> {
             return dateComparison;
         }
 
-        int titleComparison = this.title.compareTo(that.title);
-        if (titleComparison != 0) {
-            return titleComparison;
-        }
-
-        return this.id.compareTo(that.id);
+        return this.title.compareTo(that.title);
     }
 }

@@ -19,18 +19,18 @@ public class ArticleSpringDataSource implements ArticleRepository {
     private final ArticleDao articleDao;
 
     @Override
-    public Article save(Article article) {
+    public BlogArticle save(BlogArticle article) {
         SpringArticle entity = domainToDb(article);
         return dbToDomain(articleDao.save(entity));
     }
 
     @Override
-    public List<Article> findAll() {
+    public List<BlogArticle> findAll() {
         return dbToDomain(articleDao.findAll());
     }
 
     @Override
-    public List<Article> findWithLimit(int numberOfArticlesToLoad) {
+    public List<BlogArticle> findWithLimit(int numberOfArticlesToLoad) {
         PageRequest pageable = PageRequest.of(
                 0,
                 numberOfArticlesToLoad,
@@ -41,7 +41,7 @@ public class ArticleSpringDataSource implements ArticleRepository {
     }
 
     @Override
-    public Optional<Article> findById(UUID id) {
+    public Optional<BlogArticle> findById(UUID id) {
         return articleDao
                 .findById(id)
                 .map(this::dbToDomain);
@@ -56,7 +56,7 @@ public class ArticleSpringDataSource implements ArticleRepository {
         return false;
     }
 
-    private SpringArticle domainToDb(Article article) {
+    private SpringArticle domainToDb(BlogArticle article) {
         SpringArticle a = new SpringArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
@@ -66,14 +66,14 @@ public class ArticleSpringDataSource implements ArticleRepository {
         return a;
     }
 
-    private List<Article> dbToDomain(Collection<SpringArticle> articles) {
+    private List<BlogArticle> dbToDomain(Collection<SpringArticle> articles) {
         return articles.stream()
                 .map(this::dbToDomain)
                 .collect(Collectors.toList());
     }
 
-    private Article dbToDomain(SpringArticle article) {
-        Article a = new Article();
+    private BlogArticle dbToDomain(SpringArticle article) {
+        BlogArticle a = new BlogArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
         a.setShortDescription(article.getShortDescription());

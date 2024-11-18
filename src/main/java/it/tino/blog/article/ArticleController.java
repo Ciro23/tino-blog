@@ -18,10 +18,10 @@ public class ArticleController {
     private final ArticleRepository articleRepository;
 
     @GetMapping
-    public ResponseEntity<Set<Article>> getArticles(
+    public ResponseEntity<Set<BlogArticle>> getArticles(
             @RequestParam(name = "limit", required = false) Integer limit
     ) {
-        List<Article> articles;
+        List<BlogArticle> articles;
         if (limit == null || limit == 0) {
             articles = articleRepository.findAll();
         } else {
@@ -32,7 +32,7 @@ public class ArticleController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Article> getArticle(@PathVariable UUID id) {
+    public ResponseEntity<BlogArticle> getArticle(@PathVariable UUID id) {
         return articleRepository
                 .findById(id)
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -40,13 +40,13 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<Article> createArticle(@RequestBody Article article) {
-        Article savedArticle = articleRepository.save(article);
+    public ResponseEntity<BlogArticle> createArticle(@RequestBody BlogArticle article) {
+        BlogArticle savedArticle = articleRepository.save(article);
         return new ResponseEntity<>(savedArticle, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Article> updateArticle(@PathVariable UUID id, @RequestBody Article article) {
+    public ResponseEntity<BlogArticle> updateArticle(@PathVariable UUID id, @RequestBody BlogArticle article) {
         return articleRepository.findById(id)
                 .map(a -> {
                     a.setTitle(article.getTitle());
@@ -54,11 +54,11 @@ public class ArticleController {
                     a.setShortDescription(article.getShortDescription());
                     a.setContent(article.getContent());
 
-                    Article savedArticle = articleRepository.save(a);
+                    BlogArticle savedArticle = articleRepository.save(a);
                     return new ResponseEntity<>(savedArticle, HttpStatus.OK);
                 })
                 .orElseGet(() -> {
-                    Article savedArticle = articleRepository.save(article);
+                    BlogArticle savedArticle = articleRepository.save(article);
                     return new ResponseEntity<>(savedArticle, HttpStatus.OK);
                 });
     }

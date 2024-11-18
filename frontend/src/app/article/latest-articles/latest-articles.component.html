@@ -1,5 +1,7 @@
 <h2 class="title">Latest articles</h2>
 <span class="d-flex flex-column gap-4">
-  <app-article-list [numberToFetch]="5"></app-article-list>
-  <a class="btn btn-primary" routerLink="/articles">Load all</a>
+  <app-article-list
+    [articles]="articles"
+    [onViewArticle]="onViewArticle"></app-article-list>
+  <a class="btn btn-secondary" routerLink="/articles">Load all</a>
 </span>

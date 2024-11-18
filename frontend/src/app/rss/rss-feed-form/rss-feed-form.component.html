@@ -1,0 +1,34 @@
+<form
+  class="d-flex flex-column gap-3"
+  (ngSubmit)="onSubmit(form)"
+  #form="ngForm">
+  <h1 *ngIf="!rssFeedId" class="title">Add a new RSS feed</h1>
+  <h1 *ngIf="rssFeedId" class="title">Edit RSS feed</h1>
+
+  <input type="hidden" [(ngModel)]="rssFeed.id" name="id" />
+
+  <label class="d-flex flex-column">
+    Description
+    <input
+      [(ngModel)]="rssFeed.description"
+      name="description"
+      type="text"
+      class="form-control"
+      autocomplete="off"
+      required>
+  </label>
+
+  <label class="d-flex flex-column">
+    URL
+    <input
+      [(ngModel)]="rssFeed.url"
+      name="url"
+      type="text"
+      class="form-control"
+      autocomplete="off"
+      required>
+  </label>
+
+  <button *ngIf="!rssFeedId" type="submit" class="btn btn-primary">Add</button>
+  <button *ngIf="rssFeedId" type="submit" class="btn btn-primary">Save changes</button>
+</form>

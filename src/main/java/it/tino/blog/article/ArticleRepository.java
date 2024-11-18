@@ -6,11 +6,11 @@ import java.util.UUID;
 
 public interface ArticleRepository {
 
-    Article save(Article article);
+    BlogArticle save(BlogArticle article);
 
-    List<Article> findAll();
-    List<Article> findWithLimit(int numberOfArticlesToLoad);
-    Optional<Article> findById(UUID id);
+    List<BlogArticle> findAll();
+    List<BlogArticle> findWithLimit(int numberOfArticlesToLoad);
+    Optional<BlogArticle> findById(UUID id);
 
     boolean deleteById(UUID id);
 }

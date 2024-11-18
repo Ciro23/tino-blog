@@ -1,0 +1,41 @@
+<div class="d-flex flex-column gap-4">
+  <div class="d-flex flex-wrap gap-2 justify-content-between">
+    <h4>Rss feeds manager</h4>
+
+    <a routerLink="/rss-feeds/new" class="ms-auto">
+      <button class="btn btn-primary ms-auto">
+        <i class="bi bi-plus"></i> Add RSS feed
+      </button>
+    </a>
+  </div>
+
+  <table class="table table-bordered table-hover table-responsive table-sm small">
+    <thead>
+    <tr>
+      <th>Description</th>
+      <th>URL</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let rssFeed of rssFeeds">
+      <td>{{ rssFeed.description }}</td>
+      <td>{{ rssFeed.url }}</td>
+      <td class="d-flex justify-content-evenly flex-wrap-reverse gap-1">
+        <a [routerLink]="['/rss-feeds', rssFeed.id, 'edit']">
+          <button class="btn btn-sm btn-secondary">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </a>
+
+        <button
+          (click)=openDeleteConfirmationDialog(rssFeed.id)
+          class="btn btn-sm btn-danger">
+          <i class="bi bi-trash3-fill"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -3,11 +3,12 @@
 
 // 2. Define your custom variables here (before importing any Bootstrap SCSS files)
 // Right now only dark mode is supported.
-$primary: rgb(38, 44, 54);
-$secondary: #2D2D44;
-$body-bg: rgb(13, 17, 23);
-$code-color: $secondary;
+$primary: #0D1117;
+$secondary: #5959a6;
+$body-bg-dark: #010409;
+$code-color: #AAADB2;
 $danger: #a22323;
+$border-color-dark: #3D444D;
 
 // 3. Now import the required Bootstrap SCSS files
 @import "../../node_modules/bootstrap/scss/variables";
@@ -22,12 +23,22 @@ $danger: #a22323;
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 blockquote {
-  border-left: 0.25rem solid $secondary-text-emphasis-dark;
+  border-left: 0.25rem solid #AAADB2;
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  color: $secondary-text-emphasis-dark;
+  color: #AAADB2;
 }
 
 blockquote p {
   margin: 0;
+}
+
+code:not(pre code) {
+  background: #1E2329;
+  padding: 0.15rem 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.btn-primary, .btn-primary:hover {
+  border-color: $border-color-dark;
 }

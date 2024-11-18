@@ -1,33 +1,33 @@
-<div class="d-flex">
-  <a
-    [routerLink]="['/articles', article.id]"
-    [ngClass]="{
-      'rounded-0': allowArticleActions,
-      'rounded-bottom': allowArticleActions,
-      'rounded': !allowArticleActions
-    }"
-    class="card border-0 shadow"
-    style="width: 95%">
+<div
+  class="d-flex rounded border">
+  <div
+    (click)="onView(article.id)"
+    class="card border-0 shadow bg-primary w-100"
+    style="cursor: pointer">
     <article
       class="article p-3 card-body">
-      <p class="card-text">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
-      <h4 class="card-title">{{ article.title }}</h4>
-      <p class="card-text">{{ article.shortDescription }}</p>
+      <p class="card-text text-secondary-emphasis mb-1 small">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
+      <h5 class="card-title">{{ article.title }}</h5>
+      <p class="card-text small">{{ article.shortDescription }}</p>
     </article>
-  </a>
+  </div>
 
   <div
-    *ngIf="authService.isTokenValid() && allowArticleActions"
+    *ngIf="authService.isTokenValid() && (onDelete != null || onEdit != null)"
     class="d-flex flex-column justify-content-between"
     style="cursor: pointer; min-width: 5%">
     <button
-      (click)="openDeleteConfirmationDialog(article.id)"
-      class="flex-grow-1 btn btn-danger rounded-0 rounded-end">
+      *ngIf="onDelete != null"
+      (click)="onDelete(article.id)"
+      class="flex-grow-1 btn btn-danger"
+      style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
       <i class="bi bi-trash3-fill"></i>
     </button>
     <button
-      [routerLink]="['/articles', article.id, 'edit']"
-      class="flex-grow-1 btn btn-secondary rounded-0 rounded-end">
+      *ngIf="onEdit != null"
+      (click)="onEdit(article.id)"
+      class="flex-grow-1 btn btn-secondary"
+      style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0">
       <i class="bi bi-pencil-square"></i>
     </button>
   </div>

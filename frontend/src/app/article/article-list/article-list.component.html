@@ -2,7 +2,8 @@
   <div *ngFor="let article of articles">
       <app-article-snippet
         [article]="article"
-        [onDelete]="onDeleteArticle"
-        [allowArticleActions]="allowArticleActions"></app-article-snippet>
+        [onView]="onViewArticle"
+        [onEdit]="onEditArticle"
+        [onDelete]="onDeleteArticle"></app-article-snippet>
   </div>
 </div>

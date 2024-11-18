@@ -10,8 +10,7 @@ export class ArticleService {
 
   apiUrl = "/api/articles"
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   fetchArticles(): Observable<any> {
     return this.http.get(this.apiUrl);

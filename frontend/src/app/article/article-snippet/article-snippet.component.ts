@@ -20,26 +20,12 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class ArticleSnippetComponent {
   @Input() article!: Article;
-  @Input() onDelete!: (id: string) => void;
 
-  /**
-   * If the user is authenticated, allows the action buttons to
-   * be shown for the article, to manage it.
-   */
-  @Input() allowArticleActions: boolean = false;
+  @Input() onView!: (id: string) => void;
+  @Input() onEdit?: (id: string) => void;
+  @Input() onDelete?: (id: string) => void;
 
-  constructor(
-    protected authService: AuthService,
-    private modalService: NgbModal,
-  ) {}
+  constructor(protected authService: AuthService) {}
 
   protected readonly getFormattedCreationDateTime = getFormattedCreationDateTime;
-
-  openDeleteConfirmationDialog(id: string) {
-    const modalRef = this.modalService.open(ConfirmationModalComponent);
-    modalRef.componentInstance.title = "Confirm deletion";
-    modalRef.componentInstance.message = "Are you sure you want to delete this article?";
-    modalRef.componentInstance.type = "danger";
-    modalRef.componentInstance.confirmed.subscribe(() => this.onDelete(id));
-  }
 }

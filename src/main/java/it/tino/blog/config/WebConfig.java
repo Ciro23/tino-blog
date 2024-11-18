@@ -1,4 +1,4 @@
-package it.tino.blog.security;
+package it.tino.blog.config;
 
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -31,7 +31,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class WebSecurityConfig {
+public class WebConfig {
 
     private final UserDetailsService userDetailsService;
     private final RsaKeyProperties rsaKeys;

@@ -1,14 +1,15 @@
-<h2 class="title">Articles Manager</h2>
-
 <div class="d-flex flex-column gap-4">
-  <div class="d-flex justify-content-between">
-    <button class="btn btn-danger" (click)="openLogoutConfirmationDialog()">
-      <i class="bi bi-box-arrow-left"></i> Logout
-    </button>
-    <a routerLink="/articles/new">
-      <button class="btn btn-primary">Add Article</button>
+  <div class="d-flex flex-wrap gap-2 justify-content-between">
+    <h4>Articles manager</h4>
+
+    <a routerLink="/articles/new" class="ms-auto">
+      <button class="btn btn-primary bi bi-plus"> Add Article</button>
     </a>
   </div>
 
-  <app-article-list [allowArticleActions]="true"></app-article-list>
+  <app-article-list
+    [articles]="articles"
+    [onViewArticle]="onViewArticle"
+    [onEditArticle]="onEditArticle"
+    [onDeleteArticle]="openDeleteConfirmationDialog"></app-article-list>
 </div>

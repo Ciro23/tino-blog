@@ -1,4 +1,4 @@
-package it.tino.blog.security;
+package it.tino.blog.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
