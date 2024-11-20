@@ -4,8 +4,6 @@ import {NgClass, NgIf} from "@angular/common";
 import {Article} from "../article";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-article-snippet',

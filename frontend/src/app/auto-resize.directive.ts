@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, HostListener} from '@angular/core';
+import {Directive, ElementRef, HostListener} from '@angular/core';
 
 /**
  * Useful for text areas containing long amount of text.<br>

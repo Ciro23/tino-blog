@@ -3,7 +3,6 @@ import {AutoResizeDirective} from "../../auto-resize.directive";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {RssFeed} from "../rss-feed";
-import {ArticleService} from "../../article/article-service";
 import {ActivatedRoute} from "@angular/router";
 import {RssService} from "../rss.service";
 

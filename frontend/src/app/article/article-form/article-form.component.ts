@@ -66,7 +66,6 @@ export class ArticleFormComponent implements OnInit{
 
     callable.subscribe({
       next: response => {
-        console.log(response.status)
         if (response.status === 200) {
           window.history.back();
         }

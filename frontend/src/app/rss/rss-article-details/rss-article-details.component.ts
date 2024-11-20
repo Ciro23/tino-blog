@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges} from '@angular/core';
 import {MarkdownComponent} from "ngx-markdown";
 import {NgIf} from "@angular/common";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
@@ -43,7 +43,7 @@ export class RssArticleDetailsComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.article) {
       // Sanitization must be bypassed because otherwise <iframe>, for example,
       // would not be displayed. This opens the doors for XSS vulnerabilities,

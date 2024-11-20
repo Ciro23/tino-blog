@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {ArticleListComponent} from "../article-list/article-list.component";
-import {AuthService} from "../../authentication/auth.service";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ArticleService} from "../article-service";
