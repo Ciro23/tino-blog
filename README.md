@@ -1,3 +1,28 @@
+## Introduction
+
+This is my blog, built for my own needs.
+
+## Features
+
+- Non-authenticated users are only able to:
+    - Read the published articles.
+    - Read the articles from a bunch of RSS feeds I find useful, mostly programming related.
+- Authenticated users are also able to:
+    - Manage articles (publish, edit and delete).
+    - Manage the followed RSS feeds.
+    - Force the reload of the RSS feeds cache.
+
+The blog articles support Markdown and code syntax highlighting.
+
+> NOTE: to correctly display the RSS articles, HTML sanitization is bypassed (only for this case), so that `<iframe>`
+> can be visualized as intended.  
+> This means that only trusted RSS feeds should be followed, as no HTML sanitization means XSS!
+
+### RSS feeds caching
+
+The articles fetched from the followed RSS feeds are cached for a few hours to drastically improve loading times and to
+reduce the server's workload... bandwidth ain't free.
+
 ## Compiling from source
 
 ### Requirements
@@ -56,3 +81,7 @@ If the SASS is changed, then it needs to be compiled again in CSS:
    ```
 
 The full reference can be found [here](https://getbootstrap.com/docs/5.3/customize/sass/).
+
+## Colors...
+
+Yes, I did steal some colors from the color palette of GitHub, as they're perfect and I'm no good designer.
