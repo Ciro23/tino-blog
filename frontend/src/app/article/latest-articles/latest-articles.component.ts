@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ArticleSnippetComponent} from "../article-snippet/article-snippet.component";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
 import {ArticleListComponent} from "../article-list/article-list.component";
@@ -14,11 +14,13 @@ import {ArticleService} from "../article-service";
     ArticleSnippetComponent,
     NgForOf,
     RouterLink,
-    ArticleListComponent
+    ArticleListComponent,
+    NgIf
   ],
 })
 export class LatestArticlesComponent implements OnInit {
   articles: Article[] = [];
+  loadingArticles: boolean = true;
 
   constructor(
     private articleService: ArticleService,
@@ -28,6 +30,7 @@ export class LatestArticlesComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.fetchLatestArticles(5).subscribe(articles => {
       this.articles = articles;
+      this.loadingArticles = false;
     })
   }
 

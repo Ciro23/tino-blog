@@ -1,4 +1,12 @@
-<article class="d-block mt-4 mb-0 mx-auto">
+<div
+  *ngIf="article == undefined"
+  class="position-fixed top-50 start-50 translate-middle">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<article *ngIf="article" class="d-block mt-4 mb-0 mx-auto">
   <div class="d-flex flex-column gap-4 mb-3">
     <!-- Manage buttons are only shown if the user is authenticated -->
     <div class="d-flex gap-3 justify-content-center" *ngIf="authService.isTokenValid()">

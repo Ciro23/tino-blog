@@ -1,9 +1,19 @@
+<h1 *ngIf="!rssFeedId" class="title">Add a new RSS feed</h1>
+<h1 *ngIf="rssFeedId" class="title">Edit RSS feed</h1>
+
+<div
+  *ngIf="loadingRssFeed"
+  class="position-fixed top-50 start-50 translate-middle">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
 <form
-  class="d-flex flex-column gap-3"
+  *ngIf="!loadingRssFeed"
   (ngSubmit)="onSubmit(form)"
+  class="d-flex flex-column gap-3"
   #form="ngForm">
-  <h1 *ngIf="!rssFeedId" class="title">Add a new RSS feed</h1>
-  <h1 *ngIf="rssFeedId" class="title">Edit RSS feed</h1>
 
   <input type="hidden" [(ngModel)]="rssFeed.id" name="id" />
 

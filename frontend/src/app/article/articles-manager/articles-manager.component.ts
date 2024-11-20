@@ -6,18 +6,21 @@ import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-m
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ArticleService} from "../article-service";
 import {Article} from "../article";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-articles-manager',
   standalone: true,
   imports: [
     RouterLink,
-    ArticleListComponent
+    ArticleListComponent,
+    NgIf
   ],
   templateUrl: './articles-manager.component.html',
 })
 export class ArticlesManagerComponent implements OnInit {
   articles: Article[] = [];
+  loadingArticles: boolean = true;
 
   constructor(
     private articleService: ArticleService,
@@ -28,6 +31,7 @@ export class ArticlesManagerComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.fetchArticles().subscribe(articles => {
       this.articles = articles;
+      this.loadingArticles = false;
     })
   }
 

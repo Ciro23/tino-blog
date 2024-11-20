@@ -1,4 +1,14 @@
-<div class="d-flex flex-column gap-4">
+<div
+  *ngIf="loadingArticles"
+  class="position-fixed top-50 start-50 translate-middle">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div
+  *ngIf="!loadingArticles"
+  class="d-flex flex-column gap-4">
   <div *ngFor="let article of articles">
       <app-article-snippet
         [article]="article"

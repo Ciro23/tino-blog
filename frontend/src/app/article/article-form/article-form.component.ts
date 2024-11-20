@@ -25,6 +25,7 @@ export class ArticleFormComponent implements OnInit{
    * edited, given its id.
    */
   readonly articleId?: string;
+  loadingArticle: boolean = false;
 
   article: Article = {
     id: '',
@@ -43,8 +44,10 @@ export class ArticleFormComponent implements OnInit{
       return;
     }
 
+    this.loadingArticle = true;
     this.articleService.fetchArticleById(this.articleId).subscribe(article => {
       this.article = article;
+      this.loadingArticle = false;
     })
   }
 

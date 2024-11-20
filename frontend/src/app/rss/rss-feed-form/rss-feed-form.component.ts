@@ -25,6 +25,7 @@ export class RssFeedFormComponent implements OnInit {
    * edited, given its id.
    */
   readonly rssFeedId?: string;
+  loadingRssFeed: boolean = false;
 
   rssFeed: RssFeed = {
     id: "",
@@ -41,8 +42,10 @@ export class RssFeedFormComponent implements OnInit {
       return;
     }
 
+    this.loadingRssFeed = true;
     this.rssService.fetchRssFeedById(this.rssFeedId).subscribe(article => {
       this.rssFeed = article;
+      this.loadingRssFeed = false;
     })
   }
 

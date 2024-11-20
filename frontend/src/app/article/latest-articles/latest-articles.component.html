@@ -2,6 +2,10 @@
 <span class="d-flex flex-column gap-4">
   <app-article-list
     [articles]="articles"
+    [loadingArticles]="loadingArticles"
     [onViewArticle]="onViewArticle"></app-article-list>
-  <a class="btn btn-secondary" routerLink="/articles">Load all</a>
+  <a
+    *ngIf="!loadingArticles"
+    class="btn btn-secondary"
+    routerLink="/articles">Load all</a>
 </span>

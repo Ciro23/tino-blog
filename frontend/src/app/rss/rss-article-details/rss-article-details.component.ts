@@ -15,12 +15,7 @@ import {Article} from "../../article/article";
   styleUrl: './rss-article-details.component.css'
 })
 export class RssArticleDetailsComponent implements AfterViewInit {
-  @Input() article: Article = {
-    id: "",
-    title: "",
-    shortDescription: "",
-    content: "",
-  };
+  @Input() article?: Article;
 
   ngAfterViewInit(): void {
     const figures = document.querySelectorAll('.content figure');

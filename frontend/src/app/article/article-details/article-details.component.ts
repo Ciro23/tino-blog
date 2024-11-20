@@ -1,11 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
 import {ArticleService} from "../article-service";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 import {MarkdownComponent} from "ngx-markdown";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -19,12 +18,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class ArticleDetailsComponent implements OnInit {
   private articleId: string;
-  article: Article = {
-    id: "",
-    title: "",
-    shortDescription: "",
-    content: "",
-  };
+  article?: Article;
 
   constructor(
     private articleService: ArticleService,

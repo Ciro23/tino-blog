@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RssFeed} from "../rss-feed";
 import {RssService} from "../rss.service";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {RouterLink} from "@angular/router";
@@ -11,12 +11,14 @@ import {RouterLink} from "@angular/router";
   standalone: true,
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './rss-feeds-manager.component.html',
 })
 export class RssFeedsManagerComponent implements OnInit {
   rssFeeds: RssFeed[] = [];
+  loadingRssFeeds: boolean = true;
 
   constructor(
     private rssService: RssService,
@@ -24,7 +26,10 @@ export class RssFeedsManagerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.rssService.fetchRssFeeds().subscribe(rssFeeds => this.rssFeeds = rssFeeds);
+    this.rssService.fetchRssFeeds().subscribe(rssFeeds => {
+      this.rssFeeds = rssFeeds;
+      this.loadingRssFeeds = false;
+    });
   }
 
   openDeleteConfirmationDialog(id: string) {

@@ -1,9 +1,19 @@
+<h1 *ngIf="!articleId" class="title">Create a new article</h1>
+<h1 *ngIf="articleId" class="title">Edit article</h1>
+
+<div
+  *ngIf="loadingArticle"
+  class="position-fixed top-50 start-50 translate-middle">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
 <form
-  class="d-flex flex-column gap-3"
+  *ngIf="!loadingArticle"
   (ngSubmit)="onSubmit(form)"
+  class="d-flex flex-column gap-3"
   #form="ngForm">
-  <h1 *ngIf="!articleId" class="title">Create a new article</h1>
-  <h1 *ngIf="articleId" class="title">Edit article</h1>
 
   <input type="hidden" [(ngModel)]="article.id" name="id" />
   <input type="hidden" [(ngModel)]="article.creationDateTime" name="creationDateTime" />

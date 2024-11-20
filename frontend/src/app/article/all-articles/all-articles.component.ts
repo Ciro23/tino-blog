@@ -17,6 +17,7 @@ import {ArticleService} from "../article-service";
 })
 export class AllArticlesComponent implements OnInit {
   articles: Article[] = [];
+  loadingArticles: boolean = true;
 
   constructor(
     private articleService: ArticleService,
@@ -26,6 +27,7 @@ export class AllArticlesComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.fetchArticles().subscribe(articles => {
       this.articles = articles;
+      this.loadingArticles = false;
     })
   }
 

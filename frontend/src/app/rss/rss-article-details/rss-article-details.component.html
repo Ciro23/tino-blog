@@ -1,4 +1,10 @@
-<article class="d-block mt-4 mb-0 mx-auto">
+<div *ngIf="!article" class="position-fixed top-50 start-50 translate-middle">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<article *ngIf="article" class="d-block mt-4 mb-0 mx-auto">
   <div class="d-flex flex-column gap-4 mb-3">
     <div class="d-flex flex-column justify-content-between align-items-center">
       <p>{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>

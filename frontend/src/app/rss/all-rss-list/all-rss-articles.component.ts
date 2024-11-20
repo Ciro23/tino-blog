@@ -20,6 +20,7 @@ import {AuthService} from "../../authentication/auth.service";
 })
 export class AllRssArticlesComponent implements OnInit {
   articles: Article[] = [];
+  loadingArticles: boolean = true;
 
   selectedArticle?: Article;
   selectedArticleId?: string;
@@ -38,6 +39,7 @@ export class AllRssArticlesComponent implements OnInit {
   ngOnInit(): void {
     this.rssService.fetchRssArticles().subscribe(articles => {
       this.articles = articles;
+      this.loadingArticles = false;
 
       if (this.selectedArticleId != undefined) {
         this.openArticle(this.selectedArticleId!);
@@ -71,6 +73,8 @@ export class AllRssArticlesComponent implements OnInit {
 
   loadRssArticles() {
     this.articles = [];
+    this.loadingArticles = true;
+
     this.rssService.reloadRssArticles().subscribe({
       next: success => {
         if (!success) {
@@ -78,6 +82,7 @@ export class AllRssArticlesComponent implements OnInit {
         }
         this.rssService.fetchRssArticles().subscribe(articles => {
           this.articles = articles;
+          this.loadingArticles = false;
         })
       }
     });
