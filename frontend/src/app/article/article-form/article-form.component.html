@@ -22,8 +22,10 @@
     Title
     <input
       [(ngModel)]="article.title"
+      [ngClass]="{'is-invalid': form.submitted && form.controls['title'].invalid}"
       name="title"
       type="text"
+      maxlength="255"
       class="form-control"
       autocomplete="off"
       required>
@@ -33,17 +35,19 @@
     <span>Short description <span class="small">(displayed only in the preview)</span></span>
     <input
       [(ngModel)]="article.shortDescription"
+      [ngClass]="{'is-invalid': form.submitted && form.controls['shortDescription'].invalid}"
       name="shortDescription"
       type="text"
+      maxlength="255"
       class="form-control"
-      autocomplete="off"
-      required>
+      autocomplete="off">
   </label>
 
   <label class="d-flex flex-column">
     <span>Content <span class="small">(with Markdown support) </span></span>
     <textarea
       [(ngModel)]="article.content"
+      [ngClass]="{'is-invalid': form.submitted && form.controls['content'].invalid}"
       name="content"
       class="form-control"
       style="resize: none"
@@ -55,4 +59,8 @@
 
   <button *ngIf="!articleId" type="submit" class="btn btn-primary">Publish</button>
   <button *ngIf="articleId" type="submit" class="btn btn-primary">Save changes</button>
+
+  <p
+    *ngIf="errorMessage !== ''"
+    class="text-center text-danger">{{ errorMessage }}</p>
 </form>

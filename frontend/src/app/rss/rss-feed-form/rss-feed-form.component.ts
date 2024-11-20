@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AutoResizeDirective} from "../../auto-resize.directive";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {RssFeed} from "../rss-feed";
 import {ArticleService} from "../../article/article-service";
 import {ActivatedRoute} from "@angular/router";
@@ -14,7 +14,8 @@ import {RssService} from "../rss.service";
     AutoResizeDirective,
     FormsModule,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgClass
   ],
   templateUrl: './rss-feed-form.component.html',
 })
@@ -33,6 +34,8 @@ export class RssFeedFormComponent implements OnInit {
     description: ""
   }
 
+  errorMessage: string = "";
+
   constructor(private rssService: RssService, private route: ActivatedRoute) {
     this.rssFeedId = this.route.snapshot.paramMap.get('id')!;
   }
@@ -50,6 +53,10 @@ export class RssFeedFormComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
+    if (!form.valid) {
+      return;
+    }
+
     let callable = this.rssService.updateRssFeed(this.rssFeed);
     if (!this.rssFeedId) {
       callable = this.rssService.insertRssFeed(this.rssFeed);
@@ -59,6 +66,13 @@ export class RssFeedFormComponent implements OnInit {
       next: response => {
         if (response.status === 200) {
           window.history.back();
+        }
+      },
+      error: response => {
+        if (response.status === 400) {
+          this.errorMessage = "An client error has occurred. Verify the data written in the form";
+        } else if (response.status === 500) {
+          this.errorMessage = "A server error has occurred.";
         }
       }
     });
