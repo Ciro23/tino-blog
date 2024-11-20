@@ -13,14 +13,14 @@ $border-color-dark: #3D444D;
 // 3. Now import the required Bootstrap SCSS files
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/variables-dark";
-@import "../../node_modules/bootstrap/scss/maps";
 @import "../../node_modules/bootstrap/scss/mixins";
-@import "../../node_modules/bootstrap/scss/root";
+@import "../../node_modules/bootstrap/scss/maps";
 
 // Optional Bootstrap components here
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
-@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/buttons";
+@import "../../node_modules/bootstrap/scss/root";
 
 blockquote {
   border-left: 0.25rem solid #AAADB2;
