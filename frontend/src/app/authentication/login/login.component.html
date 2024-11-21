@@ -26,5 +26,7 @@
 
   <button type="submit" class="btn btn-primary">Login</button>
 
-  <p *ngIf="wrongCredentials">Wrong credentials!</p>
+  <p
+    *ngIf="wrongCredentials"
+    class="text-danger text-center">Wrong credentials!</p>
 </form>

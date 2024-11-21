@@ -1,6 +1,10 @@
+### Secrets ###
+.env
+backend/src/main/resources/certs/
+
 HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
+!backend/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 

@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Entity
-@Table(name = "rss-feeds")
+@Table(name = "rss_feeds", schema = "public")
 @Data
 public class SpringRssFeed {
 
