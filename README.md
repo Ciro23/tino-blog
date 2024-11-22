@@ -25,46 +25,98 @@ reduce the server's workload... bandwidth ain't free.
 
 ## Compiling from source
 
-### Requirements
+### Using Docker
 
-- Java 21
-- PostgreSQL 16
-- Angular CLI
+#### Requirements
 
-### Steps
+- Docker
+- Docker Compose
 
-1. The database must be created manually using PostgreSQL: the default name is "tino-blog", but it can be customized
-   using environment variables (see point number 3): the tables will be created by Spring during the first run.
-2. The first admin user is created automatically (the default password is "password"), but it's very important to change
-   its password (along the other details) via the `users` table. The password must be encrypted using _Bcrypt_ with
-   strength "12": this [online generator](https://bcrypt-generator.com/) comes very handy.
+#### Steps
+
+1. Navigate to the repository root, copy the file `.env.example`, rename it to `.env` and set your sensitive data.
+2. Generate the private and public keys used to create the login tokens. Please refer
+   to `backend/src/main/resources/certs/README.md` to know how.
+3. Run the application:
+   ```shell
+   docker compose up -d --build
+   ```
+4. Change the password (along the other details) of the default user:
+   ```shell
+   docker exec -it tino-blog-db bash
+   psql -d tino_blog -U postgres
+   ```
+   Enter your password, then execute the update statement:
    ```postgresql
    UPDATE users
-   set username = 'your_username',
+   SET username = 'your_username',
        email = 'your@email.org',
        password = '$2a$12$Hp1V.oI.VKiOBSkb85sXMepcUmwZeyzWxZbpgg1JwMTfklaGeeoB2'
-   where id = '4c7dbc23-b524-4dd2-95f0-c0cb974588c7';
+   WHERE id = '4c7dbc23-b524-4dd2-95f0-c0cb974588c7';
    ```
+
+### Manual native setup
+
+#### Requirements
+
+- Java 21
+- PostgreSQL 17 (15 and 16 are also both fine as well)
+- Angular CLI
+
+#### Steps
+
+> Remember that when modifying the file `application.properties`, it may be necessary to do a:
+> ```shell
+> mvn clean package
+> ```
+
+1. The database must be created manually using PostgreSQL: the default name is "tino_blog", but it can be customized
+   using environment variables (see point number 3): the tables will be created by Spring during the first run.
+2. To initialize the database with the default data, the property `spring.sql.init.mode`,
+   inside `application.properties` must be set to `always` (change it back after the first initialization, or it will be
+   executed every time the application is run).
+    - The first admin user is created automatically (email: "admin@test.org", password: "password"), but it's very
+      important to change its password (along the other details) via the `users` table.  
+      The password must be encrypted
+      using _Bcrypt_ with strength "12": this [online generator](https://bcrypt-generator.com/) comes very handy.
+       ```postgresql
+       UPDATE users
+       SET username = 'your_username',
+           email = 'your@email.org',
+           password = '$2a$12$Hp1V.oI.VKiOBSkb85sXMepcUmwZeyzWxZbpgg1JwMTfklaGeeoB2'
+       WHERE id = '4c7dbc23-b524-4dd2-95f0-c0cb974588c7';
+       ```
 3. Configure the following environment variables for the backend (it can be done using IntelliJ IDEA "run configuration"
-   or via system, for example running `export MY_ENV_VAR=123` on Linux and macOS:
+   or via system, for example running `export MY_ENV_VAR=123` on Linux and macOS):
     - DB_HOST (default "localhost")
     - DB_PORT (default "5432")
-    - DB_NAME (default "tino-blog")
+    - DB_NAME (default "tino_blog")
     - DB_USER
     - DB_PASSWORD
-4. Navigate to the repository root and compile the backend:
+4. Generate the private and public keys used to create the login tokens. Please refer
+   to `backend/src/main/resources/certs/README.md` to know how.
+5. Navigate to the `backend` directory and compile it:
    ```shell
    mvn clean package
    ```
-5. Run the backend:
+6. Run the backend:
    ```shell
    java -jar target/tino-blog-0.0.1-SNAPSHOT.war
    ```
-6. Navigate to the `frontend` directory and run it:
+7. Navigate to the `frontend` directory and run it:
    ```shell
    npm install
    ng serve
    ```
+
+### In case of database changes
+
+If the database schema changes, the DDL instructions must be exported into the file `backend/schema.sql`, which is used
+to build the Docker image for the database. It can be done with:
+
+```shell
+pg_dump -U db_username tino_blog >> schema.sql
+```
 
 #### Customize Bootstrap theme
 
@@ -84,4 +136,4 @@ The full reference can be found [here](https://getbootstrap.com/docs/5.3/customi
 
 ## Colors...
 
-Yes, I did steal some colors from the color palette of GitHub, as they're perfect and I'm no good designer.
+Yes, I did steal some colors from the color palette of GitHub, as it's perfect, and I'm no good designer.

@@ -9,18 +9,24 @@
   </div>
 </div>
 
+<p
+  *ngIf="rssFeed === undefined"
+  class="text-center text-danger fs-5">
+  An error has occurred x_x
+</p>
+
 <form
-  *ngIf="!loadingRssFeed"
+  *ngIf="!loadingRssFeed && rssFeed !== undefined"
   (ngSubmit)="onSubmit(form)"
   class="d-flex flex-column gap-3"
   #form="ngForm">
 
-  <input type="hidden" [(ngModel)]="rssFeed.id" name="id" />
+  <input type="hidden" [(ngModel)]="rssFeed!.id" name="id" />
 
   <label class="d-flex flex-column">
     Description
     <input
-      [(ngModel)]="rssFeed.description"
+      [(ngModel)]="rssFeed!.description"
       [ngClass]="{'is-invalid': form.submitted && form.controls['description'].invalid}"
       name="description"
       type="text"
@@ -33,7 +39,7 @@
   <label class="d-flex flex-column">
     URL
     <input
-      [(ngModel)]="rssFeed.url"
+      [(ngModel)]="rssFeed!.url"
       [ngClass]="{'is-invalid': form.submitted && form.controls['url'].invalid}"
       name="url"
       type="text"

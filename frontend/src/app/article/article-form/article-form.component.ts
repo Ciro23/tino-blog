@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
 import {AutoResizeDirective} from "../../auto-resize.directive";
 import {MarkdownComponent} from "ngx-markdown";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-article-form',
@@ -28,7 +29,10 @@ export class ArticleFormComponent implements OnInit{
   readonly articleId?: string;
   loadingArticle: boolean = false;
 
-  article: Article = {
+  /**
+   * Must be undefined only if an error occurred.
+   */
+  article?: Article = {
     id: '',
     creationDateTime: new Date(),
     title: '',
@@ -48,10 +52,20 @@ export class ArticleFormComponent implements OnInit{
     }
 
     this.loadingArticle = true;
-    this.articleService.fetchArticleById(this.articleId).subscribe(article => {
-      this.article = article;
-      this.loadingArticle = false;
-    })
+    this.articleService.fetchArticleById(this.articleId)
+      .pipe(
+        finalize(() => {
+          this.loadingArticle = false;
+        })
+      )
+      .subscribe({
+        next: article => {
+          this.article = article;
+        },
+        error: () => {
+          this.article = undefined;
+        }
+      })
   }
 
   onSubmit(form: NgForm): void {
@@ -59,21 +73,20 @@ export class ArticleFormComponent implements OnInit{
       return;
     }
 
-    let callable = this.articleService.updateArticle(this.article);
+    let callable = this.articleService.updateArticle(this.article!);
     if (!this.articleId) {
-      callable = this.articleService.insertArticle(this.article);
+      callable = this.articleService.insertArticle(this.article!);
     }
 
     callable.subscribe({
       next: response => {
-        console.log(response.status)
         if (response.status === 200) {
           window.history.back();
         }
       },
       error: response => {
         if (response.status === 400) {
-          this.errorMessage = "An client error has occurred. Verify the data written in the form";
+          this.errorMessage = "A client error has occurred. Verify the data written in the form";
         } else if (response.status === 500) {
           this.errorMessage = "A server error has occurred.";
         }

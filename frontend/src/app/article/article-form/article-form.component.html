@@ -9,19 +9,25 @@
   </div>
 </div>
 
+<p
+  *ngIf="article === undefined"
+  class="text-center text-danger fs-5">
+  An error has occurred x_x
+</p>
+
 <form
-  *ngIf="!loadingArticle"
+  *ngIf="!loadingArticle && article !== undefined"
   (ngSubmit)="onSubmit(form)"
   class="d-flex flex-column gap-3"
   #form="ngForm">
 
-  <input type="hidden" [(ngModel)]="article.id" name="id" />
-  <input type="hidden" [(ngModel)]="article.creationDateTime" name="creationDateTime" />
+  <input type="hidden" [(ngModel)]="article!.id" name="id" />
+  <input type="hidden" [(ngModel)]="article!.creationDateTime" name="creationDateTime" />
 
   <label class="d-flex flex-column">
     Title
     <input
-      [(ngModel)]="article.title"
+      [(ngModel)]="article!.title"
       [ngClass]="{'is-invalid': form.submitted && form.controls['title'].invalid}"
       name="title"
       type="text"
@@ -34,7 +40,7 @@
   <label class="d-flex flex-column">
     <span>Short description <span class="small">(displayed only in the preview)</span></span>
     <input
-      [(ngModel)]="article.shortDescription"
+      [(ngModel)]="article!.shortDescription"
       [ngClass]="{'is-invalid': form.submitted && form.controls['shortDescription'].invalid}"
       name="shortDescription"
       type="text"
@@ -46,7 +52,7 @@
   <label class="d-flex flex-column">
     <span>Content <span class="small">(with Markdown support) </span></span>
     <textarea
-      [(ngModel)]="article.content"
+      [(ngModel)]="article!.content"
       [ngClass]="{'is-invalid': form.submitted && form.controls['content'].invalid}"
       name="content"
       class="form-control"

@@ -9,6 +9,19 @@
 <div
   *ngIf="!loadingArticles"
   class="d-flex flex-column gap-4">
+
+  <p
+    *ngIf="articles?.length === 0"
+    class="text-center fs-5">
+    No articles published yet :C
+  </p>
+
+  <p
+    *ngIf="articles === undefined"
+    class="text-center text-danger fs-5">
+    An error has occurred x_x
+  </p>
+
   <div *ngFor="let article of articles">
       <app-article-snippet
         [article]="article"

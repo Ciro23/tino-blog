@@ -25,7 +25,7 @@ export class AuthService {
           this.loggedIn.next(true);
         }),
         map(() => true),
-        catchError(err => {
+        catchError(() => {
           this.loggedIn.next(false);
           return of(false);
         })
@@ -60,8 +60,4 @@ export class AuthService {
   private removeToken() {
     localStorage.removeItem(this.tokenKey);
   }
-}
-
-interface TokenResponse {
-  token: string;
 }

@@ -5,7 +5,7 @@
     [loadingArticles]="loadingArticles"
     [onViewArticle]="onViewArticle"></app-article-list>
   <a
-    *ngIf="!loadingArticles"
+    *ngIf="!loadingArticles && articles !== undefined && articles!.length > 0"
     class="btn btn-secondary"
     routerLink="/articles">Load all</a>
 </span>

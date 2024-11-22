@@ -5,6 +5,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {RouterLink} from "@angular/router";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-rss-feeds-manager',
@@ -17,7 +18,7 @@ import {RouterLink} from "@angular/router";
   templateUrl: './rss-feeds-manager.component.html',
 })
 export class RssFeedsManagerComponent implements OnInit {
-  rssFeeds: RssFeed[] = [];
+  rssFeeds?: RssFeed[] = [];
   loadingRssFeeds: boolean = true;
 
   constructor(
@@ -26,10 +27,20 @@ export class RssFeedsManagerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.rssService.fetchRssFeeds().subscribe(rssFeeds => {
-      this.rssFeeds = rssFeeds;
-      this.loadingRssFeeds = false;
-    });
+    this.rssService.fetchRssFeeds()
+      .pipe(
+        finalize(() => {
+          this.loadingRssFeeds = false;
+        })
+      )
+      .subscribe({
+        next: rssFeeds => {
+          this.rssFeeds = rssFeeds;
+        },
+        error: () => {
+          this.rssFeeds = undefined;
+        }
+      });
   }
 
   openDeleteConfirmationDialog(id: string) {
@@ -44,7 +55,7 @@ export class RssFeedsManagerComponent implements OnInit {
     this.rssService.deleteRssFeed(id).subscribe({
       next: success => {
         if (success) {
-          this.rssFeeds = this.rssFeeds.filter((rssFeed) => rssFeed.id != id);
+          this.rssFeeds = this.rssFeeds!.filter((rssFeed) => rssFeed.id != id);
         }
       }
     })

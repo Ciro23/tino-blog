@@ -4,6 +4,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
 import {ArticleListComponent} from "../article-list/article-list.component";
 import {ArticleService} from "../article-service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-all-articles',
@@ -16,7 +17,7 @@ import {ArticleService} from "../article-service";
   templateUrl: './all-articles.component.html',
 })
 export class AllArticlesComponent implements OnInit {
-  articles: Article[] = [];
+  articles?: Article[] = [];
   loadingArticles: boolean = true;
 
   constructor(
@@ -25,10 +26,20 @@ export class AllArticlesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.articleService.fetchArticles().subscribe(articles => {
-      this.articles = articles;
-      this.loadingArticles = false;
-    })
+    this.articleService.fetchArticles()
+      .pipe(
+        finalize(() => {
+          this.loadingArticles = false;
+        })
+      )
+      .subscribe({
+        next: articles => {
+        this.articles = articles;
+      },
+      error: () => {
+        this.articles = undefined;
+      },
+    });
   }
 
   onViewArticle = (id: string) => {

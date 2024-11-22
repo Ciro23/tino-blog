@@ -1,22 +1,24 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges} from '@angular/core';
 import {MarkdownComponent} from "ngx-markdown";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 import {Article} from "../../article/article";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {RssArticle} from "../rss-article";
 
 @Component({
   selector: 'app-rss-article-details',
   standalone: true,
-    imports: [
-        MarkdownComponent,
-        NgIf
-    ],
+  imports: [
+    MarkdownComponent,
+    NgIf,
+    NgForOf
+  ],
   templateUrl: './rss-article-details.component.html',
   styleUrl: './rss-article-details.component.css'
 })
 export class RssArticleDetailsComponent implements AfterViewInit, OnChanges {
-  @Input() article?: Article;
+  @Input() article?: RssArticle;
   articleContent: SafeHtml = "";
 
   constructor(private domSanitizer: DomSanitizer) {}
@@ -43,7 +45,7 @@ export class RssArticleDetailsComponent implements AfterViewInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.article) {
       // Sanitization must be bypassed because otherwise <iframe>, for example,
       // would not be displayed. This opens the doors for XSS vulnerabilities,

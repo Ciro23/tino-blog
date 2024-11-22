@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "articles")
+@Table(name = "articles", schema = "public")
 @Data
 public class SpringArticle {
 

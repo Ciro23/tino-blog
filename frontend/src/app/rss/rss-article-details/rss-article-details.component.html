@@ -12,5 +12,11 @@
     </div>
   </div>
 
+  <p
+    *ngIf="article.content.length === 0"
+    class="text-center">
+    <i>No content</i>
+  </p>
+
   <div class="mx-auto content" [innerHTML]="articleContent"></div>
 </article>

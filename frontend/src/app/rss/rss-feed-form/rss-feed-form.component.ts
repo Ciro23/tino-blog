@@ -3,9 +3,9 @@ import {AutoResizeDirective} from "../../auto-resize.directive";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {RssFeed} from "../rss-feed";
-import {ArticleService} from "../../article/article-service";
 import {ActivatedRoute} from "@angular/router";
 import {RssService} from "../rss.service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-rss-feed-form',
@@ -28,7 +28,7 @@ export class RssFeedFormComponent implements OnInit {
   readonly rssFeedId?: string;
   loadingRssFeed: boolean = false;
 
-  rssFeed: RssFeed = {
+  rssFeed?: RssFeed = {
     id: "",
     url: "",
     description: ""
@@ -46,10 +46,20 @@ export class RssFeedFormComponent implements OnInit {
     }
 
     this.loadingRssFeed = true;
-    this.rssService.fetchRssFeedById(this.rssFeedId).subscribe(article => {
-      this.rssFeed = article;
-      this.loadingRssFeed = false;
-    })
+    this.rssService.fetchRssFeedById(this.rssFeedId)
+      .pipe(
+        finalize(() => {
+          this.loadingRssFeed = false;
+        })
+      )
+      .subscribe({
+        next: rssFeed => {
+          this.rssFeed = rssFeed;
+        },
+        error: () => {
+          this.rssFeed = undefined;
+        }
+      })
   }
 
   onSubmit(form: NgForm): void {
@@ -57,9 +67,9 @@ export class RssFeedFormComponent implements OnInit {
       return;
     }
 
-    let callable = this.rssService.updateRssFeed(this.rssFeed);
+    let callable = this.rssService.updateRssFeed(this.rssFeed!);
     if (!this.rssFeedId) {
-      callable = this.rssService.insertRssFeed(this.rssFeed);
+      callable = this.rssService.insertRssFeed(this.rssFeed!);
     }
 
     callable.subscribe({

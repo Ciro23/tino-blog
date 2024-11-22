@@ -31,10 +31,13 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.articleService.fetchArticleById(this.articleId).subscribe(article => {
-      this.article = article;
-    }, error => {
-      void this.router.navigate(['/404'], { skipLocationChange: true });
+    this.articleService.fetchArticleById(this.articleId).subscribe({
+      next: article => {
+        this.article = article;
+      },
+      error: () => {
+        void this.router.navigate(['/404'], { skipLocationChange: true });
+      }
     });
   }
 

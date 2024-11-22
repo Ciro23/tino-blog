@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {ArticleListComponent} from "../article-list/article-list.component";
-import {AuthService} from "../../authentication/auth.service";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ArticleService} from "../article-service";
 import {Article} from "../article";
 import {NgIf} from "@angular/common";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-articles-manager',
@@ -19,7 +19,7 @@ import {NgIf} from "@angular/common";
   templateUrl: './articles-manager.component.html',
 })
 export class ArticlesManagerComponent implements OnInit {
-  articles: Article[] = [];
+  articles?: Article[] = [];
   loadingArticles: boolean = true;
 
   constructor(
@@ -29,10 +29,20 @@ export class ArticlesManagerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.articleService.fetchArticles().subscribe(articles => {
-      this.articles = articles;
-      this.loadingArticles = false;
-    })
+    this.articleService.fetchArticles()
+      .pipe(
+        finalize(() => {
+          this.loadingArticles = false;
+        })
+      )
+      .subscribe({
+        next: articles => {
+          this.articles = articles;
+          },
+        error: () => {
+          this.articles = undefined;
+        }
+      })
   }
 
   onViewArticle = (id: string) => {
@@ -55,7 +65,7 @@ export class ArticlesManagerComponent implements OnInit {
     this.articleService.deleteArticle(id).subscribe({
       next: success => {
         if (success) {
-          this.articles = this.articles.filter((article) => article.id != id);
+          this.articles = this.articles!.filter((article) => article.id != id);
         }
       }
     })
