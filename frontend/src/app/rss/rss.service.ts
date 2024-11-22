@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Article} from "../article/article";
 import {RssFeed} from "./rss-feed";
+import {RssArticle} from "./rss-article";
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +39,8 @@ export class RssService {
    * reduce the server's workload!<br>
    * Use {@link reloadRssArticles} to evict the cache.
    */
-  fetchRssArticles(): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.apiUrl}/articles`);
+  fetchRssArticles(): Observable<RssArticle[]> {
+    return this.http.get<RssArticle[]>(`${this.apiUrl}/articles`);
   }
 
   reloadRssArticles(): Observable<any> {

@@ -6,7 +6,7 @@ import {ArticleFormComponent} from "./article/article-form/article-form.componen
 import {AllArticlesComponent} from "./article/all-articles/all-articles.component";
 import {AuthGuard} from "./authentication/auth-guard.guard";
 import {NotFoundComponent} from "./not-found/not-found.component";
-import {AllRssArticlesComponent} from "./rss/all-rss-list/all-rss-articles.component";
+import {AllRssArticlesComponent} from "./rss/all-rss-articles-list/all-rss-articles.component";
 import {ManagerComponent} from "./manager/manager.component";
 import {RssFeedFormComponent} from "./rss/rss-feed-form/rss-feed-form.component";
 

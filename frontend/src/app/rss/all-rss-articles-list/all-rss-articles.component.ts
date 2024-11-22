@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {filter, finalize, Subscription} from "rxjs";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "../../authentication/auth.service";
+import {RssArticle} from "../rss-article";
 
 @Component({
   selector: 'app-rss-aggregator',
@@ -19,10 +20,10 @@ import {AuthService} from "../../authentication/auth.service";
   templateUrl: './all-rss-articles.component.html'
 })
 export class AllRssArticlesComponent implements OnInit {
-  articles?: Article[] = [];
+  articles?: RssArticle[] = [];
   loadingArticles: boolean = true;
 
-  selectedArticle?: Article;
+  selectedArticle?: RssArticle;
   selectedArticleId?: string;
 
   private routerSubscription!: Subscription;
