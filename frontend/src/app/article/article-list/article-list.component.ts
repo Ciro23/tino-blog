@@ -14,7 +14,11 @@ import {Article} from "../article";
   templateUrl: './article-list.component.html',
 })
 export class ArticleListComponent {
-  @Input() articles: Article[] = [];
+  /**
+   * Must be undefined only if an error occurred.
+   */
+  @Input() articles?: Article[] = [];
+
   @Input() loadingArticles: boolean = false;
 
   @Input() onViewArticle!: (id: string) => void;

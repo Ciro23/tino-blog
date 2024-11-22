@@ -5,6 +5,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
 import {ArticleListComponent} from "../article-list/article-list.component";
 import {ArticleService} from "../article-service";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-latest-articles',
@@ -19,7 +20,7 @@ import {ArticleService} from "../article-service";
   ],
 })
 export class LatestArticlesComponent implements OnInit {
-  articles: Article[] = [];
+  articles?: Article[] = [];
   loadingArticles: boolean = true;
 
   constructor(
@@ -28,10 +29,20 @@ export class LatestArticlesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.articleService.fetchLatestArticles(5).subscribe(articles => {
-      this.articles = articles;
-      this.loadingArticles = false;
-    })
+    this.articleService.fetchLatestArticles(5)
+      .pipe(
+        finalize(() => {
+          this.loadingArticles = false;
+        })
+      )
+      .subscribe({
+        next: articles => {
+          this.articles = articles;
+        },
+        error: () => {
+          this.articles = undefined;
+        },
+      });
   }
 
   onViewArticle = (id: string) => {

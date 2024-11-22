@@ -4,7 +4,7 @@ import {Article} from "../../article/article";
 import {ArticleListComponent} from "../../article/article-list/article-list.component";
 import {RssArticleDetailsComponent} from "../rss-article-details/rss-article-details.component";
 import {NgIf} from "@angular/common";
-import {filter, Subscription} from "rxjs";
+import {filter, finalize, Subscription} from "rxjs";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "../../authentication/auth.service";
 
@@ -19,7 +19,7 @@ import {AuthService} from "../../authentication/auth.service";
   templateUrl: './all-rss-articles.component.html'
 })
 export class AllRssArticlesComponent implements OnInit {
-  articles: Article[] = [];
+  articles?: Article[] = [];
   loadingArticles: boolean = true;
 
   selectedArticle?: Article;
@@ -37,14 +37,7 @@ export class AllRssArticlesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rssService.fetchRssArticles().subscribe(articles => {
-      this.articles = articles;
-      this.loadingArticles = false;
-
-      if (this.selectedArticleId != undefined) {
-        this.openArticle(this.selectedArticleId!);
-      }
-    });
+    this.fetchRssArticles();
 
     this.routerSubscription = this.router.events.pipe(
       filter(event =>
@@ -63,28 +56,55 @@ export class AllRssArticlesComponent implements OnInit {
       window.history.pushState({ url: `/rss-aggregator/${id}` }, "", `/rss-aggregator/${id}`);
     }
 
-    this.selectedArticle = this.articles.filter((a) => a.id == id)[0];
-  }
-
-  private closeArticle() {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    this.selectedArticle = undefined;
+    this.selectedArticle = this.articles!.filter((a) => a.id == id)[0];
   }
 
   loadRssArticles() {
     this.articles = [];
     this.loadingArticles = true;
 
-    this.rssService.reloadRssArticles().subscribe({
-      next: success => {
-        if (!success) {
-          return;
-        }
-        this.rssService.fetchRssArticles().subscribe(articles => {
-          this.articles = articles;
+    this.rssService.reloadRssArticles()
+      .pipe(
+        finalize(() => {
           this.loadingArticles = false;
         })
-      }
-    });
+      )
+      .subscribe({
+        next: success => {
+          if (!success) {
+            return;
+          }
+          this.fetchRssArticles();
+        },
+        error: () => {
+          this.articles = undefined;
+        }
+      });
+  }
+
+  fetchRssArticles() {
+    this.rssService.fetchRssArticles()
+      .pipe(
+        finalize(() => {
+          this.loadingArticles = false;
+        })
+      )
+      .subscribe({
+        next: articles => {
+          this.articles = articles;
+
+          if (this.selectedArticleId != undefined) {
+            this.openArticle(this.selectedArticleId!);
+          }
+        },
+        error: () => {
+          this.articles = undefined;
+        }
+      });
+  }
+
+  private closeArticle() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    this.selectedArticle = undefined;
   }
 }
