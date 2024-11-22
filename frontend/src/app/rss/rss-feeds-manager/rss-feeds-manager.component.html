@@ -21,7 +21,15 @@
     </a>
   </div>
 
-  <table class="table table-bordered table-hover table-responsive table-sm small">
+  <p
+    *ngIf="rssFeeds.length === 0"
+    class="text-center fs-5">
+    No RSS feeds are being followed :/
+  </p>
+
+  <table
+    *ngIf="rssFeeds.length > 0"
+    class="table table-bordered table-hover table-responsive table-sm small">
     <thead>
     <tr>
       <th style="width: 40%">Description</th>
