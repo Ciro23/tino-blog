@@ -22,7 +22,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: articles; Type: TABLE; Schema: public; Owner: postgres
+-- Name: articles; Type: TABLE; Schema: public
 --
 
 CREATE TABLE public.articles
@@ -35,11 +35,8 @@ CREATE TABLE public.articles
 );
 
 
-ALTER TABLE public.articles
-    OWNER TO postgres;
-
 --
--- Name: rss_feeds; Type: TABLE; Schema: public; Owner: postgres
+-- Name: rss_feeds; Type: TABLE; Schema: public
 --
 
 CREATE TABLE public.rss_feeds
@@ -50,11 +47,8 @@ CREATE TABLE public.rss_feeds
 );
 
 
-ALTER TABLE public.rss_feeds
-    OWNER TO postgres;
-
 --
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public
 --
 
 CREATE TABLE public.users
@@ -66,11 +60,8 @@ CREATE TABLE public.users
 );
 
 
-ALTER TABLE public.users
-    OWNER TO postgres;
-
 --
--- Name: articles articles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: articles articles_pkey; Type: CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY public.articles
@@ -78,7 +69,7 @@ ALTER TABLE ONLY public.articles
 
 
 --
--- Name: rss_feeds rss_feeds_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: rss_feeds rss_feeds_pkey; Type: CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY public.rss_feeds
@@ -86,7 +77,7 @@ ALTER TABLE ONLY public.rss_feeds
 
 
 --
--- Name: rss_feeds uk15xqoycjge2p0yvn87kycgwmx; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: rss_feeds uk15xqoycjge2p0yvn87kycgwmx; Type: CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY public.rss_feeds
@@ -94,7 +85,7 @@ ALTER TABLE ONLY public.rss_feeds
 
 
 --
--- Name: users uk6dotkott2kjsp8vw4d0m25fb7; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users uk6dotkott2kjsp8vw4d0m25fb7; Type: CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY public.users
@@ -102,7 +93,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users ukr43af9ap4edm43mmtq01oddj6; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users ukr43af9ap4edm43mmtq01oddj6; Type: CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY public.users
@@ -110,7 +101,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public
 --
 
 ALTER TABLE ONLY public.users

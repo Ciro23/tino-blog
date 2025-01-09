@@ -115,6 +115,18 @@ to build the Docker image for the database. This can be done with:
 pg_dump -U db_username tino_blog >> schema.sql
 ```
 
+Then, remove all the instructions like:
+
+```sql
+ALTER TABLE public.articles
+    OWNER TO postgres;
+```
+
+otherwise it won't be possible to specify custom database users in the `.env` file.
+
+> By removing the explicit tables' ownership to a specific user, ownership will default to the user creating them,
+> allowing for easier customization of the database username to improve security.
+
 ### Customize Bootstrap theme
 
 Some Bootstrap colors were changed in the file `frontend/src/custom_bootstrap/custom.scss`.  
