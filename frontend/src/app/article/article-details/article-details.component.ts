@@ -13,8 +13,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   selector: 'app-article',
   standalone: true,
     imports: [NgIf, RouterLink, MarkdownComponent],
-  templateUrl: './article-details.component.html',
-  styleUrls: ['./article-details.component.css']
+  templateUrl: './article-details.component.html'
 })
 export class ArticleDetailsComponent implements OnInit {
   private articleId: string;

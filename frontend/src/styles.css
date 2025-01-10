@@ -13,7 +13,7 @@ a {
 }
 
 .page-content {
-  width: 60%;
+  width: 700px;
   min-height: 75vh;
   margin: 0 auto;
   flex-grow: 1;
@@ -58,6 +58,6 @@ div:has(> pre):hover .markdown-clipboard-button {
   }
 
   .page-content {
-    width: 95%;
+    width: 93%;
   }
 }

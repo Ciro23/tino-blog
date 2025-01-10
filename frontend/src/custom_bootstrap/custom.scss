@@ -9,6 +9,8 @@ $body-bg-dark: #010409;
 $code-color: #AAADB2;
 $danger: #a22323;
 $border-color-dark: #3D444D;
+$font-size-base: 1.1rem;
+$line-height-base: 1.6;
 
 // 3. Now import the required Bootstrap SCSS files
 @import "../../node_modules/bootstrap/scss/variables";

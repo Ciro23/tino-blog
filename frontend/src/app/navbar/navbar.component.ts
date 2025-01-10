@@ -11,6 +11,7 @@ import {NgIf} from "@angular/common";
     NgIf
   ],
   templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
 

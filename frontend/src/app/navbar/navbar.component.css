@@ -1,0 +1,9 @@
+nav > div {
+  width: 700px;
+}
+
+@media screen and (max-width: 767px) {
+  .nav {
+    width: 100%;
+  }
+}

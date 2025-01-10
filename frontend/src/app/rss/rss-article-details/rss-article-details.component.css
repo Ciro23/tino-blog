@@ -1,5 +1,4 @@
 .content {
-  width: 75%;
   display: flex;
   flex-direction: column;
 }
@@ -8,9 +7,3 @@
 The HTML elements inside the article content must be changed in TypeScript!
 Doing that in CSS doesn't work.
 */
-
-@media screen and (max-width: 767px) {
-  .content {
-    width: 95%;
-  }
-}
