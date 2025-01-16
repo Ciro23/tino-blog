@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
@@ -13,7 +13,9 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   selector: 'app-article',
   standalone: true,
     imports: [NgIf, RouterLink, MarkdownComponent],
-  templateUrl: './article-details.component.html'
+  templateUrl: './article-details.component.html',
+  styleUrls: ['article-details.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ArticleDetailsComponent implements OnInit {
   private articleId: string;

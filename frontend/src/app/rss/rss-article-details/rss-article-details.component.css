@@ -1,9 +1,33 @@
 .content {
   display: flex;
   flex-direction: column;
+  word-wrap: break-word;
 }
 
-/**
-The HTML elements inside the article content must be changed in TypeScript!
-Doing that in CSS doesn't work.
-*/
+.content figure {
+  align-self: center;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.content iframe {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+/* Syntax highlighting is not available for the RSS articles, but at least
+this makes the code blocks a bit more readable. */
+.content pre {
+  background: #272822;
+  padding: 1rem;
+  border-radius: 0.3rem;
+}
+
+.content figcaption {
+  font-style: italic;
+  text-align: center;
+}

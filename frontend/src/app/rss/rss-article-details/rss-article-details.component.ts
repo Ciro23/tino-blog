@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, Input, OnChanges} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
 import {MarkdownComponent} from "ngx-markdown";
 import {NgForOf, NgIf} from "@angular/common";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {Article} from "../../article/article";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {RssArticle} from "../rss-article";
 
@@ -15,35 +14,14 @@ import {RssArticle} from "../rss-article";
     NgForOf
   ],
   templateUrl: './rss-article-details.component.html',
-  styleUrl: './rss-article-details.component.css'
+  styleUrl: './rss-article-details.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
-export class RssArticleDetailsComponent implements AfterViewInit, OnChanges {
+export class RssArticleDetailsComponent implements OnChanges {
   @Input() article?: RssArticle;
   articleContent: SafeHtml = "";
 
   constructor(private domSanitizer: DomSanitizer) {}
-
-  ngAfterViewInit(): void {
-    const figures = document.querySelectorAll('.content figure');
-    figures.forEach((img) => {
-      (img as HTMLImageElement).style.alignSelf = 'center';
-    });
-
-    const images = document.querySelectorAll('.content img');
-    images.forEach((img) => {
-      (img as HTMLImageElement).style.maxWidth = '100%';
-      (img as HTMLImageElement).style.height = 'auto';
-    });
-
-    // Syntax highlighting is not available for the RSS articles, but at least
-    // this makes the code blocks a bit more readable.
-    const codeBlocks = document.querySelectorAll('.content pre');
-    codeBlocks.forEach((codeBlock) => {
-      (codeBlock as HTMLPreElement).style.background = '#272822';
-      (codeBlock as HTMLPreElement).style.padding = '1rem';
-      (codeBlock as HTMLPreElement).style.borderRadius = '0.3rem';
-    });
-  }
 
   ngOnChanges(): void {
     if (this.article) {
