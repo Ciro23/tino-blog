@@ -13,10 +13,6 @@
         <a class="nav-link" routerLink="/rss-aggregator">RSS</a>
       </li>
 
-      <li class="nav-item">
-        <a *ngIf="!authService.isTokenValid()" routerLink="/login" class="nav-link">Login</a>
-      </li>
-
       <li class="nav-item" *ngIf="authService.isTokenValid()">
         <a routerLink="/manager" class="nav-link">Manager</a>
       </li>
