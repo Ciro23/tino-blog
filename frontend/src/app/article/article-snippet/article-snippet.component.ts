@@ -13,8 +13,7 @@ import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
     RouterLink,
     NgIf,
     NgClass
-  ],
-  styleUrls: ['./article-snippet.component.css']
+  ]
 })
 export class ArticleSnippetComponent {
   @Input() article!: Article;

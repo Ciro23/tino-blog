@@ -10,7 +10,7 @@
 
     <button
       *ngIf="authService.isTokenValid() && selectedArticleId == undefined && !loadingArticles"
-      (click)="loadRssArticles()"
+      (click)="reloadRssArticles()"
       class="btn btn-secondary bi bi-arrow-clockwise ms-auto"> Reload cache</button>
   </div>
 

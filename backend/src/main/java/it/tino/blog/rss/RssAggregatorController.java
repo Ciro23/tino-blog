@@ -5,16 +5,12 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("rss")
@@ -84,24 +80,6 @@ public class RssAggregatorController {
 
     private Set<RssArticle> getRssArticles() {
         List<RssFeed> rssFeeds = rssFeedRepository.findAll();
-        List<String> urlStrings = rssFeeds
-                .stream()
-                .map(RssFeed::getUrl)
-                .toList();
-
-        List<URL> urls = urlStrings
-                .stream()
-                .map(u -> {
-                    try {
-                        return URI.create(u).toURL();
-                    } catch (IllegalArgumentException | MalformedURLException e) {
-                        // TODO: logging!
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
-        return rssAggregator.readRssFeeds(urls);
+        return rssAggregator.readRssFeeds(rssFeeds);
     }
 }

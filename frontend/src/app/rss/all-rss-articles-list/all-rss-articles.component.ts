@@ -60,16 +60,11 @@ export class AllRssArticlesComponent implements OnInit {
     this.selectedArticle = this.articles!.filter((a) => a.id == id)[0];
   }
 
-  loadRssArticles() {
+  reloadRssArticles() {
     this.articles = [];
     this.loadingArticles = true;
 
     this.rssService.reloadRssArticles()
-      .pipe(
-        finalize(() => {
-          this.loadingArticles = false;
-        })
-      )
       .subscribe({
         next: success => {
           if (!success) {

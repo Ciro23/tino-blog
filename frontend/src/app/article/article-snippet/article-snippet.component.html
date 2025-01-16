@@ -6,7 +6,15 @@
     style="cursor: pointer">
     <article
       class="p-3 card-body">
-      <p class="card-text text-secondary-emphasis mb-1 small">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
+      <div class="d-flex">
+        <p class="card-text text-secondary-emphasis mb-1 small">
+          {{ getFormattedCreationDateTime(article.creationDateTime!) }}
+        </p>
+        <p
+          *ngIf="article.category != null"
+          class="card-text text-secondary-emphasis mb-1 small">&#160;• {{ article.category }}</p>
+      </div>
+
       <h5 class="card-title">{{ article.title }}</h5>
       <p class="card-text small">{{ article.shortDescription }}</p>
     </article>

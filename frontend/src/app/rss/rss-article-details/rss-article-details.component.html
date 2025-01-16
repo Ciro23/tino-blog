@@ -8,6 +8,14 @@
   <div class="d-flex flex-column gap-4 mb-3">
     <div class="d-flex flex-column justify-content-between align-items-center">
       <p>{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
+      <p>
+        <i>
+          From <a href="{{ article.categoryUrl }}" target="_blank">
+          <strong>{{ article.category }}</strong>
+        </a>
+        </i>
+      </p>
+
       <h1 class="h1 text-center ">{{ article.title }}</h1>
     </div>
   </div>

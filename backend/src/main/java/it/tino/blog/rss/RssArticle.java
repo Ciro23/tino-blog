@@ -1,5 +1,6 @@
 package it.tino.blog.rss;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import it.tino.blog.article.Article;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,6 +10,12 @@ import lombok.EqualsAndHashCode;
 public class RssArticle extends Article {
 
     private String id;
+
+    @JsonProperty("category")
+    private String originFeedDescription;
+
+    @JsonProperty("categoryUrl")
+    private String originFeedUrl;
 
     @Override
     public void setTitle(String title) {
