@@ -8,6 +8,7 @@ import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 import {MarkdownComponent} from "ngx-markdown";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-article',
@@ -27,6 +28,7 @@ export class ArticleDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
+    private title: Title,
   ) {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
   }
@@ -35,6 +37,7 @@ export class ArticleDetailsComponent implements OnInit {
     this.articleService.fetchArticleById(this.articleId).subscribe({
       next: article => {
         this.article = article;
+        this.title.setTitle(article.title + " - Tino Blog");
       },
       error: () => {
         void this.router.navigate(['/404'], { skipLocationChange: true });

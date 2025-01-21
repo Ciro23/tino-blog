@@ -8,6 +8,7 @@ import {filter, finalize, Subscription} from "rxjs";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "../../authentication/auth.service";
 import {RssArticle} from "../rss-article";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-rss-aggregator',
@@ -32,7 +33,8 @@ export class AllRssArticlesComponent implements OnInit {
     protected authService: AuthService,
     private rssService: RssService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title
   ) {
     this.selectedArticleId = this.route.snapshot.paramMap.get('id') ?? undefined;
   }
@@ -100,6 +102,7 @@ export class AllRssArticlesComponent implements OnInit {
   }
 
   private closeArticle() {
+    this.title.setTitle("RSS - Tino Blog");
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     this.selectedArticle = undefined;
   }

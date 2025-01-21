@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, OnChanges, ViewEncapsulation} from '@an
 import {MarkdownComponent} from "ngx-markdown";
 import {NgForOf, NgIf} from "@angular/common";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {DomSanitizer, SafeHtml, Title} from "@angular/platform-browser";
 import {RssArticle} from "../rss-article";
 
 @Component({
@@ -21,7 +21,10 @@ export class RssArticleDetailsComponent implements OnChanges {
   @Input() article?: RssArticle;
   articleContent: SafeHtml = "";
 
-  constructor(private domSanitizer: DomSanitizer) {}
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private title: Title,
+  ) {}
 
   ngOnChanges(): void {
     if (this.article) {
@@ -29,6 +32,7 @@ export class RssArticleDetailsComponent implements OnChanges {
       // would not be displayed. This opens the doors for XSS vulnerabilities,
       // but I assume the RSS feeds are trusted.
       this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(this.article.content);
+      this.title.setTitle(this.article.title + " - Tino Blog");
     }
   }
 
