@@ -42,8 +42,8 @@ public class RssAggregator {
         for (SyndEntry entry : entries) {
             RssArticle article = new RssArticle();
             article.setTitle(entry.getTitle());
-            article.setOriginFeedDescription(rssFeed.getDescription());
-            article.setOriginFeedUrl(rssFeed.getUrl());
+            article.setCategory(rssFeed.getDescription());
+            article.setCategoryUrl(rssFeed.getUrl());
 
             // Some RSS feeds put the content inside the <content> tag, while
             // others in <description>. That's the reason of the following conditions.

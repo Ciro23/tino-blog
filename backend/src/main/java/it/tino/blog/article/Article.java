@@ -9,6 +9,10 @@ public class Article implements Comparable<Article> {
 
     private String title = "";
     private String shortDescription = "";
+
+    private String category;
+    private String categoryUrl;
+
     private String content = "";
     private Instant creationDateTime;
 
