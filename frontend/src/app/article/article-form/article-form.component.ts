@@ -36,6 +36,7 @@ export class ArticleFormComponent implements OnInit{
     id: '',
     creationDateTime: new Date(),
     title: '',
+    minutesToRead: 0,
     shortDescription: '',
     content: ''
   };

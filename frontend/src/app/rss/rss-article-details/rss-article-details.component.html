@@ -1,4 +1,6 @@
-<div *ngIf="!article" class="position-fixed top-50 start-50 translate-middle">
+<div
+  *ngIf="!article"
+  class="position-fixed top-50 start-50 translate-middle">
   <div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
@@ -17,6 +19,12 @@
       </p>
 
       <h1 class="h1 text-center ">{{ article.title }}</h1>
+      <p *ngIf="article.minutesToRead > 0"
+         class="small mb-0 text-secondary-emphasis">
+        Read time: {{ article.minutesToRead }}
+        <span *ngIf="article.minutesToRead == 1">minute</span>
+        <span *ngIf="article.minutesToRead > 1 ">minutes</span>
+      </p>
     </div>
   </div>
 

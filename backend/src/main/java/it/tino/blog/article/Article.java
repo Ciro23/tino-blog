@@ -1,5 +1,6 @@
 package it.tino.blog.article;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.Instant;
@@ -15,6 +16,17 @@ public class Article implements Comparable<Article> {
 
     private String content = "";
     private Instant creationDateTime;
+
+    @JsonProperty("minutesToRead")
+    public double getMinutesToRead() {
+        if (content.isBlank()) {
+            return 0;
+        }
+
+        int wordCount = content.trim().split("\\s+").length;
+        int averageWordPerMinute = 200;
+        return Math.ceil((double) wordCount / averageWordPerMinute);
+    }
 
     @Override
     public int compareTo(Article that) {

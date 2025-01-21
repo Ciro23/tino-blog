@@ -21,6 +21,12 @@
     <div class="d-flex flex-column justify-content-between align-items-center">
       <p>{{ getFormattedCreationDateTime(article.creationDateTime!) }}</p>
       <h1 class="h1 text-center text-break">{{ article.title }}</h1>
+      <p *ngIf="article.minutesToRead > 0"
+         class="small mb-0 text-secondary-emphasis">
+        Read time: {{ article.minutesToRead }}
+        <span *ngIf="article.minutesToRead == 1">minute</span>
+        <span *ngIf="article.minutesToRead > 1 ">minutes</span>
+      </p>
     </div>
   </div>
 
