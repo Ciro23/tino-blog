@@ -5,7 +5,7 @@ import {Article} from "../article";
 import {ArticleService} from "../article-service";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {MarkdownComponent} from "ngx-markdown";
+import {MarkdownComponent, MarkdownService} from "ngx-markdown";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Title} from "@angular/platform-browser";
@@ -13,7 +13,7 @@ import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-article',
   standalone: true,
-    imports: [NgIf, RouterLink, MarkdownComponent],
+  imports: [NgIf, RouterLink, MarkdownComponent],
   templateUrl: './article-details.component.html',
   styleUrls: ['article-details.component.css'],
   encapsulation: ViewEncapsulation.None,
@@ -29,6 +29,7 @@ export class ArticleDetailsComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private title: Title,
+    private markdownService: MarkdownService,
   ) {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
   }
@@ -43,6 +44,8 @@ export class ArticleDetailsComponent implements OnInit {
         void this.router.navigate(['/404'], { skipLocationChange: true });
       }
     });
+
+    this.openLinksInNewTab();
   }
 
   openDeleteConfirmationDialog() {
@@ -61,6 +64,13 @@ export class ArticleDetailsComponent implements OnInit {
         }
       }
     });
+  }
+
+  private openLinksInNewTab() {
+    this.markdownService.renderer.link = (href: string, title: string, text: string) => {
+      const titleAttr = title ? ` title="${title}"` : '';
+      return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
+    };
   }
 
   protected readonly getFormattedCreationDateTime = getFormattedCreationDateTime;

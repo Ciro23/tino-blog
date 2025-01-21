@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AutoResizeDirective} from "../../auto-resize.directive";
+import {AutoResizeDirective} from "../../directives/auto-resize.directive";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {RssFeed} from "../rss-feed";

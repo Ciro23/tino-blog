@@ -6,8 +6,3 @@
   max-width: 100%;
   height: auto;
 }
-
-/**
-The HTML elements inside the article content must be changed in TypeScript!
-Doing that in CSS doesn't work.
-*/

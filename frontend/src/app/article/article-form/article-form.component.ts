@@ -4,7 +4,7 @@ import {Article} from "../article";
 import {ArticleService} from "../article-service";
 import {ActivatedRoute} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
-import {AutoResizeDirective} from "../../auto-resize.directive";
+import {AutoResizeDirective} from "../../directives/auto-resize.directive";
 import {MarkdownComponent} from "ngx-markdown";
 import {finalize} from "rxjs";
 
