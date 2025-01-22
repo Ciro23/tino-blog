@@ -5,16 +5,16 @@ import {AuthService} from "./auth.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class LoginGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
     if (this.authService.isTokenValid()) {
-      return true;
+      void this.router.navigate(['/manager']);
+      return false;
     }
 
-    void this.router.navigate(['/login']);
-    return false;
+    return true;
   }
 }
