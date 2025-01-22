@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AutoResizeDirective} from "../../directives/auto-resize.directive";
 import {FormsModule, NgForm, ReactiveFormsModule} from "@angular/forms";
 import {NgClass, NgIf} from "@angular/common";
 import {RssFeed} from "../rss-feed";
@@ -11,7 +10,6 @@ import {finalize} from "rxjs";
   selector: 'app-rss-feed-form',
   standalone: true,
   imports: [
-    AutoResizeDirective,
     FormsModule,
     NgIf,
     ReactiveFormsModule,

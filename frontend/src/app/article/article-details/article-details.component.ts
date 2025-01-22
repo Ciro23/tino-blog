@@ -9,6 +9,7 @@ import {MarkdownComponent, MarkdownService} from "ngx-markdown";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Title} from "@angular/platform-browser";
+import {Tokens} from "marked";
 
 @Component({
   selector: 'app-article',
@@ -67,7 +68,7 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   private openLinksInNewTab() {
-    this.markdownService.renderer.link = (href: string, title: string, text: string) => {
+    this.markdownService.renderer.link = ({ href, title, text }: Tokens.Link) => {
       const titleAttr = title ? ` title="${title}"` : '';
       return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
     };

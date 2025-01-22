@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {NgClass, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {Article} from "../article";
 import {AuthService} from "../../authentication/auth.service";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
@@ -10,9 +9,7 @@ import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
   standalone: true,
   templateUrl: './article-snippet.component.html',
   imports: [
-    RouterLink,
-    NgIf,
-    NgClass
+    NgIf
   ]
 })
 export class ArticleSnippetComponent {

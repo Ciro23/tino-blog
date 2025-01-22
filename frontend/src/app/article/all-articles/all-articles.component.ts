@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {Article} from "../article";
 import {ArticleListComponent} from "../article-list/article-list.component";
 import {ArticleService} from "../article-service";
@@ -10,8 +9,6 @@ import {finalize} from "rxjs";
   selector: 'app-all-articles',
   standalone: true,
   imports: [
-    NgForOf,
-    RouterLink,
     ArticleListComponent
   ],
   templateUrl: './all-articles.component.html',

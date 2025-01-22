@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
-import {MarkdownComponent} from "ngx-markdown";
-import {NgForOf, NgIf} from "@angular/common";
+import {Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
+import {NgIf} from "@angular/common";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 import {DomSanitizer, SafeHtml, Title} from "@angular/platform-browser";
 import {RssArticle} from "../rss-article";
@@ -9,9 +8,7 @@ import {RssArticle} from "../rss-article";
   selector: 'app-rss-article-details',
   standalone: true,
   imports: [
-    MarkdownComponent,
-    NgIf,
-    NgForOf
+    NgIf
   ],
   templateUrl: './rss-article-details.component.html',
   styleUrl: './rss-article-details.component.css',

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ArticleSnippetComponent} from "../article-snippet/article-snippet.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
 import {ArticleListComponent} from "../article-list/article-list.component";
@@ -12,8 +11,6 @@ import {finalize} from "rxjs";
   standalone: true,
   templateUrl: './latest-articles.component.html',
   imports: [
-    ArticleSnippetComponent,
-    NgForOf,
     RouterLink,
     ArticleListComponent,
     NgIf
