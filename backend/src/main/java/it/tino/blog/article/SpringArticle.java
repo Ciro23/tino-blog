@@ -19,6 +19,9 @@ public class SpringArticle {
     @Column(nullable = false)
     private String title = "";
 
+    @Column(nullable = false, updatable = false, unique = true)
+    private String slug = "";
+
     @Column(nullable = false)
     private String shortDescription = "";
 

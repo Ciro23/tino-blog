@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormsModule, NgForm} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Article} from "../article";
 import {ArticleService} from "../article-service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
 import {AutoResizeDirective} from "../../directives/auto-resize.directive";
 import {MarkdownComponent} from "ngx-markdown";
@@ -15,18 +15,18 @@ import {finalize} from "rxjs";
     FormsModule,
     NgIf,
     AutoResizeDirective,
-    MarkdownComponent,
-    NgClass
+    NgClass,
+    ReactiveFormsModule
   ],
   templateUrl: './article-form.component.html',
 })
-export class ArticleFormComponent implements OnInit{
+export class ArticleFormComponent implements OnInit {
   /**
    * If undefined, the forms represents the creation of a new article,
    * otherwise an existing article is fetched from the backend to be
    * edited, given its id.
    */
-  readonly articleId?: string;
+  articleId?: string;
   loadingArticle: boolean = false;
 
   /**
@@ -36,6 +36,7 @@ export class ArticleFormComponent implements OnInit{
     id: '',
     creationDateTime: new Date(),
     title: '',
+    slug: '',
     minutesToRead: 0,
     shortDescription: '',
     content: ''
@@ -43,11 +44,13 @@ export class ArticleFormComponent implements OnInit{
 
   errorMessage: string = "";
 
-  constructor(private articleService: ArticleService, private route: ActivatedRoute) {
-    this.articleId = this.route.snapshot.paramMap.get('id')!;
-  }
+  constructor(
+    private articleService: ArticleService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
+    this.articleId = this.route.snapshot.paramMap.get('id')!;
     if (!this.articleId) {
       return;
     }

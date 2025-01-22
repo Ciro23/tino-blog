@@ -24,10 +24,14 @@
   <input type="hidden" [(ngModel)]="rssFeed!.id" name="id" />
 
   <label class="d-flex flex-column">
-    Description
+    Description*
     <input
       [(ngModel)]="rssFeed!.description"
-      [ngClass]="{'is-invalid': form.submitted && form.controls['description'].invalid}"
+      [ngClass]="{
+          'is-invalid': form.controls['description'] &&
+          (form.controls['description'].dirty || form.submitted) &&
+          form.controls['description'].invalid
+        }"
       name="description"
       type="text"
       maxlength="255"
@@ -37,10 +41,14 @@
   </label>
 
   <label class="d-flex flex-column">
-    URL
+    URL*
     <input
       [(ngModel)]="rssFeed!.url"
-      [ngClass]="{'is-invalid': form.submitted && form.controls['url'].invalid}"
+      [ngClass]="{
+          'is-invalid': form.controls['url'] &&
+          (form.controls['url'].dirty || form.submitted)
+          && form.controls['url'].invalid
+        }"
       name="url"
       type="text"
       maxlength="255"

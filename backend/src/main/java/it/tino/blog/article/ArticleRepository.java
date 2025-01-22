@@ -11,6 +11,7 @@ public interface ArticleRepository {
     List<BlogArticle> findAll();
     List<BlogArticle> findWithLimit(int numberOfArticlesToLoad);
     Optional<BlogArticle> findById(UUID id);
+    Optional<BlogArticle> findBySlug(String slug);
 
     boolean deleteById(UUID id);
 }

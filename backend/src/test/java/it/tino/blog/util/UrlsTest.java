@@ -18,13 +18,13 @@ public class UrlsTest {
     }
 
     @Test
-    public void shouldJoinWordsWithDash() {
+    public void shouldJoinWordsWithHyphen() {
         String actual = Urls.makeStringUrlCompatible("word1 word2 word3");
         Assertions.assertEquals("word1-word2-word3", actual);
     }
 
     @Test
-    public void shouldNotHaveTrailingDashes() {
+    public void shouldNotHaveTrailingHyphens() {
         String actual = Urls.makeStringUrlCompatible(" word1 word2 word3 ");
         Assertions.assertEquals("word1-word2-word3", actual);
     }
@@ -37,7 +37,19 @@ public class UrlsTest {
 
     @Test
     public void testSpecialCharacters() {
-        String actual = Urls.makeStringUrlCompatible("?word1*word2&word3!");
-        Assertions.assertEquals("word1word2word3", actual);
+        String actual = Urls.makeStringUrlCompatible("?*&!.()/%$£\"'éèòçà°ù§+,;:<>^");
+        Assertions.assertEquals("", actual);
+    }
+
+    @Test
+    public void shouldPreserveHyphensBetweenWords() {
+        String actual = Urls.makeStringUrlCompatible("hello---world");
+        Assertions.assertEquals("hello-world", actual);
+    }
+
+    @Test
+    public void shouldDeleteTrailingHyphens() {
+        String actual = Urls.makeStringUrlCompatible("----hello-world-");
+        Assertions.assertEquals("hello-world", actual);
     }
 }

@@ -5,10 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("articles")
@@ -31,10 +28,26 @@ public class ArticleController {
         return new ResponseEntity<>(new TreeSet<>(articles), HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<BlogArticle> getArticle(@PathVariable UUID id) {
-        return articleRepository
-                .findById(id)
+    /**
+     * Search an article from both its UUID or slug.<br>
+     * Most of the time the requests will use the slug, but UUID is still
+     * support to keep compatibility previous version, since initially
+     * the only search available was by UUID.
+     * @param identifier Contains the UUID of the article, or its slug.
+     * @return The corresponding article.
+     * @see <a href="https://en.wikipedia.org/wiki/Clean_URL#Slug">Slug | Wikipedia</a>
+     */
+    @GetMapping("{identifier}")
+    public ResponseEntity<BlogArticle> getArticle(@PathVariable String identifier) {
+        Optional<BlogArticle> optionalBlogArticle;
+        try {
+            UUID uuid = UUID.fromString(identifier);
+            optionalBlogArticle = articleRepository.findById(uuid);
+        } catch (IllegalArgumentException e) {
+            optionalBlogArticle = articleRepository.findBySlug(identifier);
+        }
+
+        return optionalBlogArticle
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

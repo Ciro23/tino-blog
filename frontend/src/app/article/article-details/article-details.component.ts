@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Article} from "../article";
@@ -57,7 +57,7 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   private deleteArticle(): void {
-    this.articleService.deleteArticle(this.articleId).subscribe({
+    this.articleService.deleteArticle(this.article!.id).subscribe({
       next: response => {
         if (response.status === 204) {
           window.history.back();

@@ -31,7 +31,8 @@ CREATE TABLE public.articles
     content            text                        NOT NULL,
     creation_date_time timestamp(6) with time zone NOT NULL,
     short_description  character varying(255)      NOT NULL,
-    title              character varying(255)      NOT NULL
+    title              character varying(255)      NOT NULL,
+    slug               character varying(255)      NOT NULL
 );
 
 
@@ -98,6 +99,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT ukr43af9ap4edm43mmtq01oddj6 UNIQUE (username);
+
+
+--
+-- Name: articles uksn7al9fwhgtf98rvn8nxhjt4f; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.articles
+    ADD CONSTRAINT uksn7al9fwhgtf98rvn8nxhjt4f UNIQUE (slug);
 
 
 --

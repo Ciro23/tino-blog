@@ -40,7 +40,7 @@ services:
       - POSTGRES_INITDB_ARGS=--auth=scram-sha-256
     volumes:
       # the prefix "01", "02" (etc.) is necessary because they're executed in alphabetical order!
-      - ./backend/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
       - ./backend/src/main/resources/data.sql:/docker-entrypoint-initdb.d/02-data.sql
       - db-data:/var/lib/postgresql/data
     ports:

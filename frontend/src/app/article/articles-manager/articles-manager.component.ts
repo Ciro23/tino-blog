@@ -4,9 +4,9 @@ import {ArticleListComponent} from "../article-list/article-list.component";
 import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ArticleService} from "../article-service";
-import {Article} from "../article";
 import {NgIf} from "@angular/common";
 import {finalize} from "rxjs";
+import {Article} from "../article";
 
 @Component({
   selector: 'app-articles-manager',

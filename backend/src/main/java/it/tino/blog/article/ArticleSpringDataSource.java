@@ -48,6 +48,13 @@ public class ArticleSpringDataSource implements ArticleRepository {
     }
 
     @Override
+    public Optional<BlogArticle> findBySlug(String slug) {
+        return articleDao
+                .findBySlug(slug)
+                .map(this::dbToDomain);
+    }
+
+    @Override
     public boolean deleteById(UUID id) {
         if (articleDao.existsById(id)) {
             articleDao.deleteById(id);
@@ -60,6 +67,7 @@ public class ArticleSpringDataSource implements ArticleRepository {
         SpringArticle a = new SpringArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
+        a.setSlug(article.getSlug());
         a.setShortDescription(article.getShortDescription());
         a.setContent(article.getContent());
         a.setCreationDateTime(article.getCreationDateTime());
@@ -76,6 +84,7 @@ public class ArticleSpringDataSource implements ArticleRepository {
         BlogArticle a = new BlogArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
+        a.setSlug(article.getSlug());
         a.setShortDescription(article.getShortDescription());
         a.setContent(article.getContent());
         a.setCreationDateTime(article.getCreationDateTime());

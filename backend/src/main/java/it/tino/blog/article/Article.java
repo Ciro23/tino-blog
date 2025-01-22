@@ -1,6 +1,7 @@
 package it.tino.blog.article;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import it.tino.blog.util.Urls;
 import lombok.Data;
 
 import java.time.Instant;
@@ -9,6 +10,7 @@ import java.time.Instant;
 public class Article implements Comparable<Article> {
 
     private String title = "";
+    private String slug = "";
     private String shortDescription = "";
 
     private String category;
@@ -16,6 +18,10 @@ public class Article implements Comparable<Article> {
 
     private String content = "";
     private Instant creationDateTime;
+
+    public void setSlug(String slug) {
+         this.slug = Urls.makeStringUrlCompatible(slug);
+    }
 
     @JsonProperty("minutesToRead")
     public double getMinutesToRead() {

@@ -18,7 +18,7 @@ import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 export class ArticleSnippetComponent {
   @Input() article!: Article;
 
-  @Input() onView!: (id: string) => void;
+  @Input() onView!: (slug: string) => void;
   @Input() onEdit?: (id: string) => void;
   @Input() onDelete?: (id: string) => void;
 

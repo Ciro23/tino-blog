@@ -1,8 +1,9 @@
 export interface Article {
-  id: string;
+  id: string,
   creationDateTime?: Date;
 
   title: string;
+  slug: string;
   minutesToRead: number;
 
   category?: string;

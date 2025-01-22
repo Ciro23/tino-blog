@@ -9,12 +9,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class RssArticle extends Article {
 
-    private String id;
-
     @Override
-    public void setTitle(String title) {
-        super.setTitle(title);
-        id = Urls.makeStringUrlCompatible(title);
+    public String getSlug() {
+        return Urls.makeStringUrlCompatible(getTitle());
     }
 
     @Override

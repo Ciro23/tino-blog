@@ -21,7 +21,7 @@ export class ArticleListComponent {
 
   @Input() loadingArticles: boolean = false;
 
-  @Input() onViewArticle!: (id: string) => void;
+  @Input() onViewArticle!: (slug: string) => void;
   @Input() onEditArticle?: (id: string) => void;
   @Input() onDeleteArticle?: (id: string) => void;
 }

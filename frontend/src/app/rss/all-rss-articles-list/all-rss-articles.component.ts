@@ -52,14 +52,14 @@ export class AllRssArticlesComponent implements OnInit {
     });
   }
 
-  openArticle = (id: string): void => {
+  openArticle = (slug: string): void => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
-    if (window.history.state?.url !== `/rss-aggregator/${id}`) {
-      window.history.pushState({ url: `/rss-aggregator/${id}` }, "", `/rss-aggregator/${id}`);
+    if (window.history.state?.url !== `/rss-aggregator/${slug}`) {
+      window.history.pushState({ url: `/rss-aggregator/${slug}` }, "", `/rss-aggregator/${slug}`);
     }
 
-    this.selectedArticle = this.articles!.filter((a) => a.id == id)[0];
+    this.selectedArticle = this.articles!.filter((a) => a.slug == slug)[0];
   }
 
   reloadRssArticles() {
