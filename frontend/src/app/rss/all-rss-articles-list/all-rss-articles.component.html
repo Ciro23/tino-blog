@@ -1,26 +1,28 @@
-<div
-  *ngIf="selectedArticle == undefined"
-  class="d-flex flex-column gap-4">
-  <div class="d-flex flex-wrap align-items-center justify-content-between">
-    <h2
-      *ngIf="selectedArticle == undefined && selectedArticleId == undefined"
-      class="title">
-      Articles from useful RSS feeds
-    </h2>
+<div class="width-700">
+  <div
+    *ngIf="selectedArticle == undefined"
+    class="d-flex flex-column gap-4">
+    <div class="d-flex flex-wrap align-items-center justify-content-between">
+      <h2
+        *ngIf="selectedArticle == undefined && selectedArticleId == undefined"
+        class="title">
+        Articles from useful RSS feeds
+      </h2>
 
-    <button
-      *ngIf="authService.isTokenValid() && selectedArticleId == undefined && !loadingArticles"
-      (click)="reloadRssArticles()"
-      class="btn btn-secondary bi bi-arrow-clockwise ms-auto"> Reload cache</button>
+      <button
+        *ngIf="authService.isTokenValid() && selectedArticleId == undefined && !loadingArticles"
+        (click)="reloadRssArticles()"
+        class="btn btn-secondary bi bi-arrow-clockwise ms-auto"> Reload cache</button>
+    </div>
+
+    <app-article-list
+      *ngIf="selectedArticle == undefined"
+      [articles]="articles"
+      [loadingArticles]="loadingArticles"
+      [onViewArticle]="openArticle"></app-article-list>
   </div>
 
-  <app-article-list
-    *ngIf="selectedArticle == undefined"
-    [articles]="articles"
-    [loadingArticles]="loadingArticles"
-    [onViewArticle]="openArticle"></app-article-list>
+  <app-rss-article-details
+    *ngIf="selectedArticle != undefined"
+    [article]="selectedArticle!"></app-rss-article-details>
 </div>
-
-<app-rss-article-details
-  *ngIf="selectedArticle != undefined"
-  [article]="selectedArticle!"></app-rss-article-details>

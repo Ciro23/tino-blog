@@ -2,7 +2,41 @@
   word-wrap: break-word;
 }
 
+.content * {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .content img {
   max-width: 100%;
   height: auto;
+}
+
+.content h1 {
+  max-width: 1000px;
+}
+
+.content div:has(> pre) {
+  width: fit-content;
+  max-width: 1000px;
+}
+
+.content div > pre {
+  font-size: 0.95rem;
+  min-width: 700px;
+  max-width: 1000px;
+  width: fit-content;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .content div:has(> pre) {
+    width: 100%;
+  }
+
+  .content div > pre {
+    min-width: auto;
+    width: 100%;
+  }
 }

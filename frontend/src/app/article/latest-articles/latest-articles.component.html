@@ -1,11 +1,13 @@
-<h2 class="title">Latest articles</h2>
-<span class="d-flex flex-column gap-4">
-  <app-article-list
-    [articles]="articles"
-    [loadingArticles]="loadingArticles"
-    [onViewArticle]="onViewArticle"></app-article-list>
-  <a
-    *ngIf="!loadingArticles && articles !== undefined && articles!.length > 0"
-    class="btn btn-secondary"
-    routerLink="/articles">Load all</a>
-</span>
+<div class="width-700">
+  <h2 class="title">Latest articles</h2>
+  <span class="d-flex flex-column gap-4">
+    <app-article-list
+      [articles]="articles"
+      [loadingArticles]="loadingArticles"
+      [onViewArticle]="onViewArticle"></app-article-list>
+    <a
+      *ngIf="!loadingArticles && articles !== undefined && articles!.length > 0"
+      class="btn btn-secondary"
+      routerLink="/articles">Load all</a>
+  </span>
+</div>

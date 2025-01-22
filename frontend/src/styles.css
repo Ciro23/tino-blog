@@ -12,8 +12,17 @@ a {
   color: inherit;
 }
 
+.width-700 {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.width-900 {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .page-content {
-  width: 700px;
   min-height: 75vh;
   margin: 0 auto;
   flex-grow: 1;

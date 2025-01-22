@@ -1,19 +1,20 @@
-<h1 *ngIf="!articleId" class="title">Create a new article</h1>
-<h1 *ngIf="articleId" class="title">Edit article</h1>
+<div class="width-700">
+  <h1 *ngIf="!articleId" class="title">Create a new article</h1>
+  <h1 *ngIf="articleId" class="title">Edit article</h1>
 
-<div
-  *ngIf="loadingArticle"
-  class="position-fixed top-50 start-50 translate-middle">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+  <div
+    *ngIf="loadingArticle"
+    class="position-fixed top-50 start-50 translate-middle">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
 
-<p
-  *ngIf="article === undefined"
-  class="text-center text-danger fs-5">
-  An error has occurred x_x
-</p>
+  <p
+    *ngIf="article === undefined"
+    class="text-center text-danger fs-5">
+    An error has occurred x_x
+  </p>
 
 <form
   *ngIf="!loadingArticle && article !== undefined"
@@ -104,7 +105,8 @@
   <button *ngIf="!articleId" type="submit" class="btn btn-primary">Publish</button>
   <button *ngIf="articleId" type="submit" class="btn btn-primary">Save changes</button>
 
-  <p
-    *ngIf="errorMessage !== ''"
-    class="text-center text-danger">{{ errorMessage }}</p>
-</form>
+    <p
+      *ngIf="errorMessage !== ''"
+      class="text-center text-danger">{{ errorMessage }}</p>
+  </form>
+</div>
