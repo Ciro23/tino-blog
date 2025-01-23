@@ -1,5 +1,5 @@
 # Stage 1: Compile and build Angular codebase
-FROM node:latest AS build
+FROM node:22.13.1-slim AS build
 
 WORKDIR /usr/local/app
 COPY ./ /usr/local/app/
@@ -9,7 +9,7 @@ RUN npm install
 RUN npm run build
 
 # Stage 2: Serve app with nginx server
-FROM nginx:latest
+FROM nginx:1.26.2
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/frontend/browser /usr/share/nginx/html
