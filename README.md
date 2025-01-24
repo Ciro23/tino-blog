@@ -106,10 +106,13 @@ reduce the server's workload... bandwidth ain't free.
 
 ---
 
+## Contributing
+
 ### In case of database changes
 
-If the database schema changes, the DDL instructions must be exported into the file `backend/schema.sql`, which is used
-to build the Docker image for the database. This can be done with:
+If the database schema changes, the DDL instructions must be exported into the file
+`backend/src/main/resources/schema.sql`, which is used when building the Docker image for the database.  
+This can be done with:
 
 ```shell
 pg_dump -U db_username tino_blog >> schema.sql
