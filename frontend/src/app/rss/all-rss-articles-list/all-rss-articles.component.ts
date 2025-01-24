@@ -1,21 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {RssService} from "../rss.service";
-import {Article} from "../../article/article";
 import {ArticleListComponent} from "../../article/article-list/article-list.component";
-import {RssArticleDetailsComponent} from "../rss-article-details/rss-article-details.component";
 import {NgIf} from "@angular/common";
-import {filter, finalize, Subscription} from "rxjs";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {finalize} from "rxjs";
+import {Router} from "@angular/router";
 import {AuthService} from "../../authentication/auth.service";
 import {RssArticle} from "../rss-article";
-import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-rss-aggregator',
   standalone: true,
   imports: [
     ArticleListComponent,
-    RssArticleDetailsComponent,
     NgIf
   ],
   templateUrl: './all-rss-articles.component.html'
@@ -24,42 +20,14 @@ export class AllRssArticlesComponent implements OnInit {
   articles?: RssArticle[] = [];
   loadingArticles: boolean = true;
 
-  selectedArticle?: RssArticle;
-  selectedArticleId?: string;
-
-  private routerSubscription!: Subscription;
-
   constructor(
     protected authService: AuthService,
     private rssService: RssService,
     private router: Router,
-    private route: ActivatedRoute,
-    private title: Title
-  ) {
-    this.selectedArticleId = this.route.snapshot.paramMap.get('id') ?? undefined;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.fetchRssArticles();
-
-    this.routerSubscription = this.router.events.pipe(
-      filter(event =>
-        (event instanceof NavigationEnd) ||
-        (this.router.getCurrentNavigation()?.trigger === 'popstate')
-      )
-    ).subscribe(() => {
-      this.closeArticle();
-    });
-  }
-
-  openArticle = (slug: string): void => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-
-    if (window.history.state?.url !== `/rss-aggregator/${slug}`) {
-      window.history.pushState({ url: `/rss-aggregator/${slug}` }, "", `/rss-aggregator/${slug}`);
-    }
-
-    this.selectedArticle = this.articles!.filter((a) => a.slug == slug)[0];
   }
 
   reloadRssArticles() {
@@ -90,10 +58,6 @@ export class AllRssArticlesComponent implements OnInit {
       .subscribe({
         next: articles => {
           this.articles = articles;
-
-          if (this.selectedArticleId != undefined) {
-            this.openArticle(this.selectedArticleId!);
-          }
         },
         error: () => {
           this.articles = undefined;
@@ -101,9 +65,7 @@ export class AllRssArticlesComponent implements OnInit {
       });
   }
 
-  private closeArticle() {
-    this.title.setTitle("RSS - Tino Blog");
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    this.selectedArticle = undefined;
+  onViewRssArticle = (slug: string) => {
+    void this.router.navigate(["/rss/articles", slug]);
   }
 }

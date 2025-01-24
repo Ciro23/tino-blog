@@ -45,6 +45,7 @@ public class WebConfig {
                                 .requestMatchers(HttpMethod.POST, "/**").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
+                                .requestMatchers("/rss/articles/reload").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))

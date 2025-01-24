@@ -7,10 +7,13 @@ SET slug = LOWER(
                 REGEXP_REPLACE(
                         REGEXP_REPLACE(
                                 REGEXP_REPLACE(
-                                        title,
-                                        '[^a-zA-Z0-9\s-]', '', 'g' -- Remove special characters except hyphens
+                                        REGEXP_REPLACE(
+                                                title,
+                                                '[^a-zA-Z0-9\s.\-]', '', 'g' -- Remove special characters except hyphens and dots
+                                        ),
+                                        '\s+', '-', 'g' -- Replace spaces with hyphens
                                 ),
-                                '\s+', '-', 'g' -- Replace spaces with hyphens
+                                '\.+', '-', 'g' -- Replace one or more dots with a single hyphen
                         ),
                         '-+', '-', 'g' -- Remove consecutive hyphens
                 ),

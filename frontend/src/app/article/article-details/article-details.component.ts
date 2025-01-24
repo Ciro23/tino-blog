@@ -20,7 +20,7 @@ import {Tokens} from "marked";
   encapsulation: ViewEncapsulation.None,
 })
 export class ArticleDetailsComponent implements OnInit {
-  private articleId: string;
+  articleId?: string;
   article?: Article;
 
   constructor(
@@ -31,11 +31,10 @@ export class ArticleDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private title: Title,
     private markdownService: MarkdownService,
-  ) {
-    this.articleId = this.route.snapshot.paramMap.get('id')!;
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.articleId = this.route.snapshot.paramMap.get('id')!;
     this.articleService.fetchArticleById(this.articleId).subscribe({
       next: article => {
         this.article = article;

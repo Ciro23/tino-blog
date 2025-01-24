@@ -37,8 +37,14 @@ public class UrlsTest {
 
     @Test
     public void testSpecialCharacters() {
-        String actual = Urls.makeStringUrlCompatible("?*&!.()/%$£\"'éèòçà°ù§+,;:<>^");
+        String actual = Urls.makeStringUrlCompatible("\\|!\"£$%&/()=?^ìèé+*òçà°ù§,;.:-_<>@#");
         Assertions.assertEquals("", actual);
+    }
+
+    @Test
+    public void testWithDots() {
+        String actual = Urls.makeStringUrlCompatible("1.0..0");
+        Assertions.assertEquals("1-0-0", actual);
     }
 
     @Test

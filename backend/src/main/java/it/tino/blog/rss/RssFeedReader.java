@@ -11,26 +11,14 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Component
 @RequiredArgsConstructor
 @Log4j2
-public class RssAggregator {
-
-    public Set<RssArticle> readRssFeeds(Collection<RssFeed> rssFeeds) {
-        Set<RssArticle> rssArticles = new TreeSet<>();
-        for (RssFeed rssFeed : rssFeeds) {
-            try {
-                Set<RssArticle> feed = readRssFeed(rssFeed);
-                rssArticles.addAll(feed);
-            } catch (RssParsingException e) {
-                log.error("Error fetching articles of feed '" + rssFeed.getUrl() + "'");
-            }
-        }
-
-        return rssArticles;
-    }
+public class RssFeedReader {
 
     public Set<RssArticle> readRssFeed(RssFeed rssFeed) {
         URL url = parseUrl(rssFeed.getUrl());

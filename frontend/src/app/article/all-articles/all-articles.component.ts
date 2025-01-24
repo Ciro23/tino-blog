@@ -39,7 +39,7 @@ export class AllArticlesComponent implements OnInit {
     });
   }
 
-  onViewArticle = (id: string) => {
-    void this.router.navigate(["/articles", id]);
+  onViewArticle = (slug: string) => {
+    void this.router.navigate(["/articles", slug]);
   }
 }

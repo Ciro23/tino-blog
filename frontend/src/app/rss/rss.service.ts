@@ -42,6 +42,10 @@ export class RssService {
     return this.http.get<RssArticle[]>(`${this.apiUrl}/articles`);
   }
 
+  fetchRssArticleById(id: string): Observable<RssArticle> {
+    return this.http.get<RssArticle>(`${this.apiUrl}/articles/${id}`);
+  }
+
   reloadRssArticles(): Observable<any> {
     return this.http.get(`${this.apiUrl}/articles/reload`, { observe: "response" })
   }
