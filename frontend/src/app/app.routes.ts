@@ -11,9 +11,10 @@ import {ManagerComponent} from "./manager/manager.component";
 import {RssFeedFormComponent} from "./rss/rss-feed-form/rss-feed-form.component";
 import {LoginGuard} from "./authentication/login-guard.guard";
 import {RssArticleDetailsComponent} from "./rss/rss-article-details/rss-article-details.component";
+import {HomeComponent} from "./home/home/home.component";
 
 export const routes: Routes = [
-  { title: 'Home - Tino Blog', path: '', component: LatestArticlesComponent },
+  { title: 'Home - Tino Blog', path: '', component: HomeComponent },
   { title: 'Login - Tino Blog', path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { title: 'Manager - Tino Blog', path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { title: 'Articles - Tino Blog', path: 'articles', component: AllArticlesComponent },
