@@ -8,5 +8,5 @@ COPY src/main/resources/certs ./src/main/resources/certs
 
 RUN mvn clean package
 
-RUN mv target/tino-blog-1.0.1.war app.war
+RUN mv target/tino-blog-1.1.0.war app.war
 ENTRYPOINT ["java", "-jar", "app.war"]
