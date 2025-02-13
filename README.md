@@ -89,11 +89,13 @@ reduce the server's workload... bandwidth ain't free.
    user authentication.
 2. The database must be created manually using PostgreSQL: the default name is "tino_blog", but it can be customized
    using environment variables (see point number 3): the tables will be created by Spring during the first run.
-3. To initialize the database with the default data, the property `spring.sql.init.mode`,
-   inside `application-dev.properties` must be set to `always` (change it back after the first initialization, or it will
-   execute every time the application is run).
+3. To initialize the database with default data (first user and a bunch of RSS feeds), you can run this:
 
-   > The first admin user is created automatically:  
+   ```postgres
+   psql -U postgres -d tino_blog -f backend/src/main/resources/data.sql
+   ```
+
+   > Credentials of the first admin user, created during data initialization:  
    > **Email**: admin@test.org  
    > **Password**: password
 
