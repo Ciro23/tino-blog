@@ -7,7 +7,11 @@ services:
       tags:
         - tino-blog-frontend:1.1.0
     ports:
-      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+    volumes:
+      - ${SSL_CERTIFICATES_PATH}:/etc/nginx/ssl
     depends_on:
       - backend
     networks:
