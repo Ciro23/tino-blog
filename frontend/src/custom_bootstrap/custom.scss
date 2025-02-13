@@ -9,7 +9,7 @@ $body-bg-dark: #010409;
 $code-color: #AAADB2;
 $danger: #a22323;
 $border-color-dark: #3D444D;
-$font-size-base: 1.1rem;
+$font-size-base: 1.05rem;
 $line-height-base: 1.6;
 
 // 3. Now import the required Bootstrap SCSS files
@@ -23,6 +23,30 @@ $line-height-base: 1.6;
 @import "../../node_modules/bootstrap/scss/type";
 @import "../../node_modules/bootstrap/scss/buttons";
 @import "../../node_modules/bootstrap/scss/root";
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-size: 1.45rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.2rem;
+}
+
+h6 {
+  font-size: 1.15rem;
+}
 
 blockquote {
   border-left: 0.25rem solid #AAADB2;
