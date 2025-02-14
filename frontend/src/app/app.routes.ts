@@ -14,7 +14,7 @@ import {RssArticleDetailsComponent} from "./rss/rss-article-details/rss-article-
 import {HomeComponent} from "./home/home/home.component";
 
 export const routes: Routes = [
-  { title: 'Home - Tino Blog', path: '', component: HomeComponent },
+  { title: 'Tino Blog - Tech and Software development insights', path: '', component: HomeComponent },
   { title: 'Login - Tino Blog', path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { title: 'Manager - Tino Blog', path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { title: 'Articles - Tino Blog', path: 'articles', component: AllArticlesComponent },

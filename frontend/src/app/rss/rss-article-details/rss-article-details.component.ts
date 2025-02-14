@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
 import {DomSanitizer, SafeHtml, Title} from "@angular/platform-browser";
