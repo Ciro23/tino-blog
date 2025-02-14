@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
 import {AutoResizeDirective} from "../../directives/auto-resize.directive";
 import {finalize} from "rxjs";
+import {makeStringUrlCompatible} from "../../utilities/url-utilities";
 
 @Component({
   selector: 'app-article-form',
@@ -43,6 +44,18 @@ export class ArticleFormComponent implements OnInit {
 
   errorMessage: string = "";
 
+  /**
+   * True to display the button to generate the URL slug, starting
+   * from the title, false otherwise.
+   */
+  showGenerateSlugButton: boolean = false;
+
+  /**
+   * True when {@link article.slug} is directly changed by
+   * the user, false otherwise.
+   */
+  slugManuallyChanged: boolean = false;
+
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
@@ -69,6 +82,20 @@ export class ArticleFormComponent implements OnInit {
           this.article = undefined;
         }
       })
+  }
+
+  onTitleChanged(title: string): void {
+    if (this.slugManuallyChanged) {
+      this.showGenerateSlugButton = true;
+    } else {
+      this.generateSlug(title);
+    }
+  }
+
+  generateSlug(title: string): void {
+    this.article!.slug = makeStringUrlCompatible(title);
+    this.slugManuallyChanged = false;
+    this.showGenerateSlugButton = false;
   }
 
   onSubmit(form: NgForm): void {

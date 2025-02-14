@@ -3,7 +3,8 @@ package it.tino.blog.util;
 public class Urls {
 
     /**
-     * E.g.
+     * Converts a string into a URL-friendly format.<br>
+     * Examples:
      * <ul>
      *     <li>"HELLO WORLD" => "hello-world"</li>
      *     <li>" hello world " => "hello-world"</li>

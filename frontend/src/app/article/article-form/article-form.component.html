@@ -29,6 +29,7 @@
     Title*
     <input
       [(ngModel)]="article!.title"
+      (ngModelChange)="onTitleChanged($event)"
       [ngClass]="{
           'is-invalid': form.controls['title'] &&
           (form.controls['title'].dirty || form.submitted) &&
@@ -47,25 +48,34 @@
 
     <span class="small">
         <span class="small">Lowercase letters, numbers and hyphens only. No trailing or consecutive hyphens</span>
-      </span>
-    <span class="text-warning" style="font-size: 0.9rem">
+    </span>
 
-      </span>
-    <input
-      [(ngModel)]="article!.slug"
-      [ngClass]="{
-          'is-invalid': form.controls['slug'] &&
-          (form.controls['slug'].dirty || form.submitted) &&
-          form.controls['slug'].invalid
-        }"
-      [disabled]="articleId != undefined"
-      pattern="^[a-z0-9]+(-[a-z0-9]+)*$"
-      name="slug"
-      type="text"
-      maxlength="255"
-      class="form-control"
-      autocomplete="off"
-      required>
+    <span class="d-flex gap-2">
+      <button
+        *ngIf="showGenerateSlugButton"
+        (click)="generateSlug(article!.title)"
+        type="button"
+        class="btn btn-secondary">
+        <i class="bi bi-arrow-clockwise"></i>
+      </button>
+
+      <input
+        [(ngModel)]="article!.slug"
+        (ngModelChange)="slugManuallyChanged = true"
+        [ngClass]="{
+            'is-invalid': form.controls['slug'] &&
+            (form.controls['slug'].dirty || form.submitted) &&
+            form.controls['slug'].invalid
+          }"
+        [disabled]="articleId != undefined"
+        pattern="^[a-z0-9]+(-[a-z0-9]+)*$"
+        name="slug"
+        type="text"
+        maxlength="255"
+        class="form-control"
+        autocomplete="off"
+        required>
+    </span>
   </label>
 
   <label class="d-flex flex-column">
