@@ -10,9 +10,36 @@
   <meta name="theme-color" content="#010409">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#010409">
+
+  <style>
+    app-root {
+      opacity: 0;
+    }
+
+    /* noinspection CssUnusedSymbol */
+    app-root.fonts-loaded {
+      opacity: 1;
+      transition: opacity 0.1s;
+    }
+  </style>
 </head>
 <body>
+  <!-- Just a loading spinner to display while the fonts are being loaded -->
+  <div id="initial-loading" class="d-flex justify-content-center align-items-center vh-100">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
+<script>
+  // This is used to hide the website's content until the fonts have loaded,
+  // to avoid text to jump from a typeface to another in front of the user.
+  document.fonts.ready.then(() => {
+    document.querySelector('app-root').classList.add('fonts-loaded');
+    document.querySelector('#initial-loading').classList.add('d-none');
+  });
+</script>
 </html>
