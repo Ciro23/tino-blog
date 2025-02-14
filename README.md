@@ -115,7 +115,7 @@ reduce the server's workload... bandwidth ain't free.
 6. Run the backend:
 
    ```shell
-   java -jar target/tino-blog-1.1.0.war
+   java -jar target/tino-blog-1.2.0.war
    ```
 
 7. Navigate to the `frontend` directory and run it:
