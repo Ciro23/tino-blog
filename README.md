@@ -5,12 +5,12 @@ This is my blog, built for my own needs.
 ## Features
 
 - Non-authenticated users are only able to:
-    - Read the published articles.
-    - Read the articles from a bunch of RSS feeds I find useful, mostly programming related.
+  - Read the published articles.
+  - Read the articles from a bunch of RSS feeds I find useful, mostly programming related.
 - Authenticated users are also able to:
-    - Manage articles (publish, edit and delete).
-    - Manage the followed RSS feeds.
-    - Force the reload of the RSS feeds cache.
+  - Manage articles (publish, edit and delete).
+  - Manage the followed RSS feeds.
+  - Force the reload of the RSS feeds cache.
 
 The blog articles support Markdown and code syntax highlighting.
 
@@ -67,7 +67,7 @@ reduce the server's workload... bandwidth ain't free.
    WHERE id = '4c7dbc23-b524-4dd2-95f0-c0cb974588c7';
    ```
 
-6. Open the webapp: https://localhost
+6. Open the webapp: <https://localhost>
 
 ### Manual native setup (for local development only!)
 
@@ -79,53 +79,54 @@ reduce the server's workload... bandwidth ain't free.
 
 #### Steps
 
-> Remember that after modifying the files `*.properties`, it may be necessary to run:
+> Remember that after modifying the `*.properties` files, it may be necessary to re-run:
+>
 > ```shell
 > mvn clean package
 > ```
 
-1. Configure the Spring "active profile" to `dev`, so that `application-dev.properties` is used over
-   `application.properties`: this allows Spring to generate the database tables and to use default certificates for
-   user authentication.
-2. The database must be created manually using PostgreSQL: the default name is "tino_blog", but it can be customized
+1. The database must be created manually using PostgreSQL: the default name is "tino_blog", but it can be customized
    using environment variables (see point number 3): the tables will be created by Spring during the first run.
-3. To initialize the database with default data (first user and a bunch of RSS feeds), you can run this:
 
-   ```postgres
-   psql -U postgres -d tino_blog -f backend/src/main/resources/data.sql
-   ```
-
-   > Credentials of the first admin user, created during data initialization:  
-   > **Email**: admin@test.org  
-   > **Password**: password
-
-4. Configure the following environment variables for the backend (it can be done using IntelliJ IDEA "run configuration"
+2. Configure the following environment variables for the backend (it can be done using IntelliJ IDEA "run configuration"
    or via system, for example, by running `export MY_ENV_VAR=123` on Linux and macOS):
+
     - DB_HOST (default "localhost")
     - DB_PORT (default "5432")
     - DB_NAME (default "tino_blog")
     - DB_USER
     - DB_PASSWORD
-5. Navigate to the `backend` directory and compile it:
+
+3. Navigate to the `backend` directory and compile it:
 
    ```shell
    mvn clean package
    ```
 
-6. Run the backend:
+4. Run the backend:
 
    ```shell
-   java -jar target/tino-blog-1.2.0.war
+   java -jar -Dspring.profiles.active=dev target/tino-blog-1.2.0.war
    ```
 
-7. Navigate to the `frontend` directory and run it:
+5. To initialize the database with default data (first user and a bunch of RSS feeds), you can run this:
+
+   ```postgres
+   psql -U postgres -d tino_blog -f src/main/resources/data.sql
+   ```
+
+   > Credentials of the first admin user, created during data initialization:  
+   > **Email**: <admin@test.org>  
+   > **Password**: password
+
+6. Navigate to the `frontend` directory and run it:
 
    ```shell
    npm install
    ng serve
    ```
 
-8. Open the webapp: http://localhost:4200
+7. Open the webapp: <http://localhost:4200>
 
 ---
 
@@ -180,6 +181,6 @@ The full reference can be found [here](https://getbootstrap.com/docs/5.3/customi
 
 ---
 
-## Colors...
+## Colors
 
 Yes, I did steal some colors from the color palette of GitHub, as it's perfect, and I'm no good designer.
