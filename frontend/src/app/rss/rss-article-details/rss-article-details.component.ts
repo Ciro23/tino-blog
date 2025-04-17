@@ -41,12 +41,27 @@ export class RssArticleDetailsComponent implements OnInit {
       next: article => {
         this.article = article;
         this.title.setTitle(article.title + " - Tino Blog");
-        this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(this.article.content);
+
+        const cleanedHtml = this.stripInlineStyles(this.article.content);
+        this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(cleanedHtml);
       },
       error: () => {
         void this.router.navigate(['/404'], { skipLocationChange: true });
       }
     });
+  }
+
+  /**
+  * RSS articles should not dare trying to override my style.
+  */
+  private stripInlineStyles(html: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    doc.querySelectorAll('[style]').forEach(el => el.removeAttribute('style'));
+    doc.querySelectorAll('style').forEach(el => el.remove());
+
+    return doc.body.innerHTML;
   }
 
   protected readonly getFormattedCreationDateTime = getFormattedCreationDateTime;
