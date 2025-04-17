@@ -1,20 +1,20 @@
 import { Routes } from '@angular/router';
 import { LatestArticlesComponent } from './article/latest-articles/latest-articles.component';
-import {ArticleDetailsComponent} from "./article/article-details/article-details.component";
-import {LoginComponent} from "./authentication/login/login.component";
-import {ArticleFormComponent} from "./article/article-form/article-form.component";
-import {AllArticlesComponent} from "./article/all-articles/all-articles.component";
-import {AuthGuard} from "./authentication/auth-guard.guard";
-import {NotFoundComponent} from "./not-found/not-found.component";
-import {AllRssArticlesComponent} from "./rss/all-rss-articles-list/all-rss-articles.component";
-import {ManagerComponent} from "./manager/manager.component";
-import {RssFeedFormComponent} from "./rss/rss-feed-form/rss-feed-form.component";
-import {LoginGuard} from "./authentication/login-guard.guard";
-import {RssArticleDetailsComponent} from "./rss/rss-article-details/rss-article-details.component";
-import {HomeComponent} from "./home/home.component";
+import { ArticleDetailsComponent } from "./article/article-details/article-details.component";
+import { LoginComponent } from "./authentication/login/login.component";
+import { ArticleFormComponent } from "./article/article-form/article-form.component";
+import { AllArticlesComponent } from "./article/all-articles/all-articles.component";
+import { AuthGuard } from "./authentication/auth-guard.guard";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { AllRssArticlesComponent } from "./rss/all-rss-articles-list/all-rss-articles.component";
+import { ManagerComponent } from "./manager/manager.component";
+import { RssFeedFormComponent } from "./rss/rss-feed-form/rss-feed-form.component";
+import { LoginGuard } from "./authentication/login-guard.guard";
+import { RssArticleDetailsComponent } from "./rss/rss-article-details/rss-article-details.component";
+import { HomeComponent } from "./home/home.component";
 
 export const routes: Routes = [
-  { title: 'Tino Blog - Tech and Software development insights', path: '', component: HomeComponent },
+  { title: 'Tino Blog', path: '', component: HomeComponent },
   { title: 'Login - Tino Blog', path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { title: 'Manager - Tino Blog', path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { title: 'Articles - Tino Blog', path: 'articles', component: AllArticlesComponent },
