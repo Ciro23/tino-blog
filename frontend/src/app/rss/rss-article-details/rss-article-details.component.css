@@ -8,6 +8,41 @@
   margin-right: auto;
 }
 
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  position: absolute;
+  left: -2rem;
+  padding-right: 2rem;
+  opacity: 0;
+}
+.content h1 svg,
+.content h2 svg,
+.content h3 svg,
+.content h4 svg,
+.content h5 svg,
+.content h6 svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: currentColor;
+}
+
+.content h1:hover a,
+.content h2:hover a,
+.content h3:hover a,
+.content h4:hover a,
+.content h5:hover a,
+.content h6:hover a {
+  opacity: 1;
+}
+
+.content h1 a:hover,
+.content h2 a:hover,
+.content h3 a:hover,
+.content h4 a:hover,
+.content h5 a:hover,
+.content h6 a:hover {
+  opacity: 1;
+}
+
 .content img {
   display: block;
   max-width: 100%;
@@ -29,6 +64,7 @@
 .content h4,
 .content h5,
 .content h6 {
+  position: relative;
   margin-top: 2.7rem;
   margin-bottom: 1.3rem;
 }

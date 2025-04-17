@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgIf} from "@angular/common";
-import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {DomSanitizer, SafeHtml, Title} from "@angular/platform-browser";
-import {RssArticle} from "../rss-article";
-import {ActivatedRoute, Router} from "@angular/router";
-import {RssService} from "../rss.service";
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
+import { DomSanitizer, SafeHtml, Title } from "@angular/platform-browser";
+import { RssArticle } from "../rss-article";
+import { ActivatedRoute, Router } from "@angular/router";
+import { RssService } from "../rss.service";
 
 @Component({
   selector: 'app-rss-article-details',
@@ -16,7 +16,7 @@ import {RssService} from "../rss.service";
   styleUrl: './rss-article-details.component.css',
   encapsulation: ViewEncapsulation.None,
 })
-export class RssArticleDetailsComponent implements OnInit {
+export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
   articleId?: string;
   article?: RssArticle;
 
@@ -33,7 +33,7 @@ export class RssArticleDetailsComponent implements OnInit {
     private title: Title,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
@@ -51,6 +51,10 @@ export class RssArticleDetailsComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.handleAnchors();
+  }
+
   /**
   * RSS articles should not dare trying to override my style.
   */
@@ -62,6 +66,24 @@ export class RssArticleDetailsComponent implements OnInit {
     doc.querySelectorAll('style').forEach(el => el.remove());
 
     return doc.body.innerHTML;
+  }
+
+  /**
+  * A listener is required to make anchors work, otherwise they
+  * would redirect the user to "https://website-root.com/#the-anchor",
+  * instead of "https://website-root.com/rss/the-article#the-anchor".
+  */
+  handleAnchors(): void {
+    document.addEventListener('click', (e) => {
+      const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
+      if (anchor) {
+        e.preventDefault();
+        const href = anchor.getAttribute('href');
+        if (href) {
+          window.location.hash = href;
+        }
+      }
+    });
   }
 
   protected readonly getFormattedCreationDateTime = getFormattedCreationDateTime;
