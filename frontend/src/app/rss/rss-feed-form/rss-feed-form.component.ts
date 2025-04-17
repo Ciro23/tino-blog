@@ -29,7 +29,8 @@ export class RssFeedFormComponent implements OnInit {
   rssFeed?: RssFeed = {
     id: "",
     url: "",
-    description: ""
+    description: "",
+    showArticlesDescription: true
   }
 
   errorMessage: string = "";

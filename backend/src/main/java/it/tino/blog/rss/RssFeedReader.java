@@ -40,7 +40,11 @@ public class RssFeedReader {
                 article.setContent(entry.getContents().getFirst().getValue());
             }
 
-            if (!entry.getContents().isEmpty() && entry.getDescription() != null) {
+            if (
+                !entry.getContents().isEmpty()
+                && entry.getDescription() != null
+                && rssFeed.isShowArticlesDescription()
+            ) {
                 article.setShortDescription(entry.getDescription().getValue());
             }
 
@@ -49,7 +53,6 @@ public class RssFeedReader {
             }
 
             article.setCreationDateTime(entry.getPublishedDate().toInstant());
-
             articles.add(article);
         }
 

@@ -19,4 +19,9 @@ public class SpringRssFeed {
 
     @Column(nullable = false)
     private String description = "";
+
+    // "columnDefinition" was added to allow Hibernate
+    // to migrate existing rows automatically.
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private boolean showArticlesDescription = true;
 }

@@ -44,6 +44,7 @@ public class RssAggregatorController {
                 .map(a -> {
                     a.setDescription(rssFeed.getDescription());
                     a.setUrl(rssFeed.getUrl());
+                    a.setShowArticlesDescription(rssFeed.isShowArticlesDescription());
 
                     return rssFeedRepository.save(a);
                 })

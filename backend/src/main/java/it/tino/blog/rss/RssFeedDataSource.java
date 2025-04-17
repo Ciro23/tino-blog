@@ -45,7 +45,8 @@ public class RssFeedDataSource implements RssFeedRepository {
         db.setId(domain.getId());
         db.setUrl(domain.getUrl());
         db.setDescription(domain.getDescription());
-
+        db.setShowArticlesDescription(domain.isShowArticlesDescription());
+        
         return db;
     }
 
@@ -54,6 +55,7 @@ public class RssFeedDataSource implements RssFeedRepository {
         domain.setId(db.getId());
         domain.setUrl(db.getUrl());
         domain.setDescription(db.getDescription());
+        domain.setShowArticlesDescription(db.isShowArticlesDescription());
 
         return domain;
     }
