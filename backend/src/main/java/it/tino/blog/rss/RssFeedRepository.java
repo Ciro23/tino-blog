@@ -9,6 +9,7 @@ public interface RssFeedRepository {
     RssFeed save(RssFeed rssFeed);
 
     List<RssFeed> findAll();
+
     Optional<RssFeed> findById(UUID id);
 
     boolean deleteById(UUID id);

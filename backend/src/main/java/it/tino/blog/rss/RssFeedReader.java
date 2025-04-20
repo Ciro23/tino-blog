@@ -34,25 +34,45 @@ public class RssFeedReader {
             article.setCategoryUrl(rssFeed.getUrl());
 
             // Some RSS feeds put the content inside the <content> tag, while
-            // others in <description>. That's the reason of the following conditions.
+            // others in <description>. That's the reason of the following
+            // conditions.
 
-            if (!entry.getContents().isEmpty()) {
-                article.setContent(entry.getContents().getFirst().getValue());
+            if (
+                !entry.getContents()
+                        .isEmpty()
+            ) {
+                article.setContent(
+                    entry.getContents()
+                            .getFirst()
+                            .getValue()
+                );
             }
 
             if (
-                !entry.getContents().isEmpty()
-                && entry.getDescription() != null
-                && rssFeed.isShowArticlesDescription()
+                !entry.getContents()
+                        .isEmpty() && entry.getDescription() != null
+                        && rssFeed.isShowArticlesDescription()
             ) {
-                article.setShortDescription(entry.getDescription().getValue());
+                article.setShortDescription(
+                    entry.getDescription()
+                            .getValue()
+                );
             }
 
-            if (entry.getContents().isEmpty() && entry.getDescription() != null) {
-                article.setContent(entry.getDescription().getValue());
+            if (
+                entry.getContents()
+                        .isEmpty() && entry.getDescription() != null
+            ) {
+                article.setContent(
+                    entry.getDescription()
+                            .getValue()
+                );
             }
 
-            article.setCreationDateTime(entry.getPublishedDate().toInstant());
+            article.setCreationDateTime(
+                entry.getPublishedDate()
+                        .toInstant()
+            );
             articles.add(article);
         }
 
@@ -61,13 +81,15 @@ public class RssFeedReader {
 
     private URL parseUrl(String urlString) {
         try {
-            return URI.create(urlString).toURL();
+            return URI.create(urlString)
+                    .toURL();
         } catch (NullPointerException e) {
             String message = "Cannot parse the RSS feed URL because it's null.";
             log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (IllegalArgumentException e) {
-            String message = "Cannot parse the RSS feed URL: '" + urlString + "'. It violates RFC 2396.";
+            String message = "Cannot parse the RSS feed URL: '" + urlString
+                    + "'. It violates RFC 2396.";
             log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (MalformedURLException e) {

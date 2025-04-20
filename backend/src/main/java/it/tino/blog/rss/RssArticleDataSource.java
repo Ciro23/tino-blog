@@ -21,9 +21,11 @@ public class RssArticleDataSource implements RssArticleRepository {
     @Override
     public Optional<RssArticle> findBySlug(String slug) {
         Set<RssArticle> rssArticles = findAll();
-        return rssArticles
-                .stream()
-                .filter(a -> Urls.makeStringUrlCompatible(a.getSlug()).equals(slug))
+        return rssArticles.stream()
+                .filter(
+                    a -> Urls.makeStringUrlCompatible(a.getSlug())
+                            .equals(slug)
+                )
                 .findFirst();
     }
 

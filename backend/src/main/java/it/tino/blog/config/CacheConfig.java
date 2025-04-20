@@ -17,9 +17,11 @@ public class CacheConfig implements CachingConfigurer {
     @Bean
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-        cacheManager.setCaffeine(Caffeine.newBuilder()
-                .expireAfterWrite(2, TimeUnit.HOURS)
-                .maximumSize(100));
+        cacheManager.setCaffeine(
+            Caffeine.newBuilder()
+                    .expireAfterWrite(2, TimeUnit.HOURS)
+                    .maximumSize(100)
+        );
         return cacheManager;
     }
 }

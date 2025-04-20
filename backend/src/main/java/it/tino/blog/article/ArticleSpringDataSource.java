@@ -32,9 +32,10 @@ public class ArticleSpringDataSource implements ArticleRepository {
     @Override
     public List<BlogArticle> findWithLimit(int numberOfArticlesToLoad) {
         PageRequest pageable = PageRequest.of(
-                0,
-                numberOfArticlesToLoad,
-                Sort.by("creationDateTime").descending()
+            0,
+            numberOfArticlesToLoad,
+            Sort.by("creationDateTime")
+                    .descending()
         );
         Page<SpringArticle> limitedNumberOfArticles = articleDao.findAll(pageable);
         return dbToDomain(limitedNumberOfArticles.getContent());
@@ -42,15 +43,13 @@ public class ArticleSpringDataSource implements ArticleRepository {
 
     @Override
     public Optional<BlogArticle> findById(UUID id) {
-        return articleDao
-                .findById(id)
+        return articleDao.findById(id)
                 .map(this::dbToDomain);
     }
 
     @Override
     public Optional<BlogArticle> findBySlug(String slug) {
-        return articleDao
-                .findBySlug(slug)
+        return articleDao.findBySlug(slug)
                 .map(this::dbToDomain);
     }
 

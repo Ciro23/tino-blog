@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
- * I would have preferred to declare {@link #readRssFeed(RssFeed)}
- * inside {@link RssArticleDataSource}, but unfortunately a non-cached
- * method cannot call a cached method if defined in the same bean.<br>
- * Declaring the cached method in a separate bean was the simplest
- * solution.
+ * I would have preferred to declare {@link #readRssFeed(RssFeed)} inside
+ * {@link RssArticleDataSource}, but unfortunately a non-cached method cannot
+ * call a cached method if defined in the same bean.<br>
+ * Declaring the cached method in a separate bean was the simplest solution.
  */
 @Component
 @RequiredArgsConstructor

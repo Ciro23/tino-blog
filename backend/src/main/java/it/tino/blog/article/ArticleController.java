@@ -16,7 +16,7 @@ public class ArticleController {
 
     @GetMapping
     public ResponseEntity<Set<BlogArticle>> getArticles(
-            @RequestParam(name = "limit", required = false) Integer limit
+        @RequestParam(name = "limit", required = false) Integer limit
     ) {
         List<BlogArticle> articles;
         if (limit == null || limit == 0) {
@@ -31,11 +31,12 @@ public class ArticleController {
     /**
      * Search an article from both its UUID or slug.<br>
      * Most of the time the requests will use the slug, but UUID is still
-     * support to keep compatibility previous version, since initially
-     * the only search available was by UUID.
+     * support to keep compatibility previous version, since initially the only
+     * search available was by UUID.
      * @param identifier Contains the UUID of the article, or its slug.
      * @return The corresponding article.
-     * @see <a href="https://en.wikipedia.org/wiki/Clean_URL#Slug">Slug | Wikipedia</a>
+     * @see <a href="https://en.wikipedia.org/wiki/Clean_URL#Slug">Slug |
+     *      Wikipedia</a>
      */
     @GetMapping("{identifier}")
     public ResponseEntity<BlogArticle> getArticle(@PathVariable String identifier) {
@@ -47,8 +48,7 @@ public class ArticleController {
             optionalBlogArticle = articleRepository.findBySlug(identifier);
         }
 
-        return optionalBlogArticle
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+        return optionalBlogArticle.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -59,7 +59,10 @@ public class ArticleController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BlogArticle> updateArticle(@PathVariable UUID id, @RequestBody BlogArticle article) {
+    public ResponseEntity<BlogArticle> updateArticle(
+        @PathVariable UUID id,
+        @RequestBody BlogArticle article
+    ) {
         return articleRepository.findById(id)
                 .map(a -> {
                     a.setTitle(article.getTitle());

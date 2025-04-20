@@ -8,5 +8,6 @@ public interface RssArticleRepository {
     Optional<RssArticle> findBySlug(String slug);
 
     Set<RssArticle> findAll();
+
     Set<RssArticle> findByFeed(RssFeed rssFeed);
 }

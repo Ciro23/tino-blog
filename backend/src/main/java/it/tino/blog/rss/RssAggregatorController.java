@@ -26,8 +26,7 @@ public class RssAggregatorController {
 
     @GetMapping("feeds/{id}")
     public ResponseEntity<RssFeed> getRssFeed(@PathVariable UUID id) {
-        return rssFeedRepository
-                .findById(id)
+        return rssFeedRepository.findById(id)
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -39,7 +38,10 @@ public class RssAggregatorController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<RssFeed> updateRssFeed(@PathVariable UUID id, @RequestBody RssFeed rssFeed) {
+    public ResponseEntity<RssFeed> updateRssFeed(
+        @PathVariable UUID id,
+        @RequestBody RssFeed rssFeed
+    ) {
         RssFeed savedFeed = rssFeedRepository.findById(id)
                 .map(a -> {
                     a.setDescription(rssFeed.getDescription());
@@ -71,8 +73,7 @@ public class RssAggregatorController {
     @GetMapping("articles/{slug}")
     public ResponseEntity<RssArticle> getRssArticle(@PathVariable String slug) {
         Optional<RssArticle> optionalRssArticle = rssArticleRepository.findBySlug(slug);
-        return optionalRssArticle
-                .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+        return optionalRssArticle.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

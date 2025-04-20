@@ -11,12 +11,11 @@ public class RssFeed implements Comparable<RssFeed> {
     private String url = "";
     private String description = "";
 
-    
     /**
-     * The articles' preview also display a short description
-     * to describe the content. However, some feeds tend to abuse the
-     * description, by making it extra long and not useful at all,
-     * so it may be necessary to never display it.
+     * The articles' preview also display a short description to describe the
+     * content. However, some feeds tend to abuse the description, by making it
+     * extra long and not useful at all, so it may be necessary to never display
+     * it.
      */
     private boolean showArticlesDescription = true;
 

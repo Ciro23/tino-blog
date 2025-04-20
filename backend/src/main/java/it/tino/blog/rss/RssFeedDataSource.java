@@ -28,7 +28,8 @@ public class RssFeedDataSource implements RssFeedRepository {
 
     @Override
     public Optional<RssFeed> findById(UUID id) {
-        return rssFeedDao.findById(id).map(this::dbToDomain);
+        return rssFeedDao.findById(id)
+                .map(this::dbToDomain);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class RssFeedDataSource implements RssFeedRepository {
         db.setUrl(domain.getUrl());
         db.setDescription(domain.getDescription());
         db.setShowArticlesDescription(domain.isShowArticlesDescription());
-        
+
         return db;
     }
 

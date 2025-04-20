@@ -20,7 +20,7 @@ public class Article implements Comparable<Article> {
     private Instant creationDateTime;
 
     public void setSlug(String slug) {
-         this.slug = Urls.makeStringUrlCompatible(slug);
+        this.slug = Urls.makeStringUrlCompatible(slug);
     }
 
     @JsonProperty("minutesToRead")

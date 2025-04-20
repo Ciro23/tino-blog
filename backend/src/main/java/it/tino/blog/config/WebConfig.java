@@ -38,18 +38,23 @@ public class WebConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
+        http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
-                        (requests) -> requests
-                                .requestMatchers(HttpMethod.POST, "/**").authenticated()
-                                .requestMatchers(HttpMethod.PUT, "/**").authenticated()
-                                .requestMatchers(HttpMethod.DELETE, "/**").authenticated()
-                                .requestMatchers("/rss/articles/reload").authenticated()
-                                .anyRequest().permitAll()
+                    (requests) -> requests.requestMatchers(HttpMethod.POST, "/**")
+                            .authenticated()
+                            .requestMatchers(HttpMethod.PUT, "/**")
+                            .authenticated()
+                            .requestMatchers(HttpMethod.DELETE, "/**")
+                            .authenticated()
+                            .requestMatchers("/rss/articles/reload")
+                            .authenticated()
+                            .anyRequest()
+                            .permitAll()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(
+                    session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .logout(LogoutConfigurer::permitAll);
@@ -79,13 +84,15 @@ public class WebConfig {
 
     @Bean
     JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey()).build();
+        JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey())
+                .build();
         JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwkSource);
     }
 
     @Bean
     JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey())
+                .build();
     }
 }
