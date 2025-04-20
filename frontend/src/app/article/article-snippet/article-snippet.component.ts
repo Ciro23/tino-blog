@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
-import {NgIf} from "@angular/common";
-import {Article} from "../article";
-import {AuthService} from "../../authentication/auth.service";
-import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
+import { Component, Input } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { Article } from "../article";
+import { AuthService } from "../../authentication/auth.service";
+import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
 
 @Component({
   selector: 'app-article-snippet',
@@ -19,7 +19,7 @@ export class ArticleSnippetComponent {
   @Input() onEdit?: (id: string) => void;
   @Input() onDelete?: (id: string) => void;
 
-  constructor(protected authService: AuthService) {}
+  constructor(protected authService: AuthService) { }
 
   protected readonly getFormattedCreationDateTime = getFormattedCreationDateTime;
 }

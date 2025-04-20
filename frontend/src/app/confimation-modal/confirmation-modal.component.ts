@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {NgClass} from "@angular/common";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgClass } from "@angular/common";
 
 /**
  * A popup dialog to confirm certain actions to do with caution.
@@ -29,7 +29,7 @@ export class ConfirmationModalComponent {
   @Output()
   confirmed = new EventEmitter<void>();
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal) { }
 
   confirm() {
     this.confirmed.emit();

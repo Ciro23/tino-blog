@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {Article} from "../article";
-import {ArticleListComponent} from "../article-list/article-list.component";
-import {ArticleService} from "../article-service";
-import {finalize} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { Article } from "../article";
+import { ArticleListComponent } from "../article-list/article-list.component";
+import { ArticleService } from "../article-service";
+import { finalize } from "rxjs";
 
 @Component({
   selector: 'app-all-articles',
@@ -20,7 +20,7 @@ export class AllArticlesComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.articleService.fetchArticles()
@@ -31,12 +31,12 @@ export class AllArticlesComponent implements OnInit {
       )
       .subscribe({
         next: articles => {
-        this.articles = articles;
-      },
-      error: () => {
-        this.articles = undefined;
-      },
-    });
+          this.articles = articles;
+        },
+        error: () => {
+          this.articles = undefined;
+        },
+      });
   }
 
   onViewArticle = (slug: string) => {

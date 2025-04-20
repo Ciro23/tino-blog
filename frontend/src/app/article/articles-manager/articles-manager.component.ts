@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
-import {ArticleListComponent} from "../article-list/article-list.component";
-import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ArticleService} from "../article-service";
-import {NgIf} from "@angular/common";
-import {finalize} from "rxjs";
-import {Article} from "../article";
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
+import { ArticleListComponent } from "../article-list/article-list.component";
+import { ConfirmationModalComponent } from "../../confimation-modal/confirmation-modal.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ArticleService } from "../article-service";
+import { NgIf } from "@angular/common";
+import { finalize } from "rxjs";
+import { Article } from "../article";
 
 @Component({
   selector: 'app-articles-manager',
@@ -26,7 +26,7 @@ export class ArticlesManagerComponent implements OnInit {
     private articleService: ArticleService,
     private router: Router,
     private modalService: NgbModal,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.articleService.fetchArticles()
@@ -38,7 +38,7 @@ export class ArticlesManagerComponent implements OnInit {
       .subscribe({
         next: articles => {
           this.articles = articles;
-          },
+        },
         error: () => {
           this.articles = undefined;
         }

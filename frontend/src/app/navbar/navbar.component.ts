@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {AuthService} from "../authentication/auth.service";
-import {NgIf} from "@angular/common";
+import { RouterLink } from "@angular/router";
+import { AuthService } from "../authentication/auth.service";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-navbar',
@@ -15,5 +15,5 @@ import {NgIf} from "@angular/common";
 })
 export class NavbarComponent {
 
-  constructor(protected authService: AuthService) {}
+  constructor(protected authService: AuthService) { }
 }

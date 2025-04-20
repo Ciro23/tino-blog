@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgIf} from "@angular/common";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {Article} from "../article";
-import {ArticleService} from "../article-service";
-import {AuthService} from "../../authentication/auth.service";
-import {getFormattedCreationDateTime} from "../../utilities/date-utilities";
-import {MarkdownComponent, MarkdownService} from "ngx-markdown";
-import {ConfirmationModalComponent} from "../../confimation-modal/confirmation-modal.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Title} from "@angular/platform-browser";
-import {Tokens} from "marked";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgIf } from "@angular/common";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { Article } from "../article";
+import { ArticleService } from "../article-service";
+import { AuthService } from "../../authentication/auth.service";
+import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
+import { MarkdownComponent, MarkdownService } from "ngx-markdown";
+import { ConfirmationModalComponent } from "../../confimation-modal/confirmation-modal.component";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Title } from "@angular/platform-browser";
+import { Tokens } from "marked";
 
 @Component({
   selector: 'app-article',
@@ -31,7 +31,7 @@ export class ArticleDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private title: Title,
     private markdownService: MarkdownService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id')!;

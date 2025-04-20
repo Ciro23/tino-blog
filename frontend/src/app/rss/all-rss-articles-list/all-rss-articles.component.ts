@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {RssService} from "../rss.service";
-import {ArticleListComponent} from "../../article/article-list/article-list.component";
-import {NgIf} from "@angular/common";
-import {finalize} from "rxjs";
-import {Router} from "@angular/router";
-import {AuthService} from "../../authentication/auth.service";
-import {RssArticle} from "../rss-article";
+import { Component, OnInit } from '@angular/core';
+import { RssService } from "../rss.service";
+import { ArticleListComponent } from "../../article/article-list/article-list.component";
+import { NgIf } from "@angular/common";
+import { finalize } from "rxjs";
+import { Router } from "@angular/router";
+import { AuthService } from "../../authentication/auth.service";
+import { RssArticle } from "../rss-article";
 
 @Component({
   selector: 'app-rss-aggregator',
@@ -24,7 +24,7 @@ export class AllRssArticlesComponent implements OnInit {
     protected authService: AuthService,
     private rssService: RssService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchRssArticles();

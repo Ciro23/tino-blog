@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostListener} from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 /**
  * Useful for text areas containing long amount of text.<br>
@@ -11,7 +11,7 @@ import {Directive, ElementRef, HostListener} from '@angular/core';
 })
 export class AutoResizeDirective {
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef) { }
 
   @HostListener("input") onInput(): void {
     this.resizeTextArea();

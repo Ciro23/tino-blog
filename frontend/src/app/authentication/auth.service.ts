@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, catchError, map, Observable, of, tap} from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { BehaviorSubject, catchError, map, Observable, of, tap } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class AuthService {
   private tokenKey = 'jwt_token';
   private loggedIn = new BehaviorSubject<boolean>(this.isTokenValid());
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<boolean> {
     let headers = new HttpHeaders({

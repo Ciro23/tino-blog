@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LatestArticlesComponent } from './article/latest-articles/latest-articles.component';
 import { ArticleDetailsComponent } from "./article/article-details/article-details.component";
 import { LoginComponent } from "./authentication/login/login.component";
 import { ArticleFormComponent } from "./article/article-form/article-form.component";

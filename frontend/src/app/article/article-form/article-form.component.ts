@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Article} from "../article";
-import {ArticleService} from "../article-service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NgClass, NgIf} from "@angular/common";
-import {AutoResizeDirective} from "../../directives/auto-resize.directive";
-import {finalize} from "rxjs";
-import {makeStringUrlCompatible} from "../../utilities/url-utilities";
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
+import { Article } from "../article";
+import { ArticleService } from "../article-service";
+import { ActivatedRoute } from "@angular/router";
+import { NgClass, NgIf } from "@angular/common";
+import { AutoResizeDirective } from "../../directives/auto-resize.directive";
+import { finalize } from "rxjs";
+import { makeStringUrlCompatible } from "../../utilities/url-utilities";
 
 @Component({
   selector: 'app-article-form',
@@ -59,7 +59,7 @@ export class ArticleFormComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id')!;

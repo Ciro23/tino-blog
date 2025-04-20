@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {RssFeed} from "./rss-feed";
-import {RssArticle} from "./rss-article";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { RssFeed } from "./rss-feed";
+import { RssArticle } from "./rss-article";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class RssService {
 
   apiUrl = "/api/rss"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   fetchRssFeeds(): Observable<RssFeed[]> {
     return this.http.get<RssFeed[]>(`${this.apiUrl}/feeds`);

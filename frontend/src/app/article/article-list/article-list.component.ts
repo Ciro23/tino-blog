@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {ArticleSnippetComponent} from "../article-snippet/article-snippet.component";
-import {NgForOf, NgIf} from "@angular/common";
-import {Article} from "../article";
+import { Component, Input } from '@angular/core';
+import { ArticleSnippetComponent } from "../article-snippet/article-snippet.component";
+import { NgForOf, NgIf } from "@angular/common";
+import { Article } from "../article";
 
 @Component({
   selector: 'app-article-list',

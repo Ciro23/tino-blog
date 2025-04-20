@@ -1,7 +1,7 @@
-import {HttpClient} from "@angular/common/http";
-import {Article} from "./article";
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Article } from "./article";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ArticleService {
 
   apiUrl = "/api/articles"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   fetchArticles(): Observable<any> {
     return this.http.get(this.apiUrl);
