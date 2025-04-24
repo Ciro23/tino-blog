@@ -130,57 +130,6 @@ reduce the server's workload... bandwidth ain't free.
 
 ---
 
-## Contributing
-
-### In case of database changes
-
-If the database schema changes, the DDL instructions must be exported into the file
-`backend/src/main/resources/schema.sql`, which is used when building the Docker image for the database.  
-This can be done with:
-
-```shell
-pg_dump -U db_username tino_blog >> schema.sql
-```
-
-Then, remove all the instructions like:
-
-```sql
-ALTER TABLE public.articles
-    OWNER TO postgres;
-```
-
-otherwise it won't be possible to specify custom database users in the `.env` file.
-
-> By removing the explicit tables' ownership to a specific user, ownership will default to the user creating them,
-> allowing for easier customization of the database username to improve security.
-
-#### Migration scripts
-
-Scripts to migrate the database must be created inside `backend/src/main/resources/sql-updates` to keep compatibility
-with existing builds.  
-**Migration scripts must be executed manually when updating from an older version.**
-
-### Customize Bootstrap theme
-
-Some Bootstrap colors were changed in the file `frontend/src/custom_bootstrap/custom.scss`.  
-If the SASS changes, it needs to be compiled again in CSS:
-
-1. Install SASS:
-
-   ```shell
-   npm install -g sass
-   ```
-
-2. Compile the `.scss` file to `.css`:
-
-   ```shell
-   sass --watch frontend/src/custom_bootstrap/custom.scss frontend/src/custom_bootstrap/custom.css
-   ```
-
-The full reference can be found [here](https://getbootstrap.com/docs/5.3/customize/sass/).
-
----
-
 ## Colors
 
 Yes, I did steal some colors from the color palette of GitHub, as it's perfect, and I'm no good designer.
