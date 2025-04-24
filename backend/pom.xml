@@ -11,7 +11,7 @@
     </parent>
     <groupId>it.tino</groupId>
     <artifactId>tino-blog</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <packaging>war</packaging>
     <name>tino-blog</name>
     <description>blog</description>
@@ -39,7 +39,7 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-	
+
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
 	<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -70,7 +70,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-	
+
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
