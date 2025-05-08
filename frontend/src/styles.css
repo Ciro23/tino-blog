@@ -23,9 +23,7 @@ a {
 }
 
 .page-content {
-  min-height: 75vh;
-  margin: 0 auto;
-  flex-grow: 1;
+  width: 100%;
 }
 
 .title {

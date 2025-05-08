@@ -1,7 +1,7 @@
 <div
   *ngIf="loadingRssFeeds"
   class="d-flex flex-column gap-4">
-  <h4>Rss feeds manager</h4>
+  <h4>RSS feeds manager</h4>
 
   <div class="spinner-border mx-auto" role="status">
     <span class="visually-hidden">Loading...</span>
@@ -11,7 +11,7 @@
 <div
   *ngIf="rssFeeds === undefined"
   class="d-flex flex-column gap-4">
-  <h4>Rss feeds manager</h4>
+  <h4>RSS feeds manager</h4>
 
   <p
     *ngIf="rssFeeds === undefined"
@@ -24,7 +24,7 @@
   *ngIf="!loadingRssFeeds && rssFeeds !== undefined"
   class="d-flex flex-column gap-4">
   <div class="d-flex flex-wrap gap-2 justify-content-between">
-    <h4>Rss feeds manager</h4>
+    <h4>RSS feeds manager</h4>
 
     <a routerLink="/rss/feeds/new" class="ms-auto">
       <button class="btn btn-primary ms-auto">
