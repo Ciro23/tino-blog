@@ -14,6 +14,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   padding-right: 2rem;
   opacity: 0;
 }
+
 .content h1 svg,
 .content h2 svg,
 .content h3 svg,
@@ -124,4 +125,11 @@ this makes the code blocks a bit more readable. */
     min-width: auto;
     width: 100%;
   }
+
+  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    position: static;
+    opacity: 1;
+    padding-right: 0.7rem;
+  }
 }
+
