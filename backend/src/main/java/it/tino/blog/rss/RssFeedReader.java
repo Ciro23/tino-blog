@@ -1,19 +1,26 @@
 package it.tino.blog.rss;
 
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.time.Instant;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.springframework.stereotype.Component;
+
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.net.*;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 @Component
 @RequiredArgsConstructor
@@ -69,10 +76,18 @@ public class RssFeedReader {
                 );
             }
 
-            article.setCreationDateTime(
-                entry.getPublishedDate()
-                        .toInstant()
-            );
+            if (entry.getPublishedDate() == null) {
+                // Whoever did not put the "published date" must be put in jail.
+                // This is the best workaround to avoid not having a date at
+                // all.
+                article.setCreationDateTime(Instant.now());
+            } else {
+                article.setCreationDateTime(
+                    entry.getPublishedDate()
+                            .toInstant()
+                );
+            }
+
             articles.add(article);
         }
 

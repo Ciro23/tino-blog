@@ -29,7 +29,8 @@ public class Article implements Comparable<Article> {
             return 0;
         }
 
-        int wordCount = content.trim().split("\\s+").length;
+        int wordCount = content.trim()
+                .split("\\s+").length;
         int averageWordPerMinute = 200;
         return Math.ceil((double) wordCount / averageWordPerMinute);
     }
