@@ -106,7 +106,7 @@ reduce the server's workload... bandwidth ain't free.
 4. Run the backend:
 
    ```shell
-   java -jar -Dspring.profiles.active=dev target/tino-blog-1.3.2.war
+   java -jar -Dspring.profiles.active=dev target/tino-blog-1.3.3.war
    ```
 
 5. To initialize the database with default data (first user and a bunch of RSS feeds), you can run this:
