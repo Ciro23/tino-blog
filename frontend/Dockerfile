@@ -1,5 +1,5 @@
 # Stage 1: Compile and build Angular codebase
-FROM node:22.14.0-slim AS build
+FROM node:22.18.0-slim AS build
 
 WORKDIR /usr/local/app
 COPY ./ /usr/local/app/
