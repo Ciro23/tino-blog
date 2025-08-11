@@ -1,4 +1,4 @@
-<div class="width-700">
+<div class="width-700 d-flex flex-column flex-grow-1">
   @if (!rssFeedId) {
     <h1 class="title">Add a new RSS feed</h1>
   } @else {
@@ -6,12 +6,7 @@
   }
 
   @if (loadingRssFeed) {
-    <div
-      class="d-flex flex-column justify-content-center align-items-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
+    <app-loading-spinner class="d-flex flex-column flex-grow-1"></app-loading-spinner>
   } @else if (rssFeed === undefined) {
     <p
       class="text-center text-danger fs-5">

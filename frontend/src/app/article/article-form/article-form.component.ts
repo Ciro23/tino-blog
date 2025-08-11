@@ -7,6 +7,7 @@ import { NgClass } from "@angular/common";
 import { AutoResizeDirective } from "../../directives/auto-resize.directive";
 import { finalize } from "rxjs";
 import { makeStringUrlCompatible } from "../../utilities/url-utilities";
+import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-article-form',
@@ -15,7 +16,8 @@ import { makeStringUrlCompatible } from "../../utilities/url-utilities";
     FormsModule,
     AutoResizeDirective,
     NgClass,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './article-form.component.html',
 })

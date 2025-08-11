@@ -1,6 +1,6 @@
-<div class="width-700">
+<div class="width-700 d-flex flex-column flex-grow-1">
   <div
-    class="d-flex flex-column gap-4">
+    class="d-flex flex-column gap-4 flex-grow-1">
     <div class="d-flex flex-wrap align-items-center justify-content-between">
       <h2
         class="title">
@@ -15,6 +15,7 @@
     </div>
 
     <app-article-list
+      class="d-flex flex-column flex-grow-1"
       [articles]="articles"
       [loadingArticles]="loadingArticles"
       [onViewArticle]="onViewRssArticle"></app-article-list>

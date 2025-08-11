@@ -29,9 +29,6 @@ export class AllRssArticlesComponent implements OnInit {
   }
 
   reloadRssArticles() {
-    this.articles = [];
-    this.loadingArticles = true;
-
     this.rssArticleService.reloadRssArticles()
       .subscribe({
         next: response => {
@@ -47,6 +44,7 @@ export class AllRssArticlesComponent implements OnInit {
   }
 
   fetchRssArticles() {
+    this.loadingArticles = true;
     this.rssArticleService.fetchRssArticles()
       .pipe(
         finalize(() => {

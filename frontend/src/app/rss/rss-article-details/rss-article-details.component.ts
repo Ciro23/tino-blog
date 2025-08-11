@@ -4,11 +4,12 @@ import { DomSanitizer, SafeHtml, Title } from "@angular/platform-browser";
 import { RssArticle } from "../rss-article";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RssArticleService } from "../rss-article-service";
+import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-rss-article-details',
   standalone: true,
-  imports: [],
+  imports: [LoadingSpinnerComponent],
   templateUrl: './rss-article-details.component.html',
   styleUrl: './rss-article-details.component.css',
   encapsulation: ViewEncapsulation.None,

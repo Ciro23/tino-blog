@@ -5,6 +5,7 @@ import { RssFeed } from "../rss-feed";
 import { ActivatedRoute } from "@angular/router";
 import { finalize } from "rxjs";
 import { RssFeedService } from '../rss-feed-service';
+import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-rss-feed-form',
@@ -12,7 +13,8 @@ import { RssFeedService } from '../rss-feed-service';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './rss-feed-form.component.html',
 })

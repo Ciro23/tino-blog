@@ -6,6 +6,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ArticleService } from "../article-service";
 import { finalize } from "rxjs";
 import { Article } from "../article";
+import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-articles-manager',
@@ -13,6 +14,7 @@ import { Article } from "../article";
   imports: [
     RouterLink,
     ArticleListComponent,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './articles-manager.component.html',
 })

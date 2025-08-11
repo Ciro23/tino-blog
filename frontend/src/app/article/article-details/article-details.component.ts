@@ -9,11 +9,16 @@ import { ConfirmationModalComponent } from "../../confimation-modal/confirmation
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Title } from "@angular/platform-browser";
 import { Tokens } from "marked";
+import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [RouterLink, MarkdownComponent],
+  imports: [
+    RouterLink,
+    MarkdownComponent,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './article-details.component.html',
   styleUrls: ['article-details.component.css'],
   encapsulation: ViewEncapsulation.None,

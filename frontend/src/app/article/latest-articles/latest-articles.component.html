@@ -1,7 +1,8 @@
-<div class="width-700">
+<div class="width-700 flex-grow-1 d-flex flex-column">
   <h2 class="title">Latest articles</h2>
-  <span class="d-flex flex-column gap-4">
+  <span class="w-100 d-flex flex-column gap-4 flex-grow-1">
     <app-article-list
+      class="w-100 d-flex flex-column flex-grow-1"
       [articles]="articles"
       [loadingArticles]="loadingArticles"
       [onViewArticle]="onViewArticle"></app-article-list>

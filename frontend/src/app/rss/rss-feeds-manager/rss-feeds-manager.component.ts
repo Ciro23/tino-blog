@@ -5,12 +5,14 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
 import { finalize } from "rxjs";
 import { RssFeedService } from '../rss-feed-service';
+import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-rss-feeds-manager',
   standalone: true,
   imports: [
     RouterLink,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './rss-feeds-manager.component.html',
 })
