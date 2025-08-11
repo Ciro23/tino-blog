@@ -12,10 +12,6 @@ public class Article implements Comparable<Article> {
     private String title = "";
     private String slug = "";
     private String shortDescription = "";
-
-    private String category;
-    private String categoryUrl;
-
     private String content = "";
     private Instant creationDateTime;
 
@@ -42,6 +38,6 @@ public class Article implements Comparable<Article> {
             return dateComparison;
         }
 
-        return this.title.compareTo(that.title);
+        return this.title.compareToIgnoreCase(that.title);
     }
 }

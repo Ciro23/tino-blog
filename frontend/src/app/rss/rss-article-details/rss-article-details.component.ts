@@ -3,7 +3,7 @@ import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
 import { DomSanitizer, SafeHtml, Title } from "@angular/platform-browser";
 import { RssArticle } from "../rss-article";
 import { ActivatedRoute, Router } from "@angular/router";
-import { RssService } from "../rss.service";
+import { RssArticleService } from "../rss-article-service";
 
 @Component({
   selector: 'app-rss-article-details',
@@ -25,7 +25,7 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
   articleContent: SafeHtml = "";
 
   constructor(
-    private rssService: RssService,
+    private rssArticleService: RssArticleService,
     private domSanitizer: DomSanitizer,
     private title: Title,
     private route: ActivatedRoute,
@@ -34,7 +34,7 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
-    this.rssService.fetchRssArticleById(this.articleId).subscribe({
+    this.rssArticleService.fetchRssArticleById(this.articleId).subscribe({
       next: article => {
         this.article = article;
         this.title.setTitle(article.title + " - Tino Blog");

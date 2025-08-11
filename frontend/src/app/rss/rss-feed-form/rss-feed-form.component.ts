@@ -3,8 +3,8 @@ import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
 import { RssFeed } from "../rss-feed";
 import { ActivatedRoute } from "@angular/router";
-import { RssService } from "../rss.service";
 import { finalize } from "rxjs";
+import { RssFeedService } from '../rss-feed-service';
 
 @Component({
   selector: 'app-rss-feed-form',
@@ -34,7 +34,10 @@ export class RssFeedFormComponent implements OnInit {
 
   errorMessage: string = "";
 
-  constructor(private rssService: RssService, private route: ActivatedRoute) {
+  constructor(
+    private rssFeedService: RssFeedService,
+    private route: ActivatedRoute
+  ) {
     this.rssFeedId = this.route.snapshot.paramMap.get('id')!;
   }
 
@@ -44,7 +47,7 @@ export class RssFeedFormComponent implements OnInit {
     }
 
     this.loadingRssFeed = true;
-    this.rssService.fetchRssFeedById(this.rssFeedId)
+    this.rssFeedService.fetchRssFeedById(this.rssFeedId)
       .pipe(
         finalize(() => {
           this.loadingRssFeed = false;
@@ -65,9 +68,9 @@ export class RssFeedFormComponent implements OnInit {
       return;
     }
 
-    let callable = this.rssService.updateRssFeed(this.rssFeed!);
+    let callable = this.rssFeedService.updateRssFeed(this.rssFeed!);
     if (!this.rssFeedId) {
-      callable = this.rssService.insertRssFeed(this.rssFeed!);
+      callable = this.rssFeedService.insertRssFeed(this.rssFeed!);
     }
 
     callable.subscribe({

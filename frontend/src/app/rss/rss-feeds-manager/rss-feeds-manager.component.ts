@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RssFeed } from "../rss-feed";
-import { RssService } from "../rss.service";
 import { ConfirmationModalComponent } from "../../confimation-modal/confirmation-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
 import { finalize } from "rxjs";
+import { RssFeedService } from '../rss-feed-service';
 
 @Component({
   selector: 'app-rss-feeds-manager',
@@ -19,12 +19,12 @@ export class RssFeedsManagerComponent implements OnInit {
   loadingRssFeeds: boolean = true;
 
   constructor(
-    private rssService: RssService,
+    private rssFeedService: RssFeedService,
     private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
-    this.rssService.fetchRssFeeds()
+    this.rssFeedService.fetchRssFeeds()
       .pipe(
         finalize(() => {
           this.loadingRssFeeds = false;
@@ -49,7 +49,7 @@ export class RssFeedsManagerComponent implements OnInit {
   }
 
   private deleteRssFeed(id: string): void {
-    this.rssService.deleteRssFeed(id).subscribe({
+    this.rssFeedService.deleteRssFeed(id).subscribe({
       next: success => {
         if (success) {
           this.rssFeeds = this.rssFeeds!.filter((rssFeed) => rssFeed.id != id);

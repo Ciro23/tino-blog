@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RssService } from "../rss.service";
+import { RssArticleService } from "../rss-article-service";
 import { ArticleListComponent } from "../../article/article-list/article-list.component";
 import { finalize } from "rxjs";
 import { Router } from "@angular/router";
@@ -20,7 +20,7 @@ export class AllRssArticlesComponent implements OnInit {
 
   constructor(
     protected authService: AuthService,
-    private rssService: RssService,
+    private rssArticleService: RssArticleService,
     private router: Router,
   ) { }
 
@@ -32,10 +32,10 @@ export class AllRssArticlesComponent implements OnInit {
     this.articles = [];
     this.loadingArticles = true;
 
-    this.rssService.reloadRssArticles()
+    this.rssArticleService.reloadRssArticles()
       .subscribe({
-        next: success => {
-          if (!success) {
+        next: response => {
+          if (response.status !== 204) {
             return;
           }
           this.fetchRssArticles();
@@ -47,7 +47,7 @@ export class AllRssArticlesComponent implements OnInit {
   }
 
   fetchRssArticles() {
-    this.rssService.fetchRssArticles()
+    this.rssArticleService.fetchRssArticles()
       .pipe(
         finalize(() => {
           this.loadingArticles = false;

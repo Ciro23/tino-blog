@@ -1,30 +1,36 @@
 package it.tino.blog.rss;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+
 @RestController
-@RequestMapping("rss")
+@RequestMapping("rss/feeds")
 @RequiredArgsConstructor
-public class RssAggregatorController {
+public class RssFeedController {
 
     private final RssFeedRepository rssFeedRepository;
-    private final RssArticleRepository rssArticleRepository;
     private final CachedRssFeedReader cachedRssFeedReader;
 
-    @GetMapping("feeds")
+    @GetMapping
     public Set<RssFeed> getRssFeeds() {
         return new TreeSet<>(rssFeedRepository.findAll());
     }
 
-    @GetMapping("feeds/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<RssFeed> getRssFeed(@PathVariable UUID id) {
         return rssFeedRepository.findById(id)
                 .map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -56,29 +62,11 @@ public class RssAggregatorController {
         return new ResponseEntity<>(savedFeed, HttpStatus.OK);
     }
 
-    @DeleteMapping("feeds/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteRssFeed(@PathVariable UUID id) {
         if (rssFeedRepository.deleteById(id)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("articles/reload")
-    public ResponseEntity<Void> reloadRssFeedsCache() {
-        cachedRssFeedReader.evictAllCache();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @GetMapping("articles/{slug}")
-    public ResponseEntity<RssArticle> getRssArticle(@PathVariable String slug) {
-        Optional<RssArticle> optionalRssArticle = rssArticleRepository.findBySlug(slug);
-        return optionalRssArticle.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping("articles")
-    public Set<RssArticle> getRssArticles() {
-        return rssArticleRepository.findAll();
     }
 }

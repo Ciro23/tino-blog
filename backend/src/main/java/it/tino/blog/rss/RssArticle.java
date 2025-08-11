@@ -9,6 +9,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class RssArticle extends Article {
 
+    private String category;
+    private String categoryUrl;
+
     @Override
     public String getSlug() {
         return Urls.makeStringUrlCompatible(getTitle());
