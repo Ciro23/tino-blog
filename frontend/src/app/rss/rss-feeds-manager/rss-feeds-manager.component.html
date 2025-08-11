@@ -1,76 +1,75 @@
-<div
-  *ngIf="loadingRssFeeds"
-  class="d-flex flex-column gap-4">
-  <h4>RSS feeds manager</h4>
-
-  <div class="spinner-border mx-auto" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
-
-<div
-  *ngIf="rssFeeds === undefined"
-  class="d-flex flex-column gap-4">
-  <h4>RSS feeds manager</h4>
-
-  <p
-    *ngIf="rssFeeds === undefined"
-    class="text-center text-danger fs-5">
-    An error has occurred x_x
-  </p>
-</div>
-
-<div
-  *ngIf="!loadingRssFeeds && rssFeeds !== undefined"
-  class="d-flex flex-column gap-4">
-  <div class="d-flex flex-wrap gap-2 justify-content-between">
+@if (loadingRssFeeds) {
+  <div
+    class="d-flex flex-column gap-4">
     <h4>RSS feeds manager</h4>
 
-    <a routerLink="/rss/feeds/new" class="ms-auto">
-      <button class="btn btn-primary ms-auto">
-        <i class="bi bi-plus"></i> Add RSS feed
-      </button>
-    </a>
+    <div class="spinner-border mx-auto" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
+} @else if (rssFeeds === undefined) {
+  <div
+    class="d-flex flex-column gap-4">
+    <h4>RSS feeds manager</h4>
 
-  <p
-    *ngIf="rssFeeds!.length === 0"
-    class="text-center fs-5">
-    No RSS feeds are being followed :/
-  </p>
+    <p
+      class="text-center text-danger fs-5">
+      An error has occurred x_x
+    </p>
+  </div>
+} @else {
+  <div
+    class="d-flex flex-column gap-4">
+    <div class="d-flex flex-wrap gap-2 justify-content-between">
+      <h4>RSS feeds manager</h4>
 
-  <table
-    *ngIf="rssFeeds!.length > 0"
-    class="table table-bordered table-hover table-responsive table-sm small">
-    <thead>
-    <tr>
-      <th style="width: 40%">Description</th>
-      <th style="width: 40%">URL</th>
-      <th style="width: 10%"></th>
-    </tr>
-    </thead>
+      <a routerLink="/rss/feeds/new" class="ms-auto">
+        <button class="btn btn-primary ms-auto">
+          <i class="bi bi-plus"></i> Add RSS feed
+        </button>
+      </a>
+    </div>
 
-    <tbody>
-    <tr *ngFor="let rssFeed of rssFeeds" class="align-items-stretch">
-      <td class="text-break">{{ rssFeed.description }}</td>
-      <td class="text-break">{{ rssFeed.url }}</td>
-      <td>
-        <div class="d-flex justify-content-evenly flex-wrap-reverse gap-1">
-          <a [routerLink]="['/rss/feeds', rssFeed.id, 'edit']">
-            <button class="btn btn-sm btn-secondary">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-          </a>
+    @if (rssFeeds.length === 0) {
+      <p
+        class="text-center fs-5">
+        No RSS feeds are being followed :/
+      </p>
+    } @else {
+      <table
+        class="table table-bordered table-hover table-responsive table-sm small">
+        <thead>
+          <tr>
+            <th style="width: 40%">Description</th>
+            <th style="width: 40%">URL</th>
+            <th style="width: 10%"></th>
+          </tr>
+        </thead>
 
-          <button
-            (click)="openDeleteConfirmationDialog(rssFeed.id)"
-            class="btn btn-sm btn-danger">
-            <i class="bi bi-trash3-fill"></i>
-          </button>
-        </div>
-      </td>
-    </tr>
+        <tbody>
+          @for (rssFeed of rssFeeds; track rssFeed.id) {
+            <tr class="align-items-stretch">
+              <td class="text-break">{{ rssFeed.description }}</td>
+              <td class="text-break">{{ rssFeed.url }}</td>
+              <td>
+                <div class="d-flex justify-content-evenly flex-wrap-reverse gap-1">
+                  <a [routerLink]="['/rss/feeds', rssFeed.id, 'edit']">
+                    <button class="btn btn-sm btn-secondary">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </a>
 
-    </tbody>
-  </table>
-</div>
+                  <button
+                    (click)="openDeleteConfirmationDialog(rssFeed.id)"
+                    class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+}

@@ -7,10 +7,11 @@
         Articles from useful RSS feeds
       </h2>
 
-      <button
-        *ngIf="authService.isTokenValid() && !loadingArticles"
-        (click)="reloadRssArticles()"
-        class="btn btn-secondary bi bi-arrow-clockwise ms-auto"> Reload cache</button>
+      @if (authService.isTokenValid() && !loadingArticles) {
+        <button
+          (click)="reloadRssArticles()"
+          class="btn btn-secondary bi bi-arrow-clockwise ms-auto"> Reload cache</button>
+      }
     </div>
 
     <app-article-list

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgIf } from "@angular/common";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { Article } from "../article";
 import { ArticleService } from "../article-service";
@@ -14,7 +13,7 @@ import { Tokens } from "marked";
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [NgIf, RouterLink, MarkdownComponent],
+  imports: [RouterLink, MarkdownComponent],
   templateUrl: './article-details.component.html',
   styleUrls: ['article-details.component.css'],
   encapsulation: ViewEncapsulation.None,

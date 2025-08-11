@@ -10,9 +10,10 @@
         <p class="card-text text-secondary-emphasis mb-1 small">
           {{ getFormattedCreationDateTime(article.creationDateTime!) }}
         </p>
-        <p
-          *ngIf="article.category != null"
-          class="card-text text-secondary-emphasis mb-1 small">&#160;• {{ article.category }}</p>
+
+        @if (article.category !== undefined) {
+          <p class="card-text text-secondary-emphasis mb-1 small">&#160;• {{ article.category }}</p>
+        }
       </div>
 
       <h5 class="card-title">{{ article.title }}</h5>
@@ -20,23 +21,28 @@
     </article>
   </div>
 
-  <div
-    *ngIf="authService.isTokenValid() && (onDelete != null || onEdit != null)"
-    class="d-flex flex-column justify-content-between"
-    style="cursor: pointer; min-width: 5%">
-    <button
-      *ngIf="onDelete != null"
-      (click)="onDelete(article.id)"
-      class="flex-grow-1 btn btn-danger"
-      style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-      <i class="bi bi-trash3-fill"></i>
-    </button>
-    <button
-      *ngIf="onEdit != null"
-      (click)="onEdit(article.id)"
-      class="flex-grow-1 btn btn-secondary"
-      style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0">
-      <i class="bi bi-pencil-square"></i>
-    </button>
-  </div>
+  @if (authService.isTokenValid() && (onDelete != null || onEdit != null)) {
+    <div
+      class="d-flex flex-column justify-content-between"
+      style="cursor: pointer; min-width: 5%">
+
+      @if (onDelete !== undefined) {
+        <button
+          (click)="onDelete(article.id)"
+          class="flex-grow-1 btn btn-danger"
+          style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
+          <i class="bi bi-trash3-fill"></i>
+        </button>
+      }
+
+      @if (onEdit !== undefined) {
+        <button
+          (click)="onEdit(article.id)"
+          class="flex-grow-1 btn btn-secondary"
+          style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      }
+    </div>
+  }
 </div>

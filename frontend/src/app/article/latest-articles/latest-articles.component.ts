@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgIf } from "@angular/common";
 import { Router, RouterLink } from "@angular/router";
 import { Article } from "../article";
 import { ArticleListComponent } from "../article-list/article-list.component";
@@ -13,7 +12,6 @@ import { finalize } from "rxjs";
   imports: [
     RouterLink,
     ArticleListComponent,
-    NgIf
   ],
 })
 export class LatestArticlesComponent implements OnInit {

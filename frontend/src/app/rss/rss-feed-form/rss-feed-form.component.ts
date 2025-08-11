@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
-import { NgClass, NgIf } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { RssFeed } from "../rss-feed";
 import { ActivatedRoute } from "@angular/router";
 import { RssService } from "../rss.service";
@@ -11,7 +11,6 @@ import { finalize } from "rxjs";
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
     ReactiveFormsModule,
     NgClass
   ],

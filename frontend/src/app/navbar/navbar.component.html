@@ -13,9 +13,11 @@
         <a class="nav-link" routerLink="/rss">RSS</a>
       </li>
 
-      <li class="nav-item" *ngIf="authService.isTokenValid()">
-        <a routerLink="/manager" class="nav-link">Manager</a>
-      </li>
+      @if (authService.isTokenValid()) {
+        <li class="nav-item">
+          <a routerLink="/manager" class="nav-link">Manager</a>
+        </li>
+      }
     </ul>
   </div>
 </nav>

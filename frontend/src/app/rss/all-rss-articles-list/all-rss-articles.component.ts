@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RssService } from "../rss.service";
 import { ArticleListComponent } from "../../article/article-list/article-list.component";
-import { NgIf } from "@angular/common";
 import { finalize } from "rxjs";
 import { Router } from "@angular/router";
 import { AuthService } from "../../authentication/auth.service";
@@ -12,7 +11,6 @@ import { RssArticle } from "../rss-article";
   standalone: true,
   imports: [
     ArticleListComponent,
-    NgIf
   ],
   templateUrl: './all-rss-articles.component.html'
 })

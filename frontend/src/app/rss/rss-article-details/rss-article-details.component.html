@@ -1,38 +1,46 @@
-<div
-  *ngIf="!article"
-  class="d-flex flex-column justify-content-center align-items-center">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
-
-<article *ngIf="article" class="d-block mt-4 mb-0 mx-auto">
-  <div class="d-flex flex-column gap-4 mb-3">
-    <div class="d-flex flex-column justify-content-between align-items-center">
-      <time class="mb-2">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</time>
-      <p>
-        <i>
-          From <a href="{{ article.categoryUrl }}" target="_blank">
-          <strong>{{ article.category }}</strong>
-        </a>
-        </i>
-      </p>
-
-      <h1 class="h1 text-center width-900">{{ article.title }}</h1>
-      <p *ngIf="article.minutesToRead > 0"
-         class="small mb-0 text-secondary-emphasis">
-        Read time: {{ article.minutesToRead }}
-        <span *ngIf="article.minutesToRead == 1">minute</span>
-        <span *ngIf="article.minutesToRead > 1 ">minutes</span>
-      </p>
+@if (!article) {
+  <div
+    class="d-flex flex-column justify-content-center align-items-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
+} @else {
+  <article class="d-block mt-4 mb-0 mx-auto">
+    <div class="d-flex flex-column gap-4 mb-3">
+      <div class="d-flex flex-column justify-content-between align-items-center">
+        <time class="mb-2">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</time>
+        <p>
+          <i>
+            From <a href="{{ article.categoryUrl }}" target="_blank">
+              <strong>{{ article.category }}</strong>
+            </a>
+          </i>
+        </p>
 
-  <p
-    *ngIf="article.content.length === 0"
-    class="text-center">
-    <i>No content</i>
-  </p>
+        <h1 class="h1 text-center width-900">{{ article.title }}</h1>
 
-  <div class="mx-auto content" [innerHTML]="articleContent"></div>
-</article>
+        @if (article.minutesToRead > 0) {
+          <p class="small mb-0 text-secondary-emphasis">
+            Read time: {{ article.minutesToRead }}
+
+            @if (article.minutesToRead === 1) {
+              <span>minute</span>
+            } @else {
+              <span>minutes</span>
+            }
+          </p>
+        }
+      </div>
+    </div>
+
+    @if (article.content.length === 0) {
+      <p
+        class="text-center">
+        <i>No content</i>
+      </p>
+    }
+
+    <div class="mx-auto content" [innerHTML]="articleContent"></div>
+  </article>
+}

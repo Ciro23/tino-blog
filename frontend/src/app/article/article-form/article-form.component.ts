@@ -3,7 +3,7 @@ import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
 import { Article } from "../article";
 import { ArticleService } from "../article-service";
 import { ActivatedRoute } from "@angular/router";
-import { NgClass, NgIf } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { AutoResizeDirective } from "../../directives/auto-resize.directive";
 import { finalize } from "rxjs";
 import { makeStringUrlCompatible } from "../../utilities/url-utilities";
@@ -13,7 +13,6 @@ import { makeStringUrlCompatible } from "../../utilities/url-utilities";
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
     AutoResizeDirective,
     NgClass,
     ReactiveFormsModule

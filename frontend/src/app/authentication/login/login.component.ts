@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
-import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-authentication',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf
   ],
   templateUrl: './login.component.html',
 })

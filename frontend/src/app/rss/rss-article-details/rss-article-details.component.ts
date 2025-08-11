@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgIf } from "@angular/common";
 import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
 import { DomSanitizer, SafeHtml, Title } from "@angular/platform-browser";
 import { RssArticle } from "../rss-article";
@@ -9,9 +8,7 @@ import { RssService } from "../rss.service";
 @Component({
   selector: 'app-rss-article-details',
   standalone: true,
-  imports: [
-    NgIf
-  ],
+  imports: [],
   templateUrl: './rss-article-details.component.html',
   styleUrl: './rss-article-details.component.css',
   encapsulation: ViewEncapsulation.None,

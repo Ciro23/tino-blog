@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NgIf } from "@angular/common";
 import { Article } from "../article";
 import { AuthService } from "../../authentication/auth.service";
 import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
@@ -8,9 +7,7 @@ import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
   selector: 'app-article-snippet',
   standalone: true,
   templateUrl: './article-snippet.component.html',
-  imports: [
-    NgIf
-  ]
+  imports: []
 })
 export class ArticleSnippetComponent {
   @Input() article!: Article;

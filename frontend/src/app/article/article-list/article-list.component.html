@@ -1,32 +1,34 @@
-<div
-  *ngIf="loadingArticles"
-  class="d-flex flex-column justify-content-center align-items-center">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
+@if (loadingArticles) {
+  <div
+    class="d-flex flex-column justify-content-center align-items-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
+} @else {
+  <div
+    class="d-flex flex-column gap-4">
 
-<div
-  *ngIf="!loadingArticles"
-  class="d-flex flex-column gap-4">
-
-  <p
-    *ngIf="articles?.length === 0"
-    class="text-center fs-5">
-    No articles published yet :C
-  </p>
-
-  <p
-    *ngIf="articles === undefined"
-    class="text-center text-danger fs-5">
-    An error has occurred x_x
-  </p>
-
-  <div *ngFor="let article of articles">
-      <app-article-snippet
-        [article]="article"
-        [onView]="onViewArticle"
-        [onEdit]="onEditArticle"
-        [onDelete]="onDeleteArticle"></app-article-snippet>
+    @if (articles === undefined) {
+      <p
+        class="text-center text-danger fs-5">
+        An error has occurred x_x
+      </p>
+    } @else if (articles.length === 0) {
+      <p
+        class="text-center fs-5">
+        No articles published yet :C
+      </p>
+    } @else {
+      @for (article of articles; track $index) {
+        <div>
+          <app-article-snippet
+            [article]="article"
+            [onView]="onViewArticle"
+            [onEdit]="onEditArticle"
+            [onDelete]="onDeleteArticle"></app-article-snippet>
+        </div>
+      }
+    }
   </div>
-</div>
+}

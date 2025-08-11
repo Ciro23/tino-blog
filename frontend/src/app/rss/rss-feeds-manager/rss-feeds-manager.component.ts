@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RssFeed } from "../rss-feed";
 import { RssService } from "../rss.service";
-import { NgForOf, NgIf } from "@angular/common";
 import { ConfirmationModalComponent } from "../../confimation-modal/confirmation-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { RouterLink } from "@angular/router";
@@ -11,9 +10,7 @@ import { finalize } from "rxjs";
   selector: 'app-rss-feeds-manager',
   standalone: true,
   imports: [
-    NgForOf,
     RouterLink,
-    NgIf
   ],
   templateUrl: './rss-feeds-manager.component.html',
 })

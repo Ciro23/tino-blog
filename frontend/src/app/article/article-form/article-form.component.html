@@ -1,122 +1,128 @@
 <div class="width-700">
-  <h1 *ngIf="!articleId" class="title">Create a new article</h1>
-  <h1 *ngIf="articleId" class="title">Edit article</h1>
+  @if (!articleId) {
+    <h1 class="title">Create a new article</h1>
+  } @else {
+    <h1 class="title">Edit article</h1>
+  }
 
-  <div
-    *ngIf="loadingArticle"
-    class="d-flex flex-column justify-content-center align-items-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+  @if (loadingArticle) {
+    <div
+      class="d-flex flex-column justify-content-center align-items-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
-  </div>
+  } @else if (article === undefined) {
+    <p
+      class="text-center text-danger fs-5">
+      An error has occurred x_x
+    </p>
+  } @else {
+    <form
+      (ngSubmit)="onSubmit(form)"
+      class="d-flex flex-column gap-3"
+      #form="ngForm">
 
-  <p
-    *ngIf="article === undefined"
-    class="text-center text-danger fs-5">
-    An error has occurred x_x
-  </p>
+      <input type="hidden" [(ngModel)]="article!.id" name="id" />
+      <input type="hidden" [(ngModel)]="article!.creationDateTime" name="creationDateTime" />
 
-<form
-  *ngIf="!loadingArticle && article !== undefined"
-  (ngSubmit)="onSubmit(form)"
-  class="d-flex flex-column gap-3"
-  #form="ngForm">
-
-  <input type="hidden" [(ngModel)]="article!.id" name="id" />
-  <input type="hidden" [(ngModel)]="article!.creationDateTime" name="creationDateTime" />
-
-  <label class="d-flex flex-column">
-    Title*
-    <input
-      [(ngModel)]="article!.title"
-      (ngModelChange)="onTitleChanged($event)"
-      [ngClass]="{
+      <label class="d-flex flex-column">
+        Title*
+        <input
+          [(ngModel)]="article!.title"
+          (ngModelChange)="onTitleChanged($event)"
+          [ngClass]="{
           'is-invalid': form.controls['title'] &&
           (form.controls['title'].dirty || form.submitted) &&
           form.controls['title'].invalid
         }"
-      name="title"
-      type="text"
-      maxlength="255"
-      class="form-control"
-      autocomplete="off"
-      required>
-  </label>
+          name="title"
+          type="text"
+          maxlength="255"
+          class="form-control"
+          autocomplete="off"
+          required>
+      </label>
 
-  <label class="d-flex flex-column">
-    <span>Slug* <span class="small">(cannot be changed afterwards)</span></span>
+      <label class="d-flex flex-column">
+        <span>Slug* <span class="small">(cannot be changed afterwards)</span></span>
 
-    <span class="small">
-        <span class="small">Lowercase letters, numbers and hyphens only. No trailing or consecutive hyphens</span>
-    </span>
+        <span class="small">
+          <span class="small">Lowercase letters, numbers and hyphens only. No trailing or consecutive hyphens</span>
+        </span>
 
-    <span class="d-flex gap-2">
-      <button
-        *ngIf="showGenerateSlugButton"
-        (click)="generateSlug(article!.title)"
-        type="button"
-        class="btn btn-secondary">
-        <i class="bi bi-arrow-clockwise"></i>
-      </button>
+        <span class="d-flex gap-2">
+          @if (showGenerateSlugButton) {
+            <button
+              (click)="generateSlug(article!.title)"
+              type="button"
+              class="btn btn-secondary">
+              <i class="bi bi-arrow-clockwise"></i>
+            </button>
+          }
 
-      <input
-        [(ngModel)]="article!.slug"
-        (ngModelChange)="slugManuallyChanged = true"
-        [ngClass]="{
+          <input
+            [(ngModel)]="article!.slug"
+            (ngModelChange)="slugManuallyChanged = true"
+            [ngClass]="{
             'is-invalid': form.controls['slug'] &&
             (form.controls['slug'].dirty || form.submitted) &&
             form.controls['slug'].invalid
           }"
-        [disabled]="articleId != undefined"
-        pattern="^[a-z0-9]+(-[a-z0-9]+)*$"
-        name="slug"
-        type="text"
-        maxlength="255"
-        class="form-control"
-        autocomplete="off"
-        required>
-    </span>
-  </label>
+            [disabled]="articleId != undefined"
+            pattern="^[a-z0-9]+(-[a-z0-9]+)*$"
+            name="slug"
+            type="text"
+            maxlength="255"
+            class="form-control"
+            autocomplete="off"
+            required>
+        </span>
+      </label>
 
-  <label class="d-flex flex-column">
-    <span>Short description <span class="small">(displayed only in the preview)</span></span>
-    <input
-      [(ngModel)]="article!.shortDescription"
-      [ngClass]="{
+      <label class="d-flex flex-column">
+        <span>Short description <span class="small">(displayed only in the preview)</span></span>
+        <input
+          [(ngModel)]="article!.shortDescription"
+          [ngClass]="{
           'is-invalid': form.controls['shortDescription'] &&
           (form.controls['shortDescription'].dirty || form.submitted) &&
           form.controls['shortDescription'].invalid
         }"
-      name="shortDescription"
-      type="text"
-      maxlength="255"
-      class="form-control"
-      autocomplete="off">
-  </label>
+          name="shortDescription"
+          type="text"
+          maxlength="255"
+          class="form-control"
+          autocomplete="off">
+      </label>
 
-  <label class="d-flex flex-column">
-    <span>Content* <span class="small">(with Markdown support)</span></span>
-    <textarea
-      [(ngModel)]="article!.content"
-      [ngClass]="{
+      <label class="d-flex flex-column">
+        <span>Content* <span class="small">(with Markdown support)</span></span>
+        <textarea
+          [(ngModel)]="article!.content"
+          [ngClass]="{
           'is-invalid': form.controls['content'] &&
           (form.controls['content'].dirty || form.submitted) &&
           form.controls['content'].invalid
         }"
-      name="content"
-      class="form-control"
-      style="resize: none"
-      rows="10"
-      appAutoResize
-      autocomplete="off"
-      required></textarea>
-  </label>
+          name="content"
+          class="form-control"
+          style="resize: none"
+          rows="10"
+          appAutoResize
+          autocomplete="off"
+          required></textarea>
+      </label>
 
-  <button *ngIf="!articleId" type="submit" class="btn btn-primary">Publish</button>
-  <button *ngIf="articleId" type="submit" class="btn btn-primary">Save changes</button>
+      @if (!articleId) {
+        <button type="submit" class="btn btn-primary">Publish</button>
+      } @else {
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      }
 
-    <p
-      *ngIf="errorMessage !== ''"
-      class="text-center text-danger">{{ errorMessage }}</p>
-  </form>
+      @if (errorMessage.length > 0) {
+        <p class="text-center text-danger">{{ errorMessage }}</p>
+      }
+    </form>
+  }
 </div>

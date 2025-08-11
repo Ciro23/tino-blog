@@ -1,41 +1,48 @@
-<div
-  *ngIf="article == undefined"
-  class="d-flex flex-column justify-content-center align-items-center">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
-
-<article *ngIf="article" class="d-block mt-4 mb-0 mx-auto">
-  <div class="d-flex flex-column gap-4 mb-3">
-    <!-- Manage buttons are only shown if the user is authenticated -->
-    <div class="d-flex gap-3 justify-content-center" *ngIf="authService.isTokenValid()">
-      <button (click)="openDeleteConfirmationDialog()" class="btn btn-danger">
-        <i class="bi bi-trash3-fill"></i>
-      </button>
-      <a [routerLink]="['/articles', article.id, 'edit']" class="btn btn-secondary">
-        <i class="bi bi-pencil-square"></i>
-      </a>
-    </div>
-
-    <div class="d-flex flex-column justify-content-between align-items-center">
-      <time class="mb-2">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</time>
-      <h1 class="h1 text-center text-break width-900">{{ article.title }}</h1>
-
-      <p *ngIf="article.minutesToRead > 0"
-         class="small mt-1 mb-0 text-secondary-emphasis">
-        Read time: {{ article.minutesToRead }}
-        <span *ngIf="article.minutesToRead == 1">minute</span>
-        <span *ngIf="article.minutesToRead > 1 ">minutes</span>
-      </p>
+@if (article == undefined) {
+  <div
+    class="d-flex flex-column justify-content-center align-items-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
+} @else {
+  <article class="d-block mt-4 mb-0 mx-auto">
+    <div class="d-flex flex-column gap-4 mb-3">
+      @if (authService.isTokenValid()) {
+        <div class="d-flex gap-3 justify-content-center">
+          <button (click)="openDeleteConfirmationDialog()" class="btn btn-danger">
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+          <a [routerLink]="['/articles', article.id, 'edit']" class="btn btn-secondary">
+            <i class="bi bi-pencil-square"></i>
+          </a>
+        </div>
+      }
 
-  <div class="mx-auto content">
-    <markdown
-      clipboard
-      [data]="article.content"
-    >
-    </markdown>
-  </div>
-</article>
+      <div class="d-flex flex-column justify-content-between align-items-center">
+        <time class="mb-2">{{ getFormattedCreationDateTime(article.creationDateTime!) }}</time>
+        <h1 class="h1 text-center text-break width-900">{{ article.title }}</h1>
+
+        @if (article.minutesToRead > 0) {
+          <p class="small mt-1 mb-0 text-secondary-emphasis">
+            Read time: {{ article.minutesToRead }}
+
+            @if (article.minutesToRead === 1) {
+              <span>minute</span>
+            } @else {
+              <span>minutes</span>
+            }
+          </p>
+        }
+      </div>
+    </div>
+
+    <div class="mx-auto content">
+      <markdown
+        clipboard
+        [data]="article.content"
+      >
+      </markdown>
+    </div>
+  </article>
+}

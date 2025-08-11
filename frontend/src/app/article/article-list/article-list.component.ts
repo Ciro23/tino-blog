@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ArticleSnippetComponent } from "../article-snippet/article-snippet.component";
-import { NgForOf, NgIf } from "@angular/common";
 import { Article } from "../article";
 
 @Component({
@@ -8,8 +7,6 @@ import { Article } from "../article";
   standalone: true,
   imports: [
     ArticleSnippetComponent,
-    NgForOf,
-    NgIf
   ],
   templateUrl: './article-list.component.html',
 })
