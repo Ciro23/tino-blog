@@ -44,7 +44,8 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   opacity: 1;
 }
 
-.content img {
+.content img,
+.content video {
   display: block;
   max-width: 100%;
   height: auto;

@@ -39,8 +39,10 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
         this.article = article;
         this.title.setTitle(article.title + " - Tino Blog");
 
-        const cleanedHtml = this.stripInlineStyles(this.article.content);
-        this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(cleanedHtml);
+        const htmlWithNoStyle = this.stripInlineStyles(this.article.content);
+        const htmlWithNoVideoSizeAttributs = this.stripVideoSizeAttributes(htmlWithNoStyle);
+        const cleanedUpHtml = this.fixVideoFullscreenOnMobile(htmlWithNoVideoSizeAttributs);
+        this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(cleanedUpHtml);
       },
       error: () => {
         void this.router.navigate(['/404'], { skipLocationChange: true });
@@ -65,12 +67,36 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
     return doc.body.innerHTML;
   }
 
+  private stripVideoSizeAttributes(html: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    doc.querySelectorAll('video').forEach(video => {
+      video.removeAttribute('width');
+      video.removeAttribute('height');
+    });
+
+    return doc.body.innerHTML;
+  }
+
+  private fixVideoFullscreenOnMobile(html: string): string {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    doc.querySelectorAll('video').forEach(video => {
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+    });
+
+    return doc.body.innerHTML;
+  }
+
   /**
   * A listener is required to make anchors work, otherwise they
   * would redirect the user to "https://website-root.com/#the-anchor",
   * instead of "https://website-root.com/rss/the-article#the-anchor".
   */
-  handleAnchors(): void {
+  private handleAnchors(): void {
     document.addEventListener('click', (e) => {
       const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
       if (anchor) {
