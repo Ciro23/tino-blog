@@ -44,7 +44,7 @@ CREATE TABLE public.rss_feeds
 (
     id                        uuid                   NOT NULL,
     description               character varying(255) NOT NULL,
-    url                       character varying(255) NOT NULL
+    url                       character varying(255) NOT NULL,
     show_articles_description boolean DEFAULT true   NOT NULL
 );
 
