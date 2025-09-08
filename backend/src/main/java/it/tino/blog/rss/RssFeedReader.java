@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import com.rometools.rome.feed.synd.SyndEntry;
@@ -76,17 +77,18 @@ public class RssFeedReader {
                 );
             }
 
-            if (entry.getPublishedDate() == null) {
-                // Whoever did not put the "published date" must be put in jail.
-                // This is the best workaround to avoid not having a date at
-                // all.
-                article.setCreationDateTime(Instant.now());
-            } else {
-                article.setCreationDateTime(
-                    entry.getPublishedDate()
-                            .toInstant()
+            Instant articleDate = parseArticleDate(entry);
+            if (articleDate == null) {
+                log.warn(
+                    "The RSS entry from feed '{}' and with title '{}' does not"
+                            + " declare a creation date, so it's being skipped",
+                    rssFeed.getUrl(),
+                    article.getTitle()
                 );
+                continue;
             }
+
+            article.setCreationDateTime(articleDate);
 
             articles.add(article);
         }
@@ -143,4 +145,18 @@ public class RssFeedReader {
         }
     }
 
+    @Nullable
+    private Instant parseArticleDate(SyndEntry entry) {
+        if (entry.getPublishedDate() != null) {
+            return entry.getPublishedDate()
+                    .toInstant();
+        }
+
+        if (entry.getUpdatedDate() != null) {
+            return entry.getUpdatedDate()
+                    .toInstant();
+        }
+
+        return null;
+    }
 }
