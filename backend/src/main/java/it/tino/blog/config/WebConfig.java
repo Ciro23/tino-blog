@@ -68,16 +68,12 @@ public class WebConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authProvider() {
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
 
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(authProvider())
+                .authenticationProvider(authProvider)
                 .build();
     }
 
