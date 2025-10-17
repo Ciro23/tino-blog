@@ -1,22 +1,24 @@
 package it.tino.blog.article;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Repository;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
+
 @Repository
-@RequiredArgsConstructor
 public class ArticleSpringDataSource implements ArticleRepository {
 
     private final ArticleDao articleDao;
+
+    public ArticleSpringDataSource(ArticleDao articleDao) {
+        this.articleDao = articleDao;
+    }
 
     @Override
     public BlogArticle save(BlogArticle article) {

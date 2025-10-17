@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("rss/feeds")
-@RequiredArgsConstructor
 public class RssFeedController {
 
     private final RssFeedRepository rssFeedRepository;
     private final CachedRssFeedReader cachedRssFeedReader;
+
+    public RssFeedController(
+        RssFeedRepository rssFeedRepository,
+        CachedRssFeedReader cachedRssFeedReader
+    ) {
+        this.rssFeedRepository = rssFeedRepository;
+        this.cachedRssFeedReader = cachedRssFeedReader;
+    }
 
     @GetMapping
     public Set<RssFeed> getRssFeeds() {

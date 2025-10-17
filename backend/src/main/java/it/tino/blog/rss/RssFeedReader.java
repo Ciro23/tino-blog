@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +22,10 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-
 @Component
-@RequiredArgsConstructor
-@Log4j2
 public class RssFeedReader {
+
+    private static final Logger log = LoggerFactory.getLogger(RssFeedReader.class);
 
     public Set<RssArticle> readRssFeed(RssFeed rssFeed) {
         URL url = parseUrl(rssFeed.getUrl());

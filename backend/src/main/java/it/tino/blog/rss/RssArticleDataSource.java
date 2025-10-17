@@ -1,22 +1,31 @@
 package it.tino.blog.rss;
 
-import it.tino.blog.util.Urls;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+import it.tino.blog.util.Urls;
+
 @Repository
-@RequiredArgsConstructor
-@Log4j2
 public class RssArticleDataSource implements RssArticleRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(RssArticleDataSource.class);
 
     private final RssFeedRepository rssFeedRepository;
     private final CachedRssFeedReader cachedRssFeedReader;
+
+    public RssArticleDataSource(
+        RssFeedRepository rssFeedRepository,
+        CachedRssFeedReader cachedRssFeedReader
+    ) {
+        this.rssFeedRepository = rssFeedRepository;
+        this.cachedRssFeedReader = cachedRssFeedReader;
+    }
 
     @Override
     public Optional<RssArticle> findBySlug(String slug) {

@@ -1,11 +1,10 @@
 package it.tino.blog.rss;
 
-import lombok.RequiredArgsConstructor;
+import java.util.Set;
+
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
 
 /**
  * I would have preferred to declare {@link #readRssFeed(RssFeed)} inside
@@ -14,10 +13,13 @@ import java.util.Set;
  * Declaring the cached method in a separate bean was the simplest solution.
  */
 @Component
-@RequiredArgsConstructor
 public class CachedRssFeedReader {
 
     private final RssFeedReader rssFeedReader;
+
+    public CachedRssFeedReader(RssFeedReader rssFeedReader) {
+        this.rssFeedReader = rssFeedReader;
+    }
 
     @Cacheable(value = "rss-feed", key = "#rssFeed.url")
     public Set<RssArticle> readRssFeed(RssFeed rssFeed) {

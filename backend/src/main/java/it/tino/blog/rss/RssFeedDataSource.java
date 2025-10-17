@@ -1,19 +1,21 @@
 package it.tino.blog.rss;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Repository;
+
 @Repository
-@RequiredArgsConstructor
 public class RssFeedDataSource implements RssFeedRepository {
 
     private final RssFeedDao rssFeedDao;
+
+    public RssFeedDataSource(RssFeedDao rssFeedDao) {
+        this.rssFeedDao = rssFeedDao;
+    }
 
     @Override
     public RssFeed save(RssFeed rssFeed) {
