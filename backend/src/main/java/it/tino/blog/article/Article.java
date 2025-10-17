@@ -56,7 +56,7 @@ public class Article implements Comparable<Article> {
     }
 
     @JsonProperty("minutesToRead")
-    public double getMinutesToRead() {
+    public int getMinutesToRead() {
         if (content.isBlank()) {
             return 0;
         }
@@ -64,7 +64,7 @@ public class Article implements Comparable<Article> {
         int wordCount = content.trim()
                 .split("\\s+").length;
         int averageWordPerMinute = 200;
-        return Math.ceil((double) wordCount / averageWordPerMinute);
+        return (int) Math.ceil((double) wordCount / averageWordPerMinute);
     }
 
     @Override
