@@ -1,4 +1,4 @@
-package it.tino.blog.config;
+package it.tino.blog.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,18 +30,18 @@ import com.nimbusds.jose.proc.SecurityContext;
 
 @Configuration
 @EnableWebSecurity
-public class WebConfig {
+class AuthConfig {
 
     private final UserDetailsService userDetailsService;
     private final RsaKeyProperties rsaKeys;
 
-    public WebConfig(UserDetailsService userDetailsService, RsaKeyProperties rsaKeys) {
+    public AuthConfig(UserDetailsService userDetailsService, RsaKeyProperties rsaKeys) {
         this.userDetailsService = userDetailsService;
         this.rsaKeys = rsaKeys;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                     (requests) -> requests.requestMatchers(HttpMethod.POST, "/**")
@@ -67,12 +67,12 @@ public class WebConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+    AuthenticationManager authManager(HttpSecurity http) throws Exception {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
 

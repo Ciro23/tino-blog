@@ -4,4 +4,4 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RssFeedDao extends JpaRepository<SpringRssFeed, UUID> {}
+interface RssFeedDao extends JpaRepository<SpringRssFeed, UUID> {}

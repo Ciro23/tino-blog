@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ArticleSpringDataSource implements ArticleRepository {
+class ArticleSpringDataSource implements ArticleRepository {
 
     private final ArticleDao articleDao;
 

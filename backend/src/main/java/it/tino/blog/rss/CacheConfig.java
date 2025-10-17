@@ -1,4 +1,4 @@
-package it.tino.blog.config;
+package it.tino.blog.rss;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.cache.CacheManager;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableCaching
-public class CacheConfig implements CachingConfigurer {
+class CacheConfig implements CachingConfigurer {
 
     @Bean
     public CacheManager cacheManager() {

@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "rss_feeds", schema = "public")
-public class SpringRssFeed {
+class SpringRssFeed {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

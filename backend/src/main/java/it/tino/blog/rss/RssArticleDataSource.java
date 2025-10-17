@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import it.tino.blog.util.Urls;
 
 @Repository
-public class RssArticleDataSource implements RssArticleRepository {
+class RssArticleDataSource implements RssArticleRepository {
 
     private static final Logger log = LoggerFactory.getLogger(RssArticleDataSource.class);
 

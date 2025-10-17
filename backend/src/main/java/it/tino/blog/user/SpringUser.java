@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class SpringUser implements UserDetails {
+class SpringUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

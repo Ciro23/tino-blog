@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserDao extends JpaRepository<SpringUser, UUID> {
+interface UserDao extends JpaRepository<SpringUser, UUID> {
 
     Optional<SpringUser> findByEmail(String username);
 }

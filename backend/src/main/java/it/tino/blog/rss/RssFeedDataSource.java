@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RssFeedDataSource implements RssFeedRepository {
+class RssFeedDataSource implements RssFeedRepository {
 
     private final RssFeedDao rssFeedDao;
 

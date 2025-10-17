@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "articles", schema = "public")
-public class SpringArticle {
+class SpringArticle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

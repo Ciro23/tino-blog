@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TokenService {
+class TokenService {
 
     private final JwtEncoder encoder;
 

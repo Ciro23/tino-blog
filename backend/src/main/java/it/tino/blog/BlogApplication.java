@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 
-import it.tino.blog.config.RsaKeyProperties;
+import it.tino.blog.auth.RsaKeyProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(RsaKeyProperties.class)

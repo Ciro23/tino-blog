@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * I would have preferred to declare {@link #readRssFeed(RssFeed)} inside
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
  * call a cached method if defined in the same bean.<br>
  * Declaring the cached method in a separate bean was the simplest solution.
  */
-@Component
-public class CachedRssFeedReader {
+@Service
+class CachedRssFeedReader {
 
     private final RssFeedReader rssFeedReader;
 
