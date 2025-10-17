@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Article } from "./article";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Article } from "./article";
+import { SaveArticle } from "./save-article";
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,12 @@ export class ArticleService {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  insertArticle(article: Article): Observable<any> {
+  insertArticle(article: SaveArticle): Observable<any> {
     return this.http.post<Article>(this.apiUrl, article, { observe: "response" });
   }
 
-  updateArticle(article: Article): Observable<any> {
-    return this.http.put<Article>(`${this.apiUrl}/${article.id}`, article, { observe: "response" });
+  updateArticle(id: string, article: SaveArticle): Observable<any> {
+    return this.http.put<Article>(`${this.apiUrl}/${id}`, article, { observe: "response" });
   }
 
   deleteArticle(id: string): Observable<any> {

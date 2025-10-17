@@ -1,13 +1,13 @@
+import { NgClass } from "@angular/common";
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
-import { Article } from "../article";
-import { ArticleService } from "../article-service";
 import { ActivatedRoute } from "@angular/router";
-import { NgClass } from "@angular/common";
-import { AutoResizeDirective } from "../../directives/auto-resize.directive";
 import { finalize } from "rxjs";
-import { makeStringUrlCompatible } from "../../utilities/url-utilities";
+import { AutoResizeDirective } from "../../directives/auto-resize.directive";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { makeStringUrlCompatible } from "../../utilities/url-utilities";
+import { ArticleService } from "../article-service";
+import { SaveArticle } from "../save-article";
 
 @Component({
   selector: 'app-article-form',
@@ -33,12 +33,9 @@ export class ArticleFormComponent implements OnInit {
   /**
    * Must be undefined only if an error occurred.
    */
-  article?: Article = {
-    id: '',
-    creationDateTime: new Date(),
+  article?: SaveArticle = {
     title: '',
     slug: '',
-    minutesToRead: 0,
     shortDescription: '',
     content: ''
   };
@@ -104,9 +101,11 @@ export class ArticleFormComponent implements OnInit {
       return;
     }
 
-    let callable = this.articleService.updateArticle(this.article!);
+    let callable;
     if (!this.articleId) {
       callable = this.articleService.insertArticle(this.article!);
+    } else {
+      callable = this.articleService.updateArticle(this.articleId, this.article!);
     }
 
     callable.subscribe({

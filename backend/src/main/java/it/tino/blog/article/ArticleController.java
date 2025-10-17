@@ -2,8 +2,6 @@ package it.tino.blog.article;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -23,13 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArticleController {
 
     private final ArticleRepository articleRepository;
+    private final BlogArticleDtoMapper blogArticleDtoMapper;
 
-    public ArticleController(ArticleRepository articleRepository) {
+    public ArticleController(
+        ArticleRepository articleRepository,
+        BlogArticleDtoMapper blogArticleDtoMapper
+    ) {
         this.articleRepository = articleRepository;
+        this.blogArticleDtoMapper = blogArticleDtoMapper;
     }
 
     @GetMapping
-    public ResponseEntity<Set<BlogArticle>> getArticles(
+    public ResponseEntity<List<BlogArticleDetailDto>> getArticles(
         @RequestParam(name = "limit", required = false) Integer limit
     ) {
         List<BlogArticle> articles;
@@ -39,21 +42,22 @@ public class ArticleController {
             articles = articleRepository.findWithLimit(limit);
         }
 
-        return new ResponseEntity<>(new TreeSet<>(articles), HttpStatus.OK);
+        List<BlogArticleDetailDto> articlesDto = blogArticleDtoMapper.toListDto(articles);
+        return new ResponseEntity<>(articlesDto, HttpStatus.OK);
     }
 
     /**
      * Search an article from both its UUID or slug.<br>
      * Most of the time the requests will use the slug, but UUID is still
-     * support to keep compatibility previous version, since initially the only
-     * search available was by UUID.
+     * supported to keep compatibility with previous version, since initially
+     * search was only available by UUID.
      * @param identifier Contains the UUID of the article, or its slug.
      * @return The corresponding article.
      * @see <a href="https://en.wikipedia.org/wiki/Clean_URL#Slug">Slug |
      *      Wikipedia</a>
      */
     @GetMapping("{identifier}")
-    public ResponseEntity<BlogArticle> getArticle(@PathVariable String identifier) {
+    public ResponseEntity<BlogArticleDetailDto> getArticle(@PathVariable String identifier) {
         Optional<BlogArticle> optionalBlogArticle;
         try {
             UUID uuid = UUID.fromString(identifier);
@@ -62,34 +66,53 @@ public class ArticleController {
             optionalBlogArticle = articleRepository.findBySlug(identifier);
         }
 
-        return optionalBlogArticle.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        if (optionalBlogArticle.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        BlogArticle article = optionalBlogArticle.get();
+        BlogArticleDetailDto articleDto = blogArticleDtoMapper.toDetailDto(article);
+        return new ResponseEntity<>(articleDto, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<BlogArticle> createArticle(@RequestBody BlogArticle article) {
+    public ResponseEntity<BlogArticleDetailDto> createArticle(
+        @RequestBody SaveBlogArticleDto articleCreateDto
+    ) {
+        BlogArticle article = blogArticleDtoMapper.toDomain(articleCreateDto);
         BlogArticle savedArticle = articleRepository.save(article);
-        return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+
+        BlogArticleDetailDto savedArticleDto = blogArticleDtoMapper.toDetailDto(savedArticle);
+        return new ResponseEntity<>(savedArticleDto, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<BlogArticle> updateArticle(
+    public ResponseEntity<BlogArticleDetailDto> updateArticle(
         @PathVariable UUID id,
-        @RequestBody BlogArticle article
+        @RequestBody SaveBlogArticleDto createArticleDto
     ) {
+        BlogArticle article = blogArticleDtoMapper.toDomain(createArticleDto);
         return articleRepository.findById(id)
                 .map(a -> {
                     a.setTitle(article.getTitle());
-                    a.setCreationDateTime(article.getCreationDateTime());
+                    a.setCreationDateTime(a.getCreationDateTime());
                     a.setShortDescription(article.getShortDescription());
                     a.setContent(article.getContent());
 
                     BlogArticle savedArticle = articleRepository.save(a);
-                    return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+                    BlogArticleDetailDto savedArticleDto = blogArticleDtoMapper
+                            .toDetailDto(savedArticle);
+
+                    return new ResponseEntity<>(savedArticleDto, HttpStatus.OK);
                 })
                 .orElseGet(() -> {
+                    article.setId(id);
+
                     BlogArticle savedArticle = articleRepository.save(article);
-                    return new ResponseEntity<>(savedArticle, HttpStatus.OK);
+                    BlogArticleDetailDto savedArticleDto = blogArticleDtoMapper
+                            .toDetailDto(savedArticle);
+
+                    return new ResponseEntity<>(savedArticleDto, HttpStatus.OK);
                 });
     }
 

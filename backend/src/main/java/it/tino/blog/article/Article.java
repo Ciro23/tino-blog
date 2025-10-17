@@ -3,8 +3,6 @@ package it.tino.blog.article;
 import java.time.Instant;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import it.tino.blog.util.Urls;
 
 public class Article implements Comparable<Article> {
@@ -55,7 +53,6 @@ public class Article implements Comparable<Article> {
         this.creationDateTime = creationDateTime;
     }
 
-    @JsonProperty("minutesToRead")
     public int getMinutesToRead() {
         if (content.isBlank()) {
             return 0;
