@@ -47,7 +47,10 @@ public class RssArticleDataSource implements RssArticleRepository {
                 Set<RssArticle> feed = findByFeed(rssFeed);
                 rssArticles.addAll(feed);
             } catch (RssParsingException e) {
-                log.error("Error fetching articles of feed '" + rssFeed.getUrl() + "'");
+                log.error(
+                    "Error fetching articles of feed '" + rssFeed.getUrl() + "': " + e.getMessage(),
+                    e
+                );
             }
         }
 

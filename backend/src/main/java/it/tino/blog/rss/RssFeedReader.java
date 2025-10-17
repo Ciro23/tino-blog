@@ -100,17 +100,20 @@ public class RssFeedReader {
             return URI.create(urlString)
                     .toURL();
         } catch (NullPointerException e) {
+            log.error(e.getMessage(), e);
+
             String message = "Cannot parse the RSS feed URL because it's null.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (IllegalArgumentException e) {
+            log.error(e.getMessage(), e);
+
             String message = "Cannot parse the RSS feed URL: '" + urlString
                     + "'. It violates RFC 2396.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (MalformedURLException e) {
+            log.error(e.getMessage(), e);
+
             String message = "Cannot parse the malformed RSS feed URL: '" + urlString + "'.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         }
     }
@@ -126,20 +129,24 @@ public class RssFeedReader {
             XmlReader xmlReader = new XmlReader(connection);
             return input.build(xmlReader);
         } catch (ConnectException e) {
+            log.error(e.getMessage(), e);
+
             String message = "Cannot connect to remote URL: '" + feedUrl + "'.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (FeedException e) {
+            log.error(e.getMessage(), e);
+
             String message = "Cannot parse the RSS feed from the URL: '" + feedUrl + "'.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (IOException e) {
+            log.error(e.getMessage(), e);
+
             String message = "Cannot read the stream of the URL: '" + feedUrl + "'.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
+
             String message = "Unknown error: '" + feedUrl + "'.";
-            log.error(message, e);
             throw new RssParsingException(message, e);
         }
     }
