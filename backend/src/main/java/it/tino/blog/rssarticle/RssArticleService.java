@@ -38,6 +38,6 @@ public class RssArticleService {
     }
 
     public void reloadFeedCache(RssFeed rssFeed) {
-        cachedRssArticleDownloader.evictFeedCache(rssFeed.getUrl());
+        cachedRssArticleDownloader.evictFeedCache(rssFeed.getId());
     }
 }
