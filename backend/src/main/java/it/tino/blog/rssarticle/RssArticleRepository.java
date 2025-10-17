@@ -1,9 +1,11 @@
-package it.tino.blog.rss;
+package it.tino.blog.rssarticle;
 
 import java.util.Optional;
 import java.util.Set;
 
-public interface RssArticleRepository {
+import it.tino.blog.rssfeed.RssFeed;
+
+interface RssArticleRepository {
 
     Optional<RssArticle> findBySlug(String slug);
 

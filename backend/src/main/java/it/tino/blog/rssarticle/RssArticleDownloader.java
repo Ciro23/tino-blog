@@ -1,4 +1,4 @@
-package it.tino.blog.rss;
+package it.tino.blog.rssarticle;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -22,12 +22,14 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
+import it.tino.blog.rssfeed.RssFeed;
+
 @Service
-class RssFeedReader {
+class RssArticleDownloader {
 
-    private static final Logger log = LoggerFactory.getLogger(RssFeedReader.class);
+    private static final Logger log = LoggerFactory.getLogger(RssArticleDownloader.class);
 
-    public Set<RssArticle> readRssFeed(RssFeed rssFeed) {
+    public Set<RssArticle> fetchArticles(RssFeed rssFeed) {
         URL url = parseUrl(rssFeed.getUrl());
         SyndFeed feed = parseFeed(url);
 

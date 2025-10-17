@@ -1,4 +1,4 @@
-package it.tino.blog.rss;
+package it.tino.blog.rssfeed;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,19 +15,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.tino.blog.rssarticle.RssArticleService;
+
 @RestController
 @RequestMapping("rss/feeds")
 public class RssFeedController {
 
     private final RssFeedRepository rssFeedRepository;
-    private final CachedRssFeedReader cachedRssFeedReader;
+    private final RssArticleService rssArticleService;
 
     public RssFeedController(
         RssFeedRepository rssFeedRepository,
-        CachedRssFeedReader cachedRssFeedReader
+        RssArticleService cachedRssFeedReader
     ) {
         this.rssFeedRepository = rssFeedRepository;
-        this.cachedRssFeedReader = cachedRssFeedReader;
+        this.rssArticleService = cachedRssFeedReader;
     }
 
     @GetMapping
@@ -63,7 +65,7 @@ public class RssFeedController {
                 })
                 .orElseGet(() -> rssFeedRepository.save(rssFeed));
 
-        cachedRssFeedReader.evictCache(savedFeed.getUrl());
+        rssArticleService.reloadFeedCache(savedFeed);
         return new ResponseEntity<>(savedFeed, HttpStatus.OK);
     }
 

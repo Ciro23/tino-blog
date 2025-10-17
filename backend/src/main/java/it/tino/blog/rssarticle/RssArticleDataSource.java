@@ -1,4 +1,4 @@
-package it.tino.blog.rss;
+package it.tino.blog.rssarticle;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import it.tino.blog.rssfeed.RssFeed;
+import it.tino.blog.rssfeed.RssFeedRepository;
 import it.tino.blog.util.Urls;
 
 @Repository
@@ -17,14 +19,14 @@ class RssArticleDataSource implements RssArticleRepository {
     private static final Logger log = LoggerFactory.getLogger(RssArticleDataSource.class);
 
     private final RssFeedRepository rssFeedRepository;
-    private final CachedRssFeedReader cachedRssFeedReader;
+    private final CachedRssArticleDownloader cachedRssArticleDownloader;
 
     public RssArticleDataSource(
         RssFeedRepository rssFeedRepository,
-        CachedRssFeedReader cachedRssFeedReader
+        CachedRssArticleDownloader cachedRssArticleDownloader
     ) {
         this.rssFeedRepository = rssFeedRepository;
-        this.cachedRssFeedReader = cachedRssFeedReader;
+        this.cachedRssArticleDownloader = cachedRssArticleDownloader;
     }
 
     @Override
@@ -59,6 +61,6 @@ class RssArticleDataSource implements RssArticleRepository {
 
     @Override
     public Set<RssArticle> findByFeed(RssFeed rssFeed) {
-        return cachedRssFeedReader.readRssFeed(rssFeed);
+        return cachedRssArticleDownloader.readRssFeed(rssFeed);
     }
 }

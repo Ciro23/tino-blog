@@ -1,4 +1,4 @@
-package it.tino.blog.rss;
+package it.tino.blog.rssarticle;
 
 import java.util.Optional;
 import java.util.Set;
@@ -15,32 +15,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("rss/articles")
 public class RssArticleController {
 
-    private final RssArticleRepository rssArticleRepository;
-    private final CachedRssFeedReader cachedRssFeedReader;
+    private final RssArticleService rssArticleService;
 
-    public RssArticleController(
-        RssArticleRepository rssArticleRepository,
-        CachedRssFeedReader cachedRssFeedReader
-    ) {
-        this.rssArticleRepository = rssArticleRepository;
-        this.cachedRssFeedReader = cachedRssFeedReader;
+    public RssArticleController(RssArticleService rssArticleService) {
+        this.rssArticleService = rssArticleService;
     }
 
     @GetMapping
     public Set<RssArticle> getRssArticles() {
-        return rssArticleRepository.findAll();
+        return rssArticleService.getAll();
     }
 
     @GetMapping("{slug}")
     public ResponseEntity<RssArticle> getRssArticle(@PathVariable String slug) {
-        Optional<RssArticle> optionalRssArticle = rssArticleRepository.findBySlug(slug);
+        Optional<RssArticle> optionalRssArticle = rssArticleService.getBySlug(slug);
         return optionalRssArticle.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("reload")
     public ResponseEntity<Void> reloadRssFeedsCache() {
-        cachedRssFeedReader.evictAllCache();
+        rssArticleService.reloadCache();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
