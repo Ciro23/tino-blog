@@ -1,4 +1,4 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import java.util.ArrayList;
 import java.util.Collection;

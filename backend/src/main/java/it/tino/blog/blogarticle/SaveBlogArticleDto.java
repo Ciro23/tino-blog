@@ -1,4 +1,4 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,7 +1,9 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import java.util.Objects;
 import java.util.UUID;
+
+import it.tino.blog.article.Article;
 
 public class BlogArticle extends Article {
 

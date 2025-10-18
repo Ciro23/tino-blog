@@ -1,4 +1,4 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "articles", schema = "public")
-class SpringArticle {
+class SpringBlogArticle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -108,7 +108,7 @@ class SpringArticle {
             return false;
         }
 
-        SpringArticle other = (SpringArticle) obj;
+        SpringBlogArticle other = (SpringBlogArticle) obj;
         return Objects.equals(id, other.id) && Objects.equals(title, other.title)
                 && Objects.equals(slug, other.slug)
                 && Objects.equals(shortDescription, other.shortDescription)

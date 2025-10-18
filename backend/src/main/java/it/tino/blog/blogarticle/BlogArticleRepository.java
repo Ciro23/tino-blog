@@ -1,10 +1,10 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ArticleRepository {
+public interface BlogArticleRepository {
 
     BlogArticle save(BlogArticle article);
 

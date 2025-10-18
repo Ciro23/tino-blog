@@ -1,4 +1,4 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("articles")
-public class ArticleController {
+public class BlogArticleController {
 
-    private final ArticleRepository articleRepository;
+    private final BlogArticleRepository articleRepository;
     private final BlogArticleDtoMapper blogArticleDtoMapper;
 
-    public ArticleController(
-        ArticleRepository articleRepository,
+    public BlogArticleController(
+        BlogArticleRepository articleRepository,
         BlogArticleDtoMapper blogArticleDtoMapper
     ) {
         this.articleRepository = articleRepository;

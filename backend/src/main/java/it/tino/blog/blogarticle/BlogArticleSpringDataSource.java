@@ -1,4 +1,4 @@
-package it.tino.blog.article;
+package it.tino.blog.blogarticle;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,17 +12,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-class ArticleSpringDataSource implements ArticleRepository {
+class BlogArticleSpringDataSource implements BlogArticleRepository {
 
     private final ArticleDao articleDao;
 
-    public ArticleSpringDataSource(ArticleDao articleDao) {
+    public BlogArticleSpringDataSource(ArticleDao articleDao) {
         this.articleDao = articleDao;
     }
 
     @Override
     public BlogArticle save(BlogArticle article) {
-        SpringArticle entity = domainToDb(article);
+        SpringBlogArticle entity = domainToDb(article);
         return dbToDomain(articleDao.save(entity));
     }
 
@@ -39,7 +39,7 @@ class ArticleSpringDataSource implements ArticleRepository {
             Sort.by("creationDateTime")
                     .descending()
         );
-        Page<SpringArticle> limitedNumberOfArticles = articleDao.findAll(pageable);
+        Page<SpringBlogArticle> limitedNumberOfArticles = articleDao.findAll(pageable);
         return dbToDomain(limitedNumberOfArticles.getContent());
     }
 
@@ -64,8 +64,8 @@ class ArticleSpringDataSource implements ArticleRepository {
         return false;
     }
 
-    private SpringArticle domainToDb(BlogArticle article) {
-        SpringArticle a = new SpringArticle();
+    private SpringBlogArticle domainToDb(BlogArticle article) {
+        SpringBlogArticle a = new SpringBlogArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
         a.setSlug(article.getSlug());
@@ -75,13 +75,13 @@ class ArticleSpringDataSource implements ArticleRepository {
         return a;
     }
 
-    private List<BlogArticle> dbToDomain(Collection<SpringArticle> articles) {
+    private List<BlogArticle> dbToDomain(Collection<SpringBlogArticle> articles) {
         return articles.stream()
                 .map(this::dbToDomain)
                 .collect(Collectors.toList());
     }
 
-    private BlogArticle dbToDomain(SpringArticle article) {
+    private BlogArticle dbToDomain(SpringBlogArticle article) {
         BlogArticle a = new BlogArticle();
         a.setId(article.getId());
         a.setTitle(article.getTitle());
