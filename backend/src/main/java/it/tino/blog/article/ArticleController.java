@@ -32,7 +32,7 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BlogArticleDetailDto>> getArticles(
+    public ResponseEntity<List<BlogArticleSummaryDto>> getArticles(
         @RequestParam(name = "limit", required = false) Integer limit
     ) {
         List<BlogArticle> articles;
@@ -42,7 +42,7 @@ public class ArticleController {
             articles = articleRepository.findWithLimit(limit);
         }
 
-        List<BlogArticleDetailDto> articlesDto = blogArticleDtoMapper.toListDto(articles);
+        List<BlogArticleSummaryDto> articlesDto = blogArticleDtoMapper.toListDto(articles);
         return new ResponseEntity<>(articlesDto, HttpStatus.OK);
     }
 

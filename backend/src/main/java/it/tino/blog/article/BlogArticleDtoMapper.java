@@ -24,12 +24,19 @@ class BlogArticleDtoMapper {
         return dto;
     }
 
-    List<BlogArticleDetailDto> toListDto(Collection<BlogArticle> articles) {
+    List<BlogArticleSummaryDto> toListDto(Collection<BlogArticle> articles) {
         Set<BlogArticle> sortedArticles = new TreeSet<>(articles);
-        List<BlogArticleDetailDto> dtoList = new ArrayList<>();
+        List<BlogArticleSummaryDto> dtoList = new ArrayList<>();
 
         for (BlogArticle article : sortedArticles) {
-            BlogArticleDetailDto dto = toDetailDto(article);
+            BlogArticleSummaryDto dto = new BlogArticleSummaryDto();
+            dto.setId(article.getId());
+            dto.setTitle(article.getTitle());
+            dto.setSlug(article.getSlug());
+            dto.setShortDescription(article.getShortDescription());
+            dto.setCreationDateTime(article.getCreationDateTime());
+            dto.setMinutesToRead(article.getMinutesToRead());
+
             dtoList.add(dto);
         }
 
