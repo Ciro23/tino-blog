@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 class RssFeedDtoMapper {
 
-    RssFeedDetailDto toDetailDto(RssFeed feed) {
+    public RssFeedDetailDto toDetailDto(RssFeed feed) {
         RssFeedDetailDto dto = new RssFeedDetailDto();
         dto.setId(feed.getId());
         dto.setUrl(feed.getUrl());
@@ -21,7 +21,7 @@ class RssFeedDtoMapper {
         return dto;
     }
 
-    List<RssFeedDetailDto> toListDto(Collection<RssFeed> feeds) {
+    public List<RssFeedDetailDto> toListDto(Collection<RssFeed> feeds) {
         Set<RssFeed> sortedFeeds = new TreeSet<>(feeds);
         List<RssFeedDetailDto> dtoList = new ArrayList<>();
 
@@ -33,7 +33,7 @@ class RssFeedDtoMapper {
         return dtoList;
     }
 
-    RssFeed toDomain(SaveRssFeedDto dto) {
+    public RssFeed toDomain(SaveRssFeedDto dto) {
         RssFeed feed = new RssFeed();
         feed.setUrl(dto.getUrl());
         feed.setDescription(dto.getDescription());

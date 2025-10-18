@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 class RssArticleDtoMapper {
 
-    RssArticleDetailDto toDetailDto(RssArticle article) {
+    public RssArticleDetailDto toDetailDto(RssArticle article) {
         RssArticleDetailDto dto = new RssArticleDetailDto();
         dto.setTitle(article.getTitle());
         dto.setSlug(article.getSlug());
@@ -25,7 +25,7 @@ class RssArticleDtoMapper {
         return dto;
     }
 
-    List<RssArticleSummaryDto> toListDto(Collection<RssArticle> articles) {
+    public List<RssArticleSummaryDto> toListDto(Collection<RssArticle> articles) {
         Set<RssArticle> sortedArticles = new TreeSet<>(articles);
         List<RssArticleSummaryDto> dtoList = new ArrayList<>();
 

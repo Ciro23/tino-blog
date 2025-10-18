@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 class BlogArticleDtoMapper {
 
-    BlogArticleDetailDto toDetailDto(BlogArticle article) {
+    public BlogArticleDetailDto toDetailDto(BlogArticle article) {
         BlogArticleDetailDto dto = new BlogArticleDetailDto();
         dto.setId(article.getId());
         dto.setTitle(article.getTitle());
@@ -24,7 +24,7 @@ class BlogArticleDtoMapper {
         return dto;
     }
 
-    List<BlogArticleSummaryDto> toListDto(Collection<BlogArticle> articles) {
+    public List<BlogArticleSummaryDto> toListDto(Collection<BlogArticle> articles) {
         Set<BlogArticle> sortedArticles = new TreeSet<>(articles);
         List<BlogArticleSummaryDto> dtoList = new ArrayList<>();
 
@@ -43,7 +43,7 @@ class BlogArticleDtoMapper {
         return dtoList;
     }
 
-    BlogArticle toDomain(SaveBlogArticleDto dto) {
+    public BlogArticle toDomain(SaveBlogArticleDto dto) {
         BlogArticle article = new BlogArticle();
         article.setTitle(dto.getTitle());
         article.setSlug(dto.getSlug());
