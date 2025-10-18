@@ -78,7 +78,7 @@ export class RssFeedFormComponent implements OnInit {
 
     callable.subscribe({
       next: response => {
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
           window.history.back();
         }
       },

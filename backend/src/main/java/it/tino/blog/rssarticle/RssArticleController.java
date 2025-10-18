@@ -27,9 +27,11 @@ public class RssArticleController {
     }
 
     @GetMapping
-    public List<RssArticleSummaryDto> getArticles() {
+    public ResponseEntity<List<RssArticleSummaryDto>> getArticles() {
         List<RssArticle> articles = rssArticleService.getAll();
-        return rssArticleDtoMapper.toListDto(articles);
+        List<RssArticleSummaryDto> articlesDto = rssArticleDtoMapper.toListDto(articles);
+
+        return new ResponseEntity<>(articlesDto, HttpStatus.OK);
     }
 
     @GetMapping("{slug}")

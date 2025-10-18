@@ -83,7 +83,7 @@ public class BlogArticleController {
         BlogArticle savedArticle = articleRepository.save(article);
 
         BlogArticleDetailDto savedArticleDto = blogArticleDtoMapper.toDetailDto(savedArticle);
-        return new ResponseEntity<>(savedArticleDto, HttpStatus.OK);
+        return new ResponseEntity<>(savedArticleDto, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
@@ -112,7 +112,7 @@ public class BlogArticleController {
                     BlogArticleDetailDto savedArticleDto = blogArticleDtoMapper
                             .toDetailDto(savedArticle);
 
-                    return new ResponseEntity<>(savedArticleDto, HttpStatus.OK);
+                    return new ResponseEntity<>(savedArticleDto, HttpStatus.CREATED);
                 });
     }
 

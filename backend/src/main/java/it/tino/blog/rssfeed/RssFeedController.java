@@ -36,13 +36,15 @@ public class RssFeedController {
     }
 
     @GetMapping
-    public List<RssFeedDetailDto> getRssFeeds() {
+    public ResponseEntity<List<RssFeedDetailDto>> getFeeds() {
         List<RssFeed> feeds = rssFeedRepository.findAll();
-        return rssFeedDtoMapper.toListDto(feeds);
+        List<RssFeedDetailDto> feedsDto = rssFeedDtoMapper.toListDto(feeds);
+
+        return new ResponseEntity<>(feedsDto, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<RssFeedDetailDto> getRssFeed(@PathVariable UUID id) {
+    public ResponseEntity<RssFeedDetailDto> getFeed(@PathVariable UUID id) {
         Optional<RssFeed> optionalFeed = rssFeedRepository.findById(id);
         if (optionalFeed.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -55,41 +57,43 @@ public class RssFeedController {
     }
 
     @PostMapping
-    public ResponseEntity<RssFeedDetailDto> createRssFeed(@RequestBody SaveRssFeedDto saveFeedDto) {
+    public ResponseEntity<RssFeedDetailDto> createFeed(@RequestBody SaveRssFeedDto saveFeedDto) {
         RssFeed feed = rssFeedDtoMapper.toDomain(saveFeedDto);
         RssFeed savedFeed = rssFeedRepository.save(feed);
 
         RssFeedDetailDto savedFeedDto = rssFeedDtoMapper.toDetailDto(savedFeed);
-        return new ResponseEntity<>(savedFeedDto, HttpStatus.OK);
+        return new ResponseEntity<>(savedFeedDto, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<RssFeedDetailDto> updateRssFeed(
+    public ResponseEntity<RssFeedDetailDto> updateFeed(
         @PathVariable UUID id,
         @RequestBody SaveRssFeedDto saveFeedDto
     ) {
         RssFeed feed = rssFeedDtoMapper.toDomain(saveFeedDto);
-        RssFeed savedFeed = rssFeedRepository.findById(id)
+        return rssFeedRepository.findById(id)
                 .map(a -> {
                     a.setDescription(saveFeedDto.getDescription());
                     a.setUrl(saveFeedDto.getUrl());
                     a.setShowArticlesDescription(saveFeedDto.isShowArticlesDescription());
 
-                    return rssFeedRepository.save(a);
+                    RssFeed savedFeed = rssFeedRepository.save(a);
+                    RssFeedDetailDto savedFeedDto = rssFeedDtoMapper.toDetailDto(savedFeed);
+                    rssArticleService.reloadFeedCache(savedFeed);
+
+                    return new ResponseEntity<>(savedFeedDto, HttpStatus.OK);
                 })
                 .orElseGet(() -> {
                     feed.setId(id);
-                    return rssFeedRepository.save(feed);
+                    RssFeed savedFeed = rssFeedRepository.save(feed);
+                    RssFeedDetailDto savedFeedDto = rssFeedDtoMapper.toDetailDto(savedFeed);
+
+                    return new ResponseEntity<>(savedFeedDto, HttpStatus.CREATED);
                 });
-
-        rssArticleService.reloadFeedCache(savedFeed);
-
-        RssFeedDetailDto savedFeedDto = rssFeedDtoMapper.toDetailDto(savedFeed);
-        return new ResponseEntity<>(savedFeedDto, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteRssFeed(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteFeed(@PathVariable UUID id) {
         if (rssFeedRepository.deleteById(id)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
