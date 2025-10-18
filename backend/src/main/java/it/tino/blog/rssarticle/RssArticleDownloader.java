@@ -39,6 +39,7 @@ class RssArticleDownloader {
         for (SyndEntry entry : entries) {
             RssArticle article = new RssArticle();
             article.setTitle(entry.getTitle());
+            article.setSlug(article.getTitle());
             article.setCategory(rssFeed.getDescription());
             article.setCategoryUrl(rssFeed.getUrl());
 
