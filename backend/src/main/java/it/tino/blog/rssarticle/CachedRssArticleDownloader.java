@@ -1,6 +1,6 @@
 package it.tino.blog.rssarticle;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,7 +19,7 @@ class CachedRssArticleDownloader {
     }
 
     @Cacheable(value = "rss-feed", key = "#rssFeed.id")
-    public Set<RssArticle> readRssFeed(RssFeed rssFeed) {
+    public List<RssArticle> readRssFeed(RssFeed rssFeed) {
         return rssArticleDownloader.fetchArticles(rssFeed);
     }
 

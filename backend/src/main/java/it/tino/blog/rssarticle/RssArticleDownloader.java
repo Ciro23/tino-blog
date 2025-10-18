@@ -7,9 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +28,12 @@ class RssArticleDownloader {
 
     private static final Logger log = LoggerFactory.getLogger(RssArticleDownloader.class);
 
-    public Set<RssArticle> fetchArticles(RssFeed rssFeed) {
+    public List<RssArticle> fetchArticles(RssFeed rssFeed) {
         URL url = parseUrl(rssFeed.getUrl());
         SyndFeed feed = parseFeed(url);
 
         List<SyndEntry> entries = feed.getEntries();
-        Set<RssArticle> articles = new TreeSet<>();
+        List<RssArticle> articles = new ArrayList<>();
 
         for (SyndEntry entry : entries) {
             RssArticle article = new RssArticle();

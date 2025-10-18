@@ -1,7 +1,7 @@
 package it.tino.blog.rssarticle;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -25,11 +25,11 @@ public class RssArticleService {
         return rssArticleRepository.findBySlug(slug);
     }
 
-    public Set<RssArticle> getAll() {
+    public List<RssArticle> getAll() {
         return rssArticleRepository.findAll();
     }
 
-    public Set<RssArticle> getByFeed(RssFeed rssFeed) {
+    public List<RssArticle> getByFeed(RssFeed rssFeed) {
         return rssArticleRepository.findByFeed(rssFeed);
     }
 

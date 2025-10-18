@@ -1,7 +1,7 @@
 package it.tino.blog.rssarticle;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import it.tino.blog.rssfeed.RssFeed;
 
@@ -9,7 +9,7 @@ interface RssArticleRepository {
 
     Optional<RssArticle> findBySlug(String slug);
 
-    Set<RssArticle> findAll();
+    List<RssArticle> findAll();
 
-    Set<RssArticle> findByFeed(RssFeed rssFeed);
+    List<RssArticle> findByFeed(RssFeed rssFeed);
 }

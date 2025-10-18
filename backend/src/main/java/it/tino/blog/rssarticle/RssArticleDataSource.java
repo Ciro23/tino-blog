@@ -1,9 +1,8 @@
 package it.tino.blog.rssarticle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ class RssArticleDataSource implements RssArticleRepository {
 
     @Override
     public Optional<RssArticle> findBySlug(String slug) {
-        Set<RssArticle> rssArticles = findAll();
+        List<RssArticle> rssArticles = findAll();
         return rssArticles.stream()
                 .filter(
                     a -> Urls.makeStringUrlCompatible(a.getSlug())
@@ -41,12 +40,12 @@ class RssArticleDataSource implements RssArticleRepository {
     }
 
     @Override
-    public Set<RssArticle> findAll() {
+    public List<RssArticle> findAll() {
         List<RssFeed> rssFeeds = rssFeedRepository.findAll();
-        Set<RssArticle> rssArticles = new TreeSet<>();
+        ArrayList<RssArticle> rssArticles = new ArrayList<>();
         for (RssFeed rssFeed : rssFeeds) {
             try {
-                Set<RssArticle> feed = findByFeed(rssFeed);
+                List<RssArticle> feed = findByFeed(rssFeed);
                 rssArticles.addAll(feed);
             } catch (RssParsingException e) {
                 log.error(
@@ -60,7 +59,7 @@ class RssArticleDataSource implements RssArticleRepository {
     }
 
     @Override
-    public Set<RssArticle> findByFeed(RssFeed rssFeed) {
+    public List<RssArticle> findByFeed(RssFeed rssFeed) {
         return cachedRssArticleDownloader.readRssFeed(rssFeed);
     }
 }
