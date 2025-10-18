@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { RssFeed } from "./rss-feed";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { CreateRssFeed } from "./create-rss-feed";
+import { RssFeed } from "./rss-feed";
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +21,12 @@ export class RssFeedService {
     return this.http.get<RssFeed>(`${this.apiUrl}/${id}`);
   }
 
-  insertRssFeed(rssFeed: RssFeed): Observable<any> {
+  insertRssFeed(rssFeed: CreateRssFeed): Observable<any> {
     return this.http.post<RssFeed>(this.apiUrl, rssFeed, { observe: "response" });
   }
 
-  updateRssFeed(rssFeed: RssFeed): Observable<any> {
-    return this.http.put<RssFeed>(`${this.apiUrl}/${rssFeed.id}`, rssFeed, { observe: "response" });
+  updateRssFeed(id: string, rssFeed: CreateRssFeed): Observable<any> {
+    return this.http.put<RssFeed>(`${this.apiUrl}/${id}`, rssFeed, { observe: "response" });
   }
 
   deleteRssFeed(id: string): Observable<any> {

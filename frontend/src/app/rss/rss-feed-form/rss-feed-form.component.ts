@@ -1,11 +1,11 @@
+import { NgClass } from "@angular/common";
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule } from "@angular/forms";
-import { NgClass } from "@angular/common";
-import { RssFeed } from "../rss-feed";
 import { ActivatedRoute } from "@angular/router";
 import { finalize } from "rxjs";
-import { RssFeedService } from '../rss-feed-service';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { CreateRssFeed } from '../create-rss-feed';
+import { RssFeedService } from '../rss-feed-service';
 
 @Component({
   selector: 'app-rss-feed-form',
@@ -27,8 +27,7 @@ export class RssFeedFormComponent implements OnInit {
   readonly rssFeedId?: string;
   loadingRssFeed: boolean = false;
 
-  rssFeed?: RssFeed = {
-    id: "",
+  rssFeed?: CreateRssFeed = {
     url: "",
     description: "",
     showArticlesDescription: true
@@ -70,9 +69,11 @@ export class RssFeedFormComponent implements OnInit {
       return;
     }
 
-    let callable = this.rssFeedService.updateRssFeed(this.rssFeed!);
+    let callable;
     if (!this.rssFeedId) {
       callable = this.rssFeedService.insertRssFeed(this.rssFeed!);
+    } else {
+      callable = this.rssFeedService.updateRssFeed(this.rssFeedId, this.rssFeed!);
     }
 
     callable.subscribe({
