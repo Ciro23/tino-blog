@@ -12,16 +12,15 @@ import org.springframework.stereotype.Component;
 class BlogArticleDtoMapper {
 
     public BlogArticleDetailDto toDetailDto(BlogArticle article) {
-        BlogArticleDetailDto dto = new BlogArticleDetailDto();
-        dto.setId(article.getId());
-        dto.setTitle(article.getTitle());
-        dto.setSlug(article.getSlug());
-        dto.setShortDescription(article.getShortDescription());
-        dto.setContent(article.getContent());
-        dto.setCreationDateTime(article.getCreationDateTime());
-        dto.setMinutesToRead(article.getMinutesToRead());
-
-        return dto;
+        return new BlogArticleDetailDto(
+            article.getId(),
+            article.getTitle(),
+            article.getSlug(),
+            article.getShortDescription(),
+            article.getContent(),
+            article.getCreationDateTime(),
+            article.getMinutesToRead()
+        );
     }
 
     public List<BlogArticleSummaryDto> toListDto(Collection<BlogArticle> articles) {
@@ -29,14 +28,14 @@ class BlogArticleDtoMapper {
         List<BlogArticleSummaryDto> dtoList = new ArrayList<>();
 
         for (BlogArticle article : sortedArticles) {
-            BlogArticleSummaryDto dto = new BlogArticleSummaryDto();
-            dto.setId(article.getId());
-            dto.setTitle(article.getTitle());
-            dto.setSlug(article.getSlug());
-            dto.setShortDescription(article.getShortDescription());
-            dto.setCreationDateTime(article.getCreationDateTime());
-            dto.setMinutesToRead(article.getMinutesToRead());
-
+            BlogArticleSummaryDto dto = new BlogArticleSummaryDto(
+                article.getId(),
+                article.getTitle(),
+                article.getSlug(),
+                article.getShortDescription(),
+                article.getCreationDateTime(),
+                article.getMinutesToRead()
+            );
             dtoList.add(dto);
         }
 
@@ -45,10 +44,10 @@ class BlogArticleDtoMapper {
 
     public BlogArticle toDomain(SaveBlogArticleDto dto) {
         BlogArticle article = new BlogArticle();
-        article.setTitle(dto.getTitle());
-        article.setSlug(dto.getSlug());
-        article.setShortDescription(dto.getShortDescription());
-        article.setContent(dto.getContent());
+        article.setTitle(dto.title());
+        article.setSlug(dto.slug());
+        article.setShortDescription(dto.shortDescription());
+        article.setContent(dto.content());
 
         return article;
     }

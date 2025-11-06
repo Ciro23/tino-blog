@@ -12,13 +12,12 @@ import org.springframework.stereotype.Component;
 class RssFeedDtoMapper {
 
     public RssFeedDetailDto toDetailDto(RssFeed feed) {
-        RssFeedDetailDto dto = new RssFeedDetailDto();
-        dto.setId(feed.getId());
-        dto.setUrl(feed.getUrl());
-        dto.setDescription(feed.getDescription());
-        dto.setShowArticlesDescription(feed.isShowArticlesDescription());
-
-        return dto;
+        return new RssFeedDetailDto(
+            feed.getId(),
+            feed.getUrl(),
+            feed.getDescription(),
+            feed.isShowArticlesDescription()
+        );
     }
 
     public List<RssFeedDetailDto> toListDto(Collection<RssFeed> feeds) {
@@ -35,9 +34,9 @@ class RssFeedDtoMapper {
 
     public RssFeed toDomain(SaveRssFeedDto dto) {
         RssFeed feed = new RssFeed();
-        feed.setUrl(dto.getUrl());
-        feed.setDescription(dto.getDescription());
-        feed.setShowArticlesDescription(dto.isShowArticlesDescription());
+        feed.setUrl(dto.url());
+        feed.setDescription(dto.description());
+        feed.setShowArticlesDescription(dto.showArticlesDescription());
 
         return feed;
     }

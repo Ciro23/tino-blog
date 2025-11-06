@@ -1,32 +1,9 @@
 package it.tino.blog.rssfeed;
 
-class SaveRssFeedDto {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private String url = "";
-    private String description = "";
-    private boolean showArticlesDescription = true;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isShowArticlesDescription() {
-        return showArticlesDescription;
-    }
-
-    public void setShowArticlesDescription(boolean showArticlesDescription) {
-        this.showArticlesDescription = showArticlesDescription;
-    }
-}
+record SaveRssFeedDto(
+    @JsonProperty("url") String url,
+    @JsonProperty("description") String description,
+    @JsonProperty("showArticlesDescription") boolean showArticlesDescription
+) {}

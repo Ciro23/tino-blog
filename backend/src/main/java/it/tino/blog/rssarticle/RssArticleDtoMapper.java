@@ -12,17 +12,16 @@ import org.springframework.stereotype.Component;
 class RssArticleDtoMapper {
 
     public RssArticleDetailDto toDetailDto(RssArticle article) {
-        RssArticleDetailDto dto = new RssArticleDetailDto();
-        dto.setTitle(article.getTitle());
-        dto.setSlug(article.getSlug());
-        dto.setShortDescription(article.getShortDescription());
-        dto.setContent(article.getContent());
-        dto.setCreationDateTime(article.getCreationDateTime());
-        dto.setCategory(article.getCategory());
-        dto.setCategoryUrl(article.getCategoryUrl());
-        dto.setMinutesToRead(article.getMinutesToRead());
-
-        return dto;
+        return new RssArticleDetailDto(
+            article.getTitle(),
+            article.getSlug(),
+            article.getShortDescription(),
+            article.getContent(),
+            article.getCreationDateTime(),
+            article.getCategory(),
+            article.getCategoryUrl(),
+            article.getMinutesToRead()
+        );
     }
 
     public List<RssArticleSummaryDto> toListDto(Collection<RssArticle> articles) {
@@ -30,15 +29,15 @@ class RssArticleDtoMapper {
         List<RssArticleSummaryDto> dtoList = new ArrayList<>();
 
         for (RssArticle article : sortedArticles) {
-            RssArticleSummaryDto dto = new RssArticleSummaryDto();
-            dto.setTitle(article.getTitle());
-            dto.setSlug(article.getSlug());
-            dto.setShortDescription(article.getShortDescription());
-            dto.setCreationDateTime(article.getCreationDateTime());
-            dto.setCategory(article.getCategory());
-            dto.setCategoryUrl(article.getCategoryUrl());
-            dto.setMinutesToRead(article.getMinutesToRead());
-
+            RssArticleSummaryDto dto = new RssArticleSummaryDto(
+                article.getTitle(),
+                article.getSlug(),
+                article.getShortDescription(),
+                article.getCreationDateTime(),
+                article.getCategory(),
+                article.getCategoryUrl(),
+                article.getMinutesToRead()
+            );
             dtoList.add(dto);
         }
 
