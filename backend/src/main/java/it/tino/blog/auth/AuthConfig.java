@@ -72,6 +72,7 @@ class AuthConfig {
     }
 
     @Bean
+    @SuppressWarnings("null")
     AuthenticationManager authManager(HttpSecurity http) throws Exception {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());

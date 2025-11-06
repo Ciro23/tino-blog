@@ -2,13 +2,11 @@ package it.tino.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cache.annotation.EnableCaching;
 
-import it.tino.blog.auth.RsaKeyProperties;
-
 @SpringBootApplication
-@EnableConfigurationProperties(RsaKeyProperties.class)
+@ConfigurationPropertiesScan
 @EnableCaching
 public class BlogApplication {
 
