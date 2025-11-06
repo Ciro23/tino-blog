@@ -15,23 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.tino.blog.rssarticle.RssArticleService;
-
 @RestController
 @RequestMapping("rss/feeds")
 public class RssFeedController {
 
     private final RssFeedRepository rssFeedRepository;
-    private final RssArticleService rssArticleService;
     private final RssFeedDtoMapper rssFeedDtoMapper;
 
     public RssFeedController(
         RssFeedRepository rssFeedRepository,
-        RssArticleService cachedRssFeedReader,
         RssFeedDtoMapper rssFeedDtoMapper
     ) {
         this.rssFeedRepository = rssFeedRepository;
-        this.rssArticleService = cachedRssFeedReader;
         this.rssFeedDtoMapper = rssFeedDtoMapper;
     }
 
@@ -79,7 +74,6 @@ public class RssFeedController {
 
                     RssFeed savedFeed = rssFeedRepository.save(a);
                     RssFeedDetailDto savedFeedDto = rssFeedDtoMapper.toDetailDto(savedFeed);
-                    rssArticleService.reloadFeedCache(savedFeed);
 
                     return new ResponseEntity<>(savedFeedDto, HttpStatus.OK);
                 })

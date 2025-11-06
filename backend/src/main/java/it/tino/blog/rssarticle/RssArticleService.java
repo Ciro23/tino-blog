@@ -5,20 +5,21 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import it.tino.blog.rss.CachedRssFeedFetcher;
 import it.tino.blog.rssfeed.RssFeed;
 
 @Service
 public class RssArticleService {
 
     private final RssArticleRepository rssArticleRepository;
-    private final CachedRssArticleDownloader cachedRssArticleDownloader;
+    private final CachedRssFeedFetcher cachedRssFeedFetcher;
 
     public RssArticleService(
         RssArticleRepository rssArticleRepository,
-        CachedRssArticleDownloader cachedRssArticleDownloader
+        CachedRssFeedFetcher cachedRssFeedFetcher
     ) {
         this.rssArticleRepository = rssArticleRepository;
-        this.cachedRssArticleDownloader = cachedRssArticleDownloader;
+        this.cachedRssFeedFetcher = cachedRssFeedFetcher;
     }
 
     public Optional<RssArticle> getBySlug(String slug) {
@@ -34,10 +35,6 @@ public class RssArticleService {
     }
 
     public void reloadCache() {
-        cachedRssArticleDownloader.evictAllCache();
-    }
-
-    public void reloadFeedCache(RssFeed rssFeed) {
-        cachedRssArticleDownloader.evictFeedCache(rssFeed.getId());
+        cachedRssFeedFetcher.evictAllCache();
     }
 }

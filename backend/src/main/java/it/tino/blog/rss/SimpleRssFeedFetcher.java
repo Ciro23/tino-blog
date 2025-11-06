@@ -1,4 +1,4 @@
-package it.tino.blog.rssarticle;
+package it.tino.blog.rss;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -6,9 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Date;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -21,80 +20,24 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
-import it.tino.blog.rssfeed.RssFeed;
-
 @Service
-class RssArticleDownloader {
+public class SimpleRssFeedFetcher implements RssFeedFetcher {
 
-    private static final Logger log = LoggerFactory.getLogger(RssArticleDownloader.class);
+    private static final Logger log = LoggerFactory.getLogger(SimpleRssFeedFetcher.class);
 
-    public List<RssArticle> fetchArticles(RssFeed rssFeed) {
-        URL url = parseUrl(rssFeed.getUrl());
-        SyndFeed feed = parseFeed(url);
+    private final RssMapper rssMapper;
 
-        List<SyndEntry> entries = feed.getEntries();
-        List<RssArticle> articles = new ArrayList<>();
+    public SimpleRssFeedFetcher(RssMapper rssMapper) {
+        this.rssMapper = rssMapper;
+    }
 
-        for (SyndEntry entry : entries) {
-            RssArticle article = new RssArticle();
-            article.setTitle(entry.getTitle());
-            article.setSlug(article.getTitle());
-            article.setCategory(rssFeed.getDescription());
-            article.setCategoryUrl(rssFeed.getUrl());
+    @Override
+    public RssFeed fetch(String rssFeedUrl) {
+        URL url = parseUrl(rssFeedUrl);
+        SyndFeed syndFeed = parseFeed(url);
+        validateEntries(syndFeed.getEntries(), url);
 
-            // Some RSS feeds put the content inside the <content> tag, while
-            // others in <description>. That's the reason of the following
-            // conditions.
-
-            if (
-                !entry.getContents()
-                        .isEmpty()
-            ) {
-                article.setContent(
-                    entry.getContents()
-                            .getFirst()
-                            .getValue()
-                );
-            }
-
-            if (
-                !entry.getContents()
-                        .isEmpty() && entry.getDescription() != null
-                        && rssFeed.isShowArticlesDescription()
-            ) {
-                article.setShortDescription(
-                    entry.getDescription()
-                            .getValue()
-                );
-            }
-
-            if (
-                entry.getContents()
-                        .isEmpty() && entry.getDescription() != null
-            ) {
-                article.setContent(
-                    entry.getDescription()
-                            .getValue()
-                );
-            }
-
-            Instant articleDate = parseArticleDate(entry);
-            if (articleDate == null) {
-                log.warn(
-                    "The RSS entry from feed '{}' and with title '{}' does not"
-                            + " declare a creation date, so it's being skipped",
-                    rssFeed.getUrl(),
-                    article.getTitle()
-                );
-                continue;
-            }
-
-            article.setCreationDateTime(articleDate);
-
-            articles.add(article);
-        }
-
-        return articles;
+        return rssMapper.feedToDto(syndFeed);
     }
 
     private URL parseUrl(String urlString) {
@@ -153,15 +96,38 @@ class RssArticleDownloader {
         }
     }
 
-    private @Nullable Instant parseArticleDate(SyndEntry entry) {
+    private void validateEntries(Collection<SyndEntry> entries, URL rssFeedUrl) {
+        for (var entry : entries) {
+            try {
+                validateEntry(entry);
+            } catch (IllegalArgumentException e) {
+                log.warn(
+                    "The RSS entry from feed '{}' and with title '{}' does not"
+                            + " declare a creation date, so it's being skipped",
+                    rssFeedUrl,
+                    entry.getTitle()
+                );
+                continue;
+            }
+        }
+    }
+
+    private void validateEntry(SyndEntry entry) {
+        Date date = parseArticleDate(entry);
+        if (date == null) {
+            throw new IllegalArgumentException("Entry does not declare a creation date");
+        }
+
+        entry.setPublishedDate(date);
+    }
+
+    private @Nullable Date parseArticleDate(SyndEntry entry) {
         if (entry.getPublishedDate() != null) {
-            return entry.getPublishedDate()
-                    .toInstant();
+            return entry.getPublishedDate();
         }
 
         if (entry.getUpdatedDate() != null) {
-            return entry.getUpdatedDate()
-                    .toInstant();
+            return entry.getUpdatedDate();
         }
 
         return null;

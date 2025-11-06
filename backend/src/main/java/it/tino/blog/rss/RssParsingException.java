@@ -1,6 +1,6 @@
-package it.tino.blog.rssarticle;
+package it.tino.blog.rss;
 
-class RssParsingException extends RuntimeException {
+public class RssParsingException extends RuntimeException {
 
     public RssParsingException(String message, Exception e) {
         super(message, e);
