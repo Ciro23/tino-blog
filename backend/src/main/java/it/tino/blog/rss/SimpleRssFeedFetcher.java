@@ -8,6 +8,10 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -32,12 +36,39 @@ public class SimpleRssFeedFetcher implements RssFeedFetcher {
     }
 
     @Override
-    public RssFeed fetch(String rssFeedUrl) {
+    public RssFeed fetchFeed(String rssFeedUrl) {
         URL url = parseUrl(rssFeedUrl);
         SyndFeed syndFeed = parseFeed(url);
         validateEntries(syndFeed.getEntries(), url);
 
-        return rssMapper.feedToDto(syndFeed);
+        return rssMapper.feedToDto(rssFeedUrl, syndFeed);
+    }
+
+    @Override
+    public List<RssFeed> fetchFeeds(Collection<String> rssFeedUrls) {
+        var rssFeedUrlsUnique = new HashSet<>(rssFeedUrls);
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            var futures = rssFeedUrlsUnique.stream()
+                    .map(url -> executor.submit(() -> fetchFeed(url)))
+                    .toList();
+
+            return futures.stream()
+                    .map(future -> {
+                        try {
+                            return future.get();
+                        } catch (InterruptedException e) {
+                            log.error(e.getMessage(), e);
+                            Thread.currentThread()
+                                    .interrupt();
+                            return null;
+                        } catch (ExecutionException e) {
+                            log.error(e.getMessage(), e);
+                            return null;
+                        }
+                    })
+                    .filter(f -> f != null)
+                    .toList();
+        }
     }
 
     private URL parseUrl(String urlString) {

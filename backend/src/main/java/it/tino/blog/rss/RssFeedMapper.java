@@ -14,9 +14,9 @@ import com.rometools.rome.feed.synd.SyndFeed;
 @Component
 class RssMapper {
 
-    public RssFeed feedToDto(SyndFeed feed) {
+    public RssFeed feedToDto(String url, SyndFeed feed) {
         List<RssEntry> entryDtoList = entryToDtoList(feed.getEntries());
-        return new RssFeed(entryDtoList);
+        return new RssFeed(url, entryDtoList);
     }
 
     private List<RssEntry> entryToDtoList(Collection<SyndEntry> entries) {
