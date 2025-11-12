@@ -68,7 +68,7 @@ class AuthConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder(14);
     }
 
     @Bean
