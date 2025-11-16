@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { Article } from "../../article/article";
 import { ArticleListComponent } from "../../article/article-list/article-list.component";
 import { BlogArticleService } from "../blog-article-service";
 import { finalize } from "rxjs";
+import { BlogArticleSummary } from '../blog-article-summary';
 
 @Component({
   selector: 'app-latest-blog-articles',
@@ -15,7 +15,7 @@ import { finalize } from "rxjs";
   ],
 })
 export class LatestArticlesComponent implements OnInit {
-  articles?: Article[] = [];
+  articles?: BlogArticleSummary[] = [];
   loadingArticles: boolean = true;
 
   constructor(

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-record RssFeedDetailDto(
+public record RssFeedDetailDto(
     @JsonProperty("id") UUID id,
     @JsonProperty("url") String url,
     @JsonProperty("description") String description,

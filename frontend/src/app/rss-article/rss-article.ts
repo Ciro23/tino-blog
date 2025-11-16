@@ -1,5 +1,10 @@
 import { Article } from "../article/article";
 
-export interface RssArticle extends Omit<Article, 'id'> {
-  id: Article['slug'];
+export interface RssArticle extends Article {
+  feed: {
+    id: string;
+    url: string;
+    description: string;
+    showArticlesDescription: boolean;
+  };
 }

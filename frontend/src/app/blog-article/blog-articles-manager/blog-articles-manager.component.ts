@@ -5,8 +5,8 @@ import { ConfirmationModalComponent } from "../../confimation-modal/confirmation
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { BlogArticleService } from "../blog-article-service";
 import { finalize } from "rxjs";
-import { Article } from "../../article/article";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { BlogArticleSummary } from '../blog-article-summary';
 
 @Component({
   selector: 'app-blog-articles-manager',
@@ -19,7 +19,7 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
   templateUrl: './blog-articles-manager.component.html',
 })
 export class ArticlesManagerComponent implements OnInit {
-  articles?: Article[] = [];
+  articles?: BlogArticleSummary[] = [];
   loadingArticles: boolean = true;
 
   constructor(

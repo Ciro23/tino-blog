@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { CreateRssFeed } from "./create-rss-feed";
@@ -21,15 +21,15 @@ export class RssFeedService {
     return this.http.get<RssFeed>(`${this.apiUrl}/${id}`);
   }
 
-  insertRssFeed(rssFeed: CreateRssFeed): Observable<any> {
+  insertRssFeed(rssFeed: CreateRssFeed): Observable<HttpResponse<RssFeed>> {
     return this.http.post<RssFeed>(this.apiUrl, rssFeed, { observe: "response" });
   }
 
-  updateRssFeed(id: string, rssFeed: CreateRssFeed): Observable<any> {
+  updateRssFeed(id: string, rssFeed: CreateRssFeed): Observable<HttpResponse<RssFeed>> {
     return this.http.put<RssFeed>(`${this.apiUrl}/${id}`, rssFeed, { observe: "response" });
   }
 
-  deleteRssFeed(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`, { observe: "response" });
+  deleteRssFeed(id: string): Observable<HttpResponse<void>> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { observe: "response" });
   }
 }

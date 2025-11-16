@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { Article } from "../../article/article";
 import { BlogArticleService } from "../blog-article-service";
 import { AuthService } from "../../authentication/auth.service";
 import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
@@ -10,6 +9,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Title } from "@angular/platform-browser";
 import { Tokens } from "marked";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { BlogArticle } from '../blog-article';
 
 @Component({
   selector: 'app-blog-article',
@@ -25,7 +25,7 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 })
 export class BlogArticleDetailsComponent implements OnInit {
   articleId?: string;
-  article?: Article;
+  article?: BlogArticle;
 
   constructor(
     private blogArticleService: BlogArticleService,

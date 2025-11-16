@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Article } from "../article";
 import { AuthService } from "../../authentication/auth.service";
 import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
+import { ArticleSummary } from '../article-summary';
 
 @Component({
   selector: 'app-article-snippet',
@@ -10,7 +10,8 @@ import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
   imports: []
 })
 export class ArticleSnippetComponent {
-  @Input() article!: Article;
+  @Input() article!: ArticleSummary;
+  @Input() categoryName?: string;
 
   @Input() onView!: (slug: string) => void;
   @Input() onEdit?: (id: string) => void;

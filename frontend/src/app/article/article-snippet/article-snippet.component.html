@@ -11,8 +11,8 @@
           {{ getFormattedCreationDateTime(article.creationDateTime) }}
         </p>
 
-        @if (article.category !== undefined) {
-          <p class="card-text text-secondary-emphasis mb-1 small">&#160;• {{ article.category }}</p>
+        @if (categoryName !== undefined) {
+          <p class="card-text text-secondary-emphasis mb-1 small">&#160;• {{ categoryName }}</p>
         }
       </div>
 

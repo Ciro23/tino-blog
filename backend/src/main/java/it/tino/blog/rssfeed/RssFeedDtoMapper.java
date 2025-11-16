@@ -9,7 +9,7 @@ import java.util.TreeSet;
 import org.springframework.stereotype.Component;
 
 @Component
-class RssFeedDtoMapper {
+public class RssFeedDtoMapper {
 
     public RssFeedDetailDto toDetailDto(RssFeed feed) {
         return new RssFeedDetailDto(

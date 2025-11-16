@@ -9,7 +9,6 @@ record RssArticleSummaryDto(
     @JsonProperty("slug") String slug,
     @JsonProperty("shortDescription") String shortDescription,
     @JsonProperty("creationDateTime") Instant creationDateTime,
-    @JsonProperty("category") String category,
-    @JsonProperty("categoryUrl") String categoryUrl,
+    @JsonProperty("feedTitle") String feedTitle,
     @JsonProperty("minutesToRead") int minutesToRead
 ) {}

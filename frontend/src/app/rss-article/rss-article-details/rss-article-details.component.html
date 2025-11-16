@@ -7,8 +7,8 @@
         <time class="mb-2">{{ getFormattedCreationDateTime(article.creationDateTime) }}</time>
         <p>
           <i>
-            From <a href="{{ article.categoryUrl }}" target="_blank">
-              <strong>{{ article.category }}</strong>
+            From <a href="{{ article.feed.url }}" target="_blank">
+              <strong>{{ article.feed.description }}</strong>
             </a>
           </i>
         </p>

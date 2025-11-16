@@ -4,7 +4,7 @@ import { ArticleListComponent } from "../../article/article-list/article-list.co
 import { finalize } from "rxjs";
 import { Router } from "@angular/router";
 import { AuthService } from "../../authentication/auth.service";
-import { RssArticle } from "../rss-article";
+import { RssArticleSummary } from '../rss-article-summary';
 
 @Component({
   selector: 'app-all-rss-articles',
@@ -15,8 +15,17 @@ import { RssArticle } from "../rss-article";
   templateUrl: './all-rss-articles.component.html'
 })
 export class AllRssArticlesComponent implements OnInit {
-  articles?: RssArticle[] = [];
+  articles?: RssArticleSummary[] = [];
   loadingArticles: boolean = true;
+
+  get categoryNamesByArticleId(): Map<string, string> | undefined {
+    if (this.articles === undefined) {
+      return undefined;
+    }
+    return new Map(
+      this.articles.map(article => [article.id, article.feedTitle])
+    );
+  }
 
   constructor(
     protected authService: AuthService,

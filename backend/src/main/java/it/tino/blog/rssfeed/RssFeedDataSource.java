@@ -1,6 +1,7 @@
 package it.tino.blog.rssfeed;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +33,14 @@ class RssFeedDataSource implements RssFeedRepository {
     public Optional<RssFeed> findById(UUID id) {
         return rssFeedDao.findById(id)
                 .map(this::dbToDomain);
+    }
+
+    @Override
+    public List<RssFeed> findByIdIn(Collection<UUID> ids) {
+        if (ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return dbToDomain(rssFeedDao.findAllById(ids));
     }
 
     @Override

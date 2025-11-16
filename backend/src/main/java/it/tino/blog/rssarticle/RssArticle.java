@@ -2,6 +2,7 @@ package it.tino.blog.rssarticle;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.UUID;
 
 import it.tino.blog.article.Article;
 import it.tino.blog.rssfeed.RssFeed;
@@ -18,9 +19,8 @@ public class RssArticle implements Article, Comparable<RssArticle> {
     private String slug = "";
     private String shortDescription = "";
     private String content = "";
+    private UUID rssFeedId;
     private Instant creationDateTime;
-    private String category;
-    private String categoryUrl;
 
     @Override
     public String getTitle() {
@@ -64,6 +64,14 @@ public class RssArticle implements Article, Comparable<RssArticle> {
         this.content = parsedContent;
     }
 
+    public UUID getRssFeedId() {
+        return rssFeedId;
+    }
+
+    public void setRssFeedId(UUID rssFeedId) {
+        this.rssFeedId = rssFeedId;
+    }
+
     @Override
     public Instant getCreationDateTime() {
         return creationDateTime;
@@ -72,22 +80,6 @@ public class RssArticle implements Article, Comparable<RssArticle> {
     @Override
     public void setCreationDateTime(Instant creationDateTime) {
         this.creationDateTime = creationDateTime;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getCategoryUrl() {
-        return categoryUrl;
-    }
-
-    public void setCategoryUrl(String categoryUrl) {
-        this.categoryUrl = categoryUrl;
     }
 
     @Override
@@ -109,7 +101,7 @@ public class RssArticle implements Article, Comparable<RssArticle> {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((category == null) ? 0 : slug.hashCode());
+        result = prime * result + ((rssFeedId == null) ? 0 : slug.hashCode());
         return result;
     }
 

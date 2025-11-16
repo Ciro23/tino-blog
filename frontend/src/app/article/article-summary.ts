@@ -1,12 +1,12 @@
-export interface Article {
+export interface ArticleSummary {
   id: string;
 
   title: string;
   slug: string;
 
   shortDescription: string;
-  content: string;
 
   creationDateTime: Date;
   minutesToRead: number;
 }
+

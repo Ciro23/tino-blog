@@ -19,6 +19,7 @@
         <div>
           <app-article-snippet
             [article]="article"
+            [categoryName]="categoryNamesByArticleId?.get(article.id) ?? undefined"
             [onView]="onViewArticle"
             [onEdit]="onEditArticle"
             [onDelete]="onDeleteArticle"></app-article-snippet>

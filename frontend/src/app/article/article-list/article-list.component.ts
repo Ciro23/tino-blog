@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ArticleSnippetComponent } from "../article-snippet/article-snippet.component";
-import { Article } from "../article";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { ArticleSummary } from '../article-summary';
 
 @Component({
   selector: 'app-article-list',
@@ -16,7 +16,8 @@ export class ArticleListComponent {
   /**
    * Must be undefined only if an error occurred.
    */
-  @Input() articles?: Article[] = [];
+  @Input() articles?: ArticleSummary[] = [];
+  @Input() categoryNamesByArticleId?: Map<string, string>;
 
   @Input() loadingArticles: boolean = false;
 
