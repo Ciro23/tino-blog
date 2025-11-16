@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RssFeedsManagerComponent } from "../rss/rss-feeds-manager/rss-feeds-manager.component";
-import { ArticlesManagerComponent } from "../article/articles-manager/articles-manager.component";
+import { RssFeedsManagerComponent } from "../rss-feed/rss-feeds-manager/rss-feeds-manager.component";
+import { ArticlesManagerComponent } from "../blog-article/blog-articles-manager/blog-articles-manager.component";
 import { ConfirmationModalComponent } from "../confimation-modal/confirmation-modal.component";
 import { AuthService } from "../authentication/auth.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";

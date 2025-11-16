@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LatestArticlesComponent } from "../article/latest-articles/latest-articles.component";
+import { LatestArticlesComponent } from "../blog-article/latest-blog-articles/latest-blog-articles.component";
 
 @Component({
   standalone: true,

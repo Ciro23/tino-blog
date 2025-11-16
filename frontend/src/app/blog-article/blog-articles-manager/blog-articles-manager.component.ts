@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { ArticleListComponent } from "../article-list/article-list.component";
+import { ArticleListComponent } from "../../article/article-list/article-list.component";
 import { ConfirmationModalComponent } from "../../confimation-modal/confirmation-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ArticleService } from "../article-service";
+import { BlogArticleService } from "../blog-article-service";
 import { finalize } from "rxjs";
-import { Article } from "../article";
+import { Article } from "../../article/article";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
-  selector: 'app-articles-manager',
+  selector: 'app-blog-articles-manager',
   standalone: true,
   imports: [
     RouterLink,
     ArticleListComponent,
     LoadingSpinnerComponent,
   ],
-  templateUrl: './articles-manager.component.html',
+  templateUrl: './blog-articles-manager.component.html',
 })
 export class ArticlesManagerComponent implements OnInit {
   articles?: Article[] = [];
   loadingArticles: boolean = true;
 
   constructor(
-    private articleService: ArticleService,
+    private articleService: BlogArticleService,
     private router: Router,
     private modalService: NgbModal,
   ) { }

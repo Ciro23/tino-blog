@@ -1,13 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Article } from "./article";
+import { Article } from "../article/article";
 import { SaveArticle } from "./save-article";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ArticleService {
+export class BlogArticleService {
 
   apiUrl = "/api/articles"
 

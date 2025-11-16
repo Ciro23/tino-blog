@@ -6,11 +6,11 @@ import { finalize } from "rxjs";
 import { AutoResizeDirective } from "../../directives/auto-resize.directive";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { makeStringUrlCompatible } from "../../utilities/url-utilities";
-import { ArticleService } from "../article-service";
+import { BlogArticleService } from "../blog-article-service";
 import { SaveArticle } from "../save-article";
 
 @Component({
-  selector: 'app-article-form',
+  selector: 'app-blog-article-form',
   standalone: true,
   imports: [
     FormsModule,
@@ -19,9 +19,9 @@ import { SaveArticle } from "../save-article";
     ReactiveFormsModule,
     LoadingSpinnerComponent,
   ],
-  templateUrl: './article-form.component.html',
+  templateUrl: './blog-article-form.component.html',
 })
-export class ArticleFormComponent implements OnInit {
+export class BlogArticleFormComponent implements OnInit {
   /**
    * If undefined, the forms represents the creation of a new article,
    * otherwise an existing article is fetched from the backend to be
@@ -55,7 +55,7 @@ export class ArticleFormComponent implements OnInit {
   slugManuallyChanged: boolean = false;
 
   constructor(
-    private articleService: ArticleService,
+    private articleService: BlogArticleService,
     private route: ActivatedRoute,
   ) { }
 

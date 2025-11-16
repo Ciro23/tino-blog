@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { Article } from "../article";
-import { ArticleListComponent } from "../article-list/article-list.component";
-import { ArticleService } from "../article-service";
+import { Article } from "../../article/article";
+import { ArticleListComponent } from "../../article/article-list/article-list.component";
+import { BlogArticleService } from "../blog-article-service";
 import { finalize } from "rxjs";
 
 @Component({
-  selector: 'app-all-articles',
+  selector: 'app-all-blog-articles',
   standalone: true,
   imports: [
     ArticleListComponent
   ],
-  templateUrl: './all-articles.component.html',
+  templateUrl: './all-blog-articles.component.html',
 })
-export class AllArticlesComponent implements OnInit {
+export class AllBlogArticlesComponent implements OnInit {
   articles?: Article[] = [];
   loadingArticles: boolean = true;
 
   constructor(
-    private articleService: ArticleService,
+    private blogArticleService: BlogArticleService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.articleService.fetchArticles()
+    this.blogArticleService.fetchArticles()
       .pipe(
         finalize(() => {
           this.loadingArticles = false;

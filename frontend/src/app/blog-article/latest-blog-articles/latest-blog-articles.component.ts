@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { Article } from "../article";
-import { ArticleListComponent } from "../article-list/article-list.component";
-import { ArticleService } from "../article-service";
+import { Article } from "../../article/article";
+import { ArticleListComponent } from "../../article/article-list/article-list.component";
+import { BlogArticleService } from "../blog-article-service";
 import { finalize } from "rxjs";
 
 @Component({
-  selector: 'app-latest-articles',
+  selector: 'app-latest-blog-articles',
   standalone: true,
-  templateUrl: './latest-articles.component.html',
+  templateUrl: './latest-blog-articles.component.html',
   imports: [
     RouterLink,
     ArticleListComponent,
@@ -19,7 +19,7 @@ export class LatestArticlesComponent implements OnInit {
   loadingArticles: boolean = true;
 
   constructor(
-    private articleService: ArticleService,
+    private articleService: BlogArticleService,
     private router: Router
   ) { }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
-import { Article } from "../article";
-import { ArticleService } from "../article-service";
+import { Article } from "../../article/article";
+import { BlogArticleService } from "../blog-article-service";
 import { AuthService } from "../../authentication/auth.service";
 import { getFormattedCreationDateTime } from "../../utilities/date-utilities";
 import { MarkdownComponent, MarkdownService } from "ngx-markdown";
@@ -12,23 +12,23 @@ import { Tokens } from "marked";
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 
 @Component({
-  selector: 'app-article',
+  selector: 'app-blog-article',
   standalone: true,
   imports: [
     RouterLink,
     MarkdownComponent,
     LoadingSpinnerComponent,
   ],
-  templateUrl: './article-details.component.html',
-  styleUrls: ['article-details.component.css'],
+  templateUrl: './blog-article-details.component.html',
+  styleUrls: ['blog-article-details.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ArticleDetailsComponent implements OnInit {
+export class BlogArticleDetailsComponent implements OnInit {
   articleId?: string;
   article?: Article;
 
   constructor(
-    private articleService: ArticleService,
+    private blogArticleService: BlogArticleService,
     protected authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
@@ -39,7 +39,7 @@ export class ArticleDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.articleId = this.route.snapshot.paramMap.get('id')!;
-    this.articleService.fetchArticleById(this.articleId).subscribe({
+    this.blogArticleService.fetchArticleById(this.articleId).subscribe({
       next: article => {
         this.article = article;
         this.title.setTitle(article.title + " - Tino Blog");
@@ -61,7 +61,7 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   private deleteArticle(): void {
-    this.articleService.deleteArticle(this.article!.id).subscribe({
+    this.blogArticleService.deleteArticle(this.article!.id).subscribe({
       next: response => {
         if (response.status === 204) {
           window.history.back();

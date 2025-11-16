@@ -7,7 +7,7 @@ import { AuthService } from "../../authentication/auth.service";
 import { RssArticle } from "../rss-article";
 
 @Component({
-  selector: 'app-rss-aggregator',
+  selector: 'app-all-rss-articles',
   standalone: true,
   imports: [
     ArticleListComponent,
