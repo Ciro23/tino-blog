@@ -7,6 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record RssFeedDetailDto(
     @JsonProperty("id") UUID id,
     @JsonProperty("url") String url,
-    @JsonProperty("description") String description,
+    @JsonProperty("title") String title,
     @JsonProperty("showArticlesDescription") boolean showArticlesDescription
 ) {}

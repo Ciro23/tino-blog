@@ -1,6 +1,6 @@
 export interface CreateRssFeed {
   url: string;
-  description: string;
+  title: string;
   showArticlesDescription: boolean;
 }
 

@@ -22,7 +22,7 @@ class SpringRssFeed {
     private String url = "";
 
     @Column(nullable = false)
-    private String description = "";
+    private String title = "";
 
     // "columnDefinition" was added to allow Hibernate
     // to migrate existing rows automatically.
@@ -45,12 +45,12 @@ class SpringRssFeed {
         this.url = url;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isShowArticlesDescription() {
@@ -67,7 +67,7 @@ class SpringRssFeed {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((url == null) ? 0 : url.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + (showArticlesDescription ? 1231 : 1237);
         return result;
     }
@@ -85,6 +85,6 @@ class SpringRssFeed {
         SpringRssFeed other = (SpringRssFeed) obj;
         return showArticlesDescription == other.showArticlesDescription
                 && Objects.equals(id, other.id) && Objects.equals(url, other.url)
-                && Objects.equals(description, other.description);
+                && Objects.equals(title, other.title);
     }
 }

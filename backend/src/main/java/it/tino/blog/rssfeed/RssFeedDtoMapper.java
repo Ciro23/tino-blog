@@ -15,7 +15,7 @@ public class RssFeedDtoMapper {
         return new RssFeedDetailDto(
             feed.getId(),
             feed.getUrl(),
-            feed.getDescription(),
+            feed.getTitle(),
             feed.isShowArticlesDescription()
         );
     }
@@ -35,7 +35,7 @@ public class RssFeedDtoMapper {
     public RssFeed toDomain(SaveRssFeedDto dto) {
         RssFeed feed = new RssFeed();
         feed.setUrl(dto.url());
-        feed.setDescription(dto.description());
+        feed.setTitle(dto.title());
         feed.setShowArticlesDescription(dto.showArticlesDescription());
 
         return feed;

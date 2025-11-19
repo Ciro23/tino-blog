@@ -68,7 +68,7 @@ public class RssFeedController {
         RssFeed feed = rssFeedDtoMapper.toDomain(saveFeedDto);
         return rssFeedRepository.findById(id)
                 .map(a -> {
-                    a.setDescription(saveFeedDto.description());
+                    a.setTitle(saveFeedDto.title());
                     a.setUrl(saveFeedDto.url());
                     a.setShowArticlesDescription(saveFeedDto.showArticlesDescription());
 

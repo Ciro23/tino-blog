@@ -4,7 +4,7 @@ export interface RssArticle extends Article {
   feed: {
     id: string;
     url: string;
-    description: string;
+    title: string;
     showArticlesDescription: boolean;
   };
 }

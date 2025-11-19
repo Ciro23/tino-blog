@@ -4,6 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 record SaveRssFeedDto(
     @JsonProperty("url") String url,
-    @JsonProperty("description") String description,
+    @JsonProperty("title") String title,
     @JsonProperty("showArticlesDescription") boolean showArticlesDescription
 ) {}

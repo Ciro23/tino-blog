@@ -3,7 +3,7 @@ insert into public.users (id, username, email, password)
 values ('4c7dbc23-b524-4dd2-95f0-c0cb974588c7', 'admin', 'admin@test.org',
         '$2a$12$Hp1V.oI.VKiOBSkb85sXMepcUmwZeyzWxZbpgg1JwMTfklaGeeoB2');
 
-insert into public.rss_feeds (id, url, description)
+insert into public.rss_feeds (id, url, title)
 values ('112d544a-66d7-4b4d-a5e2-4b5c2f6b5f59', 'https://medium.com/feed/flutter/tagged/announcements',
         'Flutter announcements'),
        ('606ee257-0cb0-4b30-a8e0-e15855aa5b58', 'https://spring.io/blog/category/releases.atom', 'Spring releases'),

@@ -56,7 +56,7 @@ class RssFeedDataSource implements RssFeedRepository {
         SpringRssFeed db = new SpringRssFeed();
         db.setId(domain.getId());
         db.setUrl(domain.getUrl());
-        db.setDescription(domain.getDescription());
+        db.setTitle(domain.getTitle());
         db.setShowArticlesDescription(domain.isShowArticlesDescription());
 
         return db;
@@ -66,7 +66,7 @@ class RssFeedDataSource implements RssFeedRepository {
         RssFeed domain = new RssFeed();
         domain.setId(db.getId());
         domain.setUrl(db.getUrl());
-        domain.setDescription(db.getDescription());
+        domain.setTitle(db.getTitle());
         domain.setShowArticlesDescription(db.isShowArticlesDescription());
 
         return domain;

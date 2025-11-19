@@ -37,7 +37,7 @@
         class="table table-bordered table-hover table-responsive table-sm small">
         <thead>
           <tr>
-            <th style="width: 40%">Description</th>
+            <th style="width: 40%">Title</th>
             <th style="width: 40%">URL</th>
             <th style="width: 10%"></th>
           </tr>
@@ -46,7 +46,7 @@
         <tbody>
           @for (rssFeed of rssFeeds; track rssFeed.id) {
             <tr class="align-items-stretch">
-              <td class="text-break">{{ rssFeed.description }}</td>
+              <td class="text-break">{{ rssFeed.title }}</td>
               <td class="text-break">{{ rssFeed.url }}</td>
               <td>
                 <div class="d-flex justify-content-evenly flex-wrap-reverse gap-1">

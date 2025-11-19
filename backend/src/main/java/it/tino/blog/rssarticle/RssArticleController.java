@@ -50,7 +50,7 @@ public class RssArticleController {
 
         List<RssFeed> feeds = rssFeedRepository.findByIdIn(feedIds);
         Map<UUID, String> feedTitlesById = feeds.stream()
-                .collect(Collectors.toMap(RssFeed::getId, RssFeed::getDescription));
+                .collect(Collectors.toMap(RssFeed::getId, RssFeed::getTitle));
 
         List<RssArticleSummaryDto> articlesDto = rssArticleDtoMapper
                 .toListDto(articles, feedTitlesById);

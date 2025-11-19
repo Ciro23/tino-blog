@@ -20,9 +20,9 @@
       #form="ngForm">
 
       <label class="d-flex flex-column">
-        Description*
+        Title*
         <input
-          [(ngModel)]="rssFeed!.description"
+          [(ngModel)]="rssFeed!.title"
           [ngClass]="{
           'is-invalid': form.controls['description'] &&
           (form.controls['description'].dirty || form.submitted) &&

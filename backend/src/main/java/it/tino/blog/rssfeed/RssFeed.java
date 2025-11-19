@@ -7,7 +7,7 @@ public class RssFeed implements Comparable<RssFeed> {
 
     private UUID id;
     private String url = "";
-    private String description = "";
+    private String title = "";
 
     /**
      * The articles' preview also display a short description to describe the
@@ -33,12 +33,12 @@ public class RssFeed implements Comparable<RssFeed> {
         this.url = url;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isShowArticlesDescription() {
@@ -51,9 +51,9 @@ public class RssFeed implements Comparable<RssFeed> {
 
     @Override
     public int compareTo(RssFeed that) {
-        int descriptionComparison = this.description.compareTo(that.description);
-        if (descriptionComparison != 0) {
-            return descriptionComparison;
+        int titleComparison = this.title.compareTo(that.title);
+        if (titleComparison != 0) {
+            return titleComparison;
         }
 
         return this.url.compareTo(that.url);
@@ -65,7 +65,7 @@ public class RssFeed implements Comparable<RssFeed> {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((url == null) ? 0 : url.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
         result = prime * result + (showArticlesDescription ? 1231 : 1237);
         return result;
     }
@@ -83,6 +83,6 @@ public class RssFeed implements Comparable<RssFeed> {
         RssFeed other = (RssFeed) obj;
         return showArticlesDescription == other.showArticlesDescription
                 && Objects.equals(id, other.id) && Objects.equals(url, other.url)
-                && Objects.equals(description, other.description);
+                && Objects.equals(title, other.title);
     }
 }

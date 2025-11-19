@@ -29,7 +29,7 @@ export class RssFeedFormComponent implements OnInit {
 
   rssFeed?: CreateRssFeed = {
     url: "",
-    description: "",
+    title: "",
     showArticlesDescription: true
   }
 
