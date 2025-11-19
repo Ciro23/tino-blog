@@ -39,7 +39,9 @@ reduce the server's workload... bandwidth ain't free.
 1. Generate SSL certificates for HTTPS and save the files inside a secure location on your server.
 
    > You can use [Cloudflare origin CA](https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/)
-   > to generate the files `origin.pem` and `private.pem`.
+   > to generate the files `origin.pem` and `private.pem`.  
+   > Otherwise, you can generate self-signed SSL certificates with:  
+   > `openssl req -x509 -newkey rsa:4096 -keyout private.pem -out origin.pem -days 365 -nodes`
 
 2. Navigate to the repository root, copy the file `.env.example`, rename it to `.env`, then set your sensitive data.
 3. Generate the private and public keys used to create the login tokens. Please refer
@@ -69,7 +71,9 @@ reduce the server's workload... bandwidth ain't free.
 
 6. Open the webapp: <https://localhost>
 
-### Manual native setup (for local development only!)
+### Manual native setup
+
+> Recommended for local development only.
 
 #### Requirements
 
@@ -123,7 +127,7 @@ reduce the server's workload... bandwidth ain't free.
 
    ```shell
    npm install
-   ng serve
+   npm start
    ```
 
 7. Open the webapp: <http://localhost:4200>
