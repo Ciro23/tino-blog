@@ -1,4 +1,22 @@
 services:
+  proxy:
+    container_name: "tino-blog-proxy"
+    restart: unless-stopped
+    build:
+      context: ./proxy
+      tags:
+        - tino-blog-proxy:1.3.4
+    ports:
+      - "443:443"
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
+    volumes:
+      - ${SSL_CERTIFICATES_PATH}:/etc/nginx/ssl
+    depends_on:
+      - frontend
+    networks:
+      - network
+
   frontend:
     container_name: "tino-blog-frontend"
     restart: unless-stopped
@@ -7,11 +25,7 @@ services:
       tags:
         - tino-blog-frontend:1.3.4
     ports:
-      - "443:443"
-    environment:
-      - DOMAIN_NAME=${DOMAIN_NAME}
-    volumes:
-      - ${SSL_CERTIFICATES_PATH}:/etc/nginx/ssl
+      - "4200:4200"
     depends_on:
       - backend
     networks:
