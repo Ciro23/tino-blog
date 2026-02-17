@@ -83,6 +83,10 @@ export class BlogArticleFormComponent implements OnInit {
   }
 
   onTitleChanged(title: string): void {
+    if (!!this.articleId) {
+      return;
+    }
+
     if (this.slugManuallyChanged) {
       this.showGenerateSlugButton = true;
     } else {
