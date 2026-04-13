@@ -77,7 +77,7 @@ reduce the server's workload... bandwidth ain't free.
 
 #### Requirements
 
-- Java 21
+- Java 25
 - PostgreSQL 17 (15 and 16 are also both fine as well)
 - Angular CLI
 
