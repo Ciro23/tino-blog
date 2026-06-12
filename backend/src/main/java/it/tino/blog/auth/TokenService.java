@@ -2,6 +2,7 @@ package it.tino.blog.auth;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,7 @@ class TokenService {
         String scope = authentication.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
+                .filter(Objects::nonNull)
                 .collect(Collectors.joining(" "));
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")

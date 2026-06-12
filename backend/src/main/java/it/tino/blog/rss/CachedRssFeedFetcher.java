@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
@@ -42,7 +43,11 @@ public class CachedRssFeedFetcher implements RssFeedFetcher {
         List<RssFeed> cachedRssFeeds = new ArrayList<>();
 
         for (String url : rssFeedUrlsUnique) {
-            var valueInCache = cache.get(url);
+            ValueWrapper valueInCache = null;
+            if (cache != null) {
+                valueInCache = cache.get(url);
+            }
+
             if (valueInCache == null) {
                 uncachedUrls.add(url);
             } else {
@@ -53,7 +58,10 @@ public class CachedRssFeedFetcher implements RssFeedFetcher {
         List<RssFeed> freshRssFeeds = new ArrayList<>();
         if (!uncachedUrls.isEmpty()) {
             freshRssFeeds = rssFeedFetcher.fetchFeeds(uncachedUrls);
-            freshRssFeeds.forEach(f -> cache.put(f.url(), f));
+
+            if (cache != null) {
+                freshRssFeeds.forEach(f -> cache.put(f.url(), f));
+            }
         }
 
         List<RssFeed> allRssFeeds = new ArrayList<>(cachedRssFeeds.size() + freshRssFeeds.size());
