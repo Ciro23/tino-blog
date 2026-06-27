@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /login
+
+Sitemap: https://tinoblog.net/sitemap.xml
