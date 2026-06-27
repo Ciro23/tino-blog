@@ -2,7 +2,8 @@
   <h2 class="title">Latest articles</h2>
   <span class="w-100 d-flex flex-column gap-4 flex-grow-1">
     <app-article-list
-      class="w-100 d-flex flex-column flex-grow-1"
+      class="w-100 d-flex flex-column"
+      [class.flex-grow-1]="loadingArticles"
       [articles]="articles"
       [loadingArticles]="loadingArticles"
       [onViewArticle]="onViewArticle"></app-article-list>
