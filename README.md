@@ -116,7 +116,7 @@ reduce the server's workload... bandwidth ain't free.
 5. To initialize the database with default data (first user and a bunch of RSS feeds), you can run this:
 
    ```postgres
-   psql -U postgres -d tino_blog -f src/main/resources/data.sql
+   psql -U postgres -d tino_blog -f ../postgres/data.sql
    ```
 
    > Credentials of the first admin user, created during data initialization:  
