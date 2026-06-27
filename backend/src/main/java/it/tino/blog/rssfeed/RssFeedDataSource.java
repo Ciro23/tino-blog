@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -26,7 +27,8 @@ class RssFeedDataSource implements RssFeedRepository {
 
     @Override
     public List<RssFeed> findAll() {
-        return dbToDomain(rssFeedDao.findAll());
+        Sort sorting = getSorting();
+        return dbToDomain(rssFeedDao.findAll(sorting));
     }
 
     @Override
@@ -40,7 +42,9 @@ class RssFeedDataSource implements RssFeedRepository {
         if (ids.isEmpty()) {
             return Collections.emptyList();
         }
-        return dbToDomain(rssFeedDao.findAllById(ids));
+
+        Sort sorting = getSorting();
+        return dbToDomain(rssFeedDao.findAllByIdIn(ids, sorting));
     }
 
     @Override
@@ -50,6 +54,10 @@ class RssFeedDataSource implements RssFeedRepository {
             return true;
         }
         return false;
+    }
+
+    private Sort getSorting() {
+        return Sort.by("title");
     }
 
     private SpringRssFeed domainToDb(RssFeed domain) {

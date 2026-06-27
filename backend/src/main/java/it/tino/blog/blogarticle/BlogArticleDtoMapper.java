@@ -3,8 +3,6 @@ package it.tino.blog.blogarticle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
 
@@ -25,10 +23,8 @@ class BlogArticleDtoMapper {
     }
 
     public List<BlogArticleSummaryDto> toListDto(Collection<BlogArticle> articles) {
-        Set<BlogArticle> sortedArticles = new TreeSet<>(articles);
         List<BlogArticleSummaryDto> dtoList = new ArrayList<>();
-
-        for (BlogArticle article : sortedArticles) {
+        for (BlogArticle article : articles) {
             BlogArticleSummaryDto dto = new BlogArticleSummaryDto(
                 article.getId(),
                 article.getTitle(),

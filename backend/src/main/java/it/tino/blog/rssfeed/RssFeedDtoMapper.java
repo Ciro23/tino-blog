@@ -3,8 +3,6 @@ package it.tino.blog.rssfeed;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.springframework.stereotype.Component;
 
@@ -21,10 +19,8 @@ public class RssFeedDtoMapper {
     }
 
     public List<RssFeedDetailDto> toListDto(Collection<RssFeed> feeds) {
-        Set<RssFeed> sortedFeeds = new TreeSet<>(feeds);
         List<RssFeedDetailDto> dtoList = new ArrayList<>();
-
-        for (RssFeed feed : sortedFeeds) {
+        for (RssFeed feed : feeds) {
             RssFeedDetailDto dto = toDetailDto(feed);
             dtoList.add(dto);
         }

@@ -58,13 +58,17 @@ class RssArticleDataSource implements RssArticleRepository {
             rssArticles.addAll(rssArticle);
         }
 
+        rssArticles.sort(null);
         return rssArticles;
     }
 
     @Override
     public List<RssArticle> findByFeed(RssFeed rssFeed) {
         var fetchedFeed = rssFeedFetcher.fetchFeed(rssFeed.getUrl());
-        return mapRssEntries(rssFeed, fetchedFeed.entries());
+        List<RssArticle> rssArticles = mapRssEntries(rssFeed, fetchedFeed.entries());
+
+        rssArticles.sort(null);
+        return rssArticles;
     }
 
     private List<RssArticle> mapRssEntries(RssFeed rssFeed, Collection<RssEntry> rssEntries) {

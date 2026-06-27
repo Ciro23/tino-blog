@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -32,10 +30,8 @@ class RssArticleDtoMapper {
         Collection<RssArticle> articles,
         Map<UUID, String> feedTitlesById
     ) {
-        Set<RssArticle> sortedArticles = new TreeSet<>(articles);
         List<RssArticleSummaryDto> dtoList = new ArrayList<>();
-
-        for (RssArticle article : sortedArticles) {
+        for (RssArticle article : articles) {
             RssArticleSummaryDto dto = new RssArticleSummaryDto(
                 article.getTitle(),
                 article.getSlug(),

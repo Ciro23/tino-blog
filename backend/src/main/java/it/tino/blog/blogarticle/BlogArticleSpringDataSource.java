@@ -28,17 +28,15 @@ class BlogArticleSpringDataSource implements BlogArticleRepository {
 
     @Override
     public List<BlogArticle> findAll() {
-        return dbToDomain(articleDao.findAll());
+        Sort sorting = getSorting();
+        return dbToDomain(articleDao.findAll(sorting));
     }
 
     @Override
     public List<BlogArticle> findWithLimit(int numberOfArticlesToLoad) {
-        PageRequest pageable = PageRequest.of(
-            0,
-            numberOfArticlesToLoad,
-            Sort.by("creationDateTime")
-                    .descending()
-        );
+        Sort sorting = getSorting();
+        PageRequest pageable = PageRequest.of(0, numberOfArticlesToLoad, sorting);
+
         Page<SpringBlogArticle> limitedNumberOfArticles = articleDao.findAll(pageable);
         return dbToDomain(limitedNumberOfArticles.getContent());
     }
@@ -62,6 +60,11 @@ class BlogArticleSpringDataSource implements BlogArticleRepository {
             return true;
         }
         return false;
+    }
+
+    private Sort getSorting() {
+        return Sort.by("creationDateTime")
+                .descending();
     }
 
     private SpringBlogArticle domainToDb(BlogArticle article) {
