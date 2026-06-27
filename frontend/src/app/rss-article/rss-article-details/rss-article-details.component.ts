@@ -56,8 +56,8 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
   }
 
   /**
-  * RSS articles should not dare trying to override my style.
-  */
+   * RSS articles should not dare trying to override my style.
+   */
   private stripInlineStyles(html: string): string {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
@@ -93,10 +93,10 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
   }
 
   /**
-  * A listener is required to make anchors work, otherwise they
-  * would redirect the user to "https://website-root.com/#the-anchor",
-  * instead of "https://website-root.com/rss/the-article#the-anchor".
-  */
+   * A listener is required to make anchors work, otherwise they
+   * would redirect the user to "https://website-root.com/#the-anchor",
+   * instead of "https://website-root.com/rss/the-article#the-anchor".
+   */
   private handleAnchors(): void {
     document.addEventListener('click', (e) => {
       const anchor = (e.target as HTMLElement).closest('a[href^="#"]');
