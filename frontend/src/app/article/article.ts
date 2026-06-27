@@ -7,6 +7,6 @@ export interface Article {
   shortDescription: string;
   content: string;
 
-  creationDateTime: Date;
+  createdAt: Date;
   minutesToRead: number;
 }

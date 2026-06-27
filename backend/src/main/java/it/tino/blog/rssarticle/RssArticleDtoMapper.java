@@ -21,7 +21,8 @@ class RssArticleDtoMapper {
             article.getSlug(),
             article.getShortDescription(),
             article.getContent(),
-            article.getCreationDateTime(),
+            article.getCreationDateTime()
+                    .toString(),
             feedDto,
             article.getMinutesToRead()
         );
@@ -39,7 +40,8 @@ class RssArticleDtoMapper {
                 article.getTitle(),
                 article.getSlug(),
                 article.getShortDescription(),
-                article.getCreationDateTime(),
+                article.getCreationDateTime()
+                        .toString(),
                 feedTitlesById.get(article.getRssFeedId()),
                 article.getMinutesToRead()
             );

@@ -18,7 +18,8 @@ class BlogArticleDtoMapper {
             article.getSlug(),
             article.getShortDescription(),
             article.getContent(),
-            article.getCreationDateTime(),
+            article.getCreationDateTime()
+                    .toString(),
             article.getMinutesToRead()
         );
     }
@@ -33,7 +34,8 @@ class BlogArticleDtoMapper {
                 article.getTitle(),
                 article.getSlug(),
                 article.getShortDescription(),
-                article.getCreationDateTime(),
+                article.getCreationDateTime()
+                        .toString(),
                 article.getMinutesToRead()
             );
             dtoList.add(dto);
