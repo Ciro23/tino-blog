@@ -7,7 +7,7 @@ services:
       tags:
         - tino-blog-proxy:1.5.1
     ports:
-      - "443:443"
+      - "${PROXY_PORT:-443}:443"
     environment:
       - DOMAIN_NAME=${DOMAIN_NAME}
     volumes:
@@ -37,7 +37,7 @@ services:
       tags:
         - tino-blog-api:1.5.1
     ports:
-      - "8080:8080"
+      - "${API_PORT:-8080}:8080"
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
