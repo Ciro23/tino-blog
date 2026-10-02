@@ -8,6 +8,7 @@ public record RssEntry(
     String title,
     String description,
     String content,
+    String link,
     Instant publishedDate,
     @Nullable Instant updatedDate
 ) {}

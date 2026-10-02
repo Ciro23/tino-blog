@@ -51,6 +51,22 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Some feeds only publish a short summary, so a link to the original article
+   * is shown.
+   */
+  get articleHost(): string {
+    if (!this.article?.link) {
+      return "";
+    }
+
+    try {
+      return new URL(this.article.link).hostname;
+    } catch {
+      return "the original website";
+    }
+  }
+
   ngAfterViewInit(): void {
     this.handleAnchors();
   }

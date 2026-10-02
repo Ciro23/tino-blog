@@ -80,6 +80,7 @@ class RssArticleDataSource implements RssArticleRepository {
             article.setCreationDateTime(entry.publishedDate());
             article.setRssFeedId(rssFeed.getId());
             article.setContent(entry.content());
+            article.setLink(entry.link());
 
             if (rssFeed.isShowArticlesDescription()) {
                 article.setShortDescription(entry.description());

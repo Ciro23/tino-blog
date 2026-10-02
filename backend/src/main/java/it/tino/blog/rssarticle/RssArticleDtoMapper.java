@@ -19,6 +19,7 @@ class RssArticleDtoMapper {
             article.getSlug(),
             article.getShortDescription(),
             article.getContent(),
+            article.getLink(),
             article.getCreationDateTime()
                     .toString(),
             feedDto,

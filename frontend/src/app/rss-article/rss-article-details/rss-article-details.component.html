@@ -37,5 +37,18 @@
     }
 
     <div class="mx-auto content" [innerHTML]="articleContent"></div>
+
+    @if (article.link) {
+      <div class="d-flex justify-content-center mt-4">
+        <a
+          class="btn btn-primary"
+          href="{{ article.link }}"
+          target="_blank"
+          rel="noopener">
+          Read the full article on {{ articleHost }}
+          <i class="bi bi-box-arrow-up-right ms-1"></i>
+        </a>
+      </div>
+    }
   </article>
 }

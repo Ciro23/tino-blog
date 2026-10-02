@@ -19,6 +19,7 @@ public class RssArticle implements Article, Comparable<RssArticle> {
     private String slug = "";
     private String shortDescription = "";
     private String content = "";
+    private String link = "";
     private UUID rssFeedId;
     private Instant creationDateTime;
 
@@ -62,6 +63,14 @@ public class RssArticle implements Article, Comparable<RssArticle> {
         // Don't let the user exits this beautiful website!
         String parsedContent = content.replaceAll("<a", "<a target=\"_blank\" ");
         this.content = parsedContent;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public UUID getRssFeedId() {

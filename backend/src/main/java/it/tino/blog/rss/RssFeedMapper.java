@@ -8,8 +8,10 @@ import java.util.List;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Component;
 
+import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.feed.synd.SyndLink;
 
 @Component
 class RssMapper {
@@ -40,6 +42,8 @@ class RssMapper {
             description = "";
         }
 
+        String link = parseEntryLink(entry);
+
         Instant updatedDate = null;
         if (entry.getUpdatedDate() != null) {
             updatedDate = entry.getUpdatedDate()
@@ -50,6 +54,7 @@ class RssMapper {
             entry.getTitle(),
             description,
             content,
+            link,
             entry.getPublishedDate()
                     .toInstant(),
             updatedDate
@@ -81,15 +86,45 @@ class RssMapper {
         return null;
     }
 
+    /**
+     * Some feeds are "summary only", meaning they have no content, just a plain
+     * text <summary>. In that case it's used as content and as description.
+     */
     private @Nullable String parseEntryDescription(SyndEntry entry) {
+        SyndContent description = entry.getDescription();
+        if (description == null) {
+            return null;
+        }
+
         if (
             !entry.getContents()
-                    .isEmpty() && entry.getDescription() != null
+                    .isEmpty() || isPlainText(description)
         ) {
-            return entry.getDescription()
-                    .getValue();
+            return description.getValue();
         }
 
         return null;
+    }
+
+    private boolean isPlainText(SyndContent content) {
+        String type = content.getType();
+        return "text".equals(type) || "text/plain".equals(type);
+    }
+
+    private String parseEntryLink(SyndEntry entry) {
+        if (
+            entry.getLink() != null && !entry.getLink()
+                    .isBlank()
+        ) {
+            return entry.getLink();
+        }
+
+        return entry.getLinks()
+                .stream()
+                .filter(l -> l.getRel() == null || "alternate".equals(l.getRel()))
+                .map(SyndLink::getHref)
+                .filter(href -> href != null && !href.isBlank())
+                .findFirst()
+                .orElse("");
     }
 }
