@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.HtmlUtils;
 
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
@@ -79,8 +80,13 @@ class RssMapper {
             entry.getContents()
                     .isEmpty() && entry.getDescription() != null
         ) {
-            return entry.getDescription()
-                    .getValue();
+            SyndContent description = entry.getDescription();
+            if (isPlainText(description) && description.getValue() != null) {
+                // Plain text must be wrapped to be styled like any other paragraph.
+                return "<p>" + HtmlUtils.htmlEscape(description.getValue()) + "</p>";
+            }
+
+            return description.getValue();
         }
 
         return null;

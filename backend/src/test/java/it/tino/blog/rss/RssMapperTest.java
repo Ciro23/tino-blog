@@ -34,7 +34,7 @@ class RssMapperTest {
 
         RssEntry entry = parse(xml);
 
-        assertEquals("Language & tooling.", entry.content());
+        assertEquals("<p>Language &amp; tooling.</p>", entry.content());
         assertEquals("Language & tooling.", entry.description());
         assertEquals("https://dart.dev/blog/announcing-dart-3-13", entry.link());
     }
