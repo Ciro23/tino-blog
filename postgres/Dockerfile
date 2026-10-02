@@ -1,4 +1,4 @@
-FROM postgres:17.9
+FROM postgres:17.11
 
 # Initializes the database.
 # The prefix "01", "02" (etc.) is necessary because they're executed in alphabetical order!
