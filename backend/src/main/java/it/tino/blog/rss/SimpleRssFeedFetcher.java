@@ -128,29 +128,38 @@ public class SimpleRssFeedFetcher implements RssFeedFetcher {
     }
 
     private void validateEntries(Collection<SyndEntry> entries, URL rssFeedUrl) {
-        entries.removeIf(entry -> {
-            try {
-                validateEntry(entry);
-                return false;
-            } catch (IllegalArgumentException e) {
-                log.warn(
-                    "The RSS entry from feed '{}' and with title '{}' does not"
-                            + " declare a creation date, so it's being skipped",
-                    rssFeedUrl,
-                    entry.getTitle()
-                );
-                return true;
-            }
-        });
+        entries.removeIf(entry -> !validateEntry(entry, rssFeedUrl));
     }
 
-    private void validateEntry(SyndEntry entry) {
+    /**
+     * @return False if the entry is invalid and must be skipped.
+     */
+    private boolean validateEntry(SyndEntry entry, URL rssFeedUrl) {
         Date date = parseArticleDate(entry);
         if (date == null) {
-            throw new IllegalArgumentException("Entry does not declare a creation date");
+            log.warn(
+                "The RSS entry from feed '{}' and with title '{}' does not"
+                        + " declare a creation date, so it's being skipped",
+                rssFeedUrl,
+                entry.getTitle()
+            );
+            return false;
+        }
+
+        // The title is used to generate the slug.
+        if (entry.getTitle() == null || entry.getTitle()
+                .isBlank()) {
+            log.warn(
+                "The RSS entry from feed '{}' and with link '{}' does not"
+                        + " declare a title, so it's being skipped",
+                rssFeedUrl,
+                entry.getLink()
+            );
+            return false;
         }
 
         entry.setPublishedDate(date);
+        return true;
     }
 
     private @Nullable Date parseArticleDate(SyndEntry entry) {
