@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.tino.blog.rssfeed.RssFeed;
 import it.tino.blog.rssfeed.RssFeedDetailDto;
 import it.tino.blog.rssfeed.RssFeedDtoMapper;
 import it.tino.blog.rssfeed.RssFeedRepository;
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
 
 @RestController
 @RequestMapping("rss/articles")
@@ -42,9 +45,13 @@ public class RssArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RssArticleSummaryDto>> getArticles() {
-        List<RssArticle> articles = rssArticleService.getAll();
-        List<UUID> feedIds = articles.stream()
+    public ResponseEntity<PageResult<RssArticleSummaryDto>> getArticles(
+        @RequestParam(name = "page", defaultValue = "0") int page,
+        @RequestParam(name = "size", defaultValue = "" + PageRequest.DEFAULT_SIZE) int size
+    ) {
+        PageResult<RssArticle> articles = rssArticleService.getPage(PageRequest.of(page, size));
+        List<UUID> feedIds = articles.content()
+                .stream()
                 .map(RssArticle::getRssFeedId)
                 .toList();
 
@@ -53,9 +60,9 @@ public class RssArticleController {
                 .collect(Collectors.toMap(RssFeed::getId, RssFeed::getTitle));
 
         List<RssArticleSummaryDto> articlesDto = rssArticleDtoMapper
-                .toListDto(articles, feedTitlesById);
+                .toListDto(articles.content(), feedTitlesById);
 
-        return new ResponseEntity<>(articlesDto, HttpStatus.OK);
+        return new ResponseEntity<>(articles.withContent(articlesDto), HttpStatus.OK);
     }
 
     @GetMapping("{slug}")

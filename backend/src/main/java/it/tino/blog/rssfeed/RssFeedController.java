@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
 
 @RestController
 @RequestMapping("rss/feeds")
@@ -31,11 +35,14 @@ public class RssFeedController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RssFeedDetailDto>> getFeeds() {
-        List<RssFeed> feeds = rssFeedRepository.findAll();
-        List<RssFeedDetailDto> feedsDto = rssFeedDtoMapper.toListDto(feeds);
+    public ResponseEntity<PageResult<RssFeedDetailDto>> getFeeds(
+        @RequestParam(name = "page", defaultValue = "0") int page,
+        @RequestParam(name = "size", defaultValue = "" + PageRequest.DEFAULT_SIZE) int size
+    ) {
+        PageResult<RssFeed> feeds = rssFeedRepository.findPage(PageRequest.of(page, size));
+        List<RssFeedDetailDto> feedsDto = rssFeedDtoMapper.toListDto(feeds.content());
 
-        return new ResponseEntity<>(feedsDto, HttpStatus.OK);
+        return new ResponseEntity<>(feeds.withContent(feedsDto), HttpStatus.OK);
     }
 
     @GetMapping("{id}")

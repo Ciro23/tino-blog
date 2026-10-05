@@ -13,6 +13,8 @@ import it.tino.blog.rss.RssEntry;
 import it.tino.blog.rss.RssFeedFetcher;
 import it.tino.blog.rssfeed.RssFeed;
 import it.tino.blog.rssfeed.RssFeedRepository;
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
 import it.tino.blog.util.Urls;
 
 @Repository
@@ -60,6 +62,15 @@ class RssArticleDataSource implements RssArticleRepository {
 
         rssArticles.sort(null);
         return rssArticles;
+    }
+
+    /**
+     * RSS articles are not stored in the database but fetched from the
+     * (cached) feeds, so the page is extracted from the full sorted list.
+     */
+    @Override
+    public PageResult<RssArticle> findPage(PageRequest pageRequest) {
+        return PageResult.slice(findAll(), pageRequest);
     }
 
     @Override

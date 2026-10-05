@@ -4,13 +4,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
+
 public interface BlogArticleRepository {
 
     BlogArticle save(BlogArticle article);
 
     List<BlogArticle> findAll();
 
-    List<BlogArticle> findWithLimit(int numberOfArticlesToLoad);
+    PageResult<BlogArticle> findPage(PageRequest pageRequest);
 
     Optional<BlogArticle> findById(UUID id);
 

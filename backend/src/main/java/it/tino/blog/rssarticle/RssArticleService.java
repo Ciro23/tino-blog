@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import it.tino.blog.rss.CachedRssFeedFetcher;
 import it.tino.blog.rssfeed.RssFeed;
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
 
 @Service
 public class RssArticleService {
@@ -26,8 +28,8 @@ public class RssArticleService {
         return rssArticleRepository.findBySlug(slug);
     }
 
-    public List<RssArticle> getAll() {
-        return rssArticleRepository.findAll();
+    public PageResult<RssArticle> getPage(PageRequest pageRequest) {
+        return rssArticleRepository.findPage(pageRequest);
     }
 
     public List<RssArticle> getByFeed(RssFeed rssFeed) {

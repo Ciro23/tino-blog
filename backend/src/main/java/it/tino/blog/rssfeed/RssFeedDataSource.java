@@ -7,8 +7,12 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
 
 @Repository
 class RssFeedDataSource implements RssFeedRepository {
@@ -29,6 +33,21 @@ class RssFeedDataSource implements RssFeedRepository {
     public List<RssFeed> findAll() {
         Sort sorting = getSorting();
         return dbToDomain(rssFeedDao.findAll(sorting));
+    }
+
+    @Override
+    public PageResult<RssFeed> findPage(PageRequest pageRequest) {
+        Sort sorting = getSorting();
+        var pageable = org.springframework.data.domain.PageRequest
+                .of(pageRequest.page(), pageRequest.size(), sorting);
+
+        Page<SpringRssFeed> page = rssFeedDao.findAll(pageable);
+        return PageResult.of(
+            dbToDomain(page.getContent()),
+            pageRequest.page(),
+            pageRequest.size(),
+            page.getTotalElements()
+        );
     }
 
     @Override
@@ -57,7 +76,9 @@ class RssFeedDataSource implements RssFeedRepository {
     }
 
     private Sort getSorting() {
-        return Sort.by("title");
+        // The id makes the order deterministic, so pages never overlap.
+        return Sort.by("title")
+                .and(Sort.by("id"));
     }
 
     private SpringRssFeed domainToDb(RssFeed domain) {

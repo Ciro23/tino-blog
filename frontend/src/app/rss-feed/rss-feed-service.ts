@@ -1,8 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { CreateRssFeed } from "./create-rss-feed";
 import { RssFeed } from "./rss-feed";
+import { MAX_PAGE_SIZE, PageResult } from "../utilities/page-result";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,14 @@ export class RssFeedService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Only the first {@link MAX_PAGE_SIZE} feeds are loaded,
+   * since there is no pagination UI yet.
+   */
   fetchRssFeeds(): Observable<RssFeed[]> {
-    return this.http.get<RssFeed[]>(`${this.apiUrl}`);
+    return this.http.get<PageResult<RssFeed>>(`${this.apiUrl}?page=0&size=${MAX_PAGE_SIZE}`).pipe(
+      map(page => page.content)
+    );
   }
 
   fetchRssFeedById(id: string): Observable<RssFeed> {

@@ -7,9 +7,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+
+import it.tino.blog.shared.PageRequest;
+import it.tino.blog.shared.PageResult;
 
 @Repository
 class BlogArticleSpringDataSource implements BlogArticleRepository {
@@ -33,12 +35,18 @@ class BlogArticleSpringDataSource implements BlogArticleRepository {
     }
 
     @Override
-    public List<BlogArticle> findWithLimit(int numberOfArticlesToLoad) {
+    public PageResult<BlogArticle> findPage(PageRequest pageRequest) {
         Sort sorting = getSorting();
-        PageRequest pageable = PageRequest.of(0, numberOfArticlesToLoad, sorting);
+        var pageable = org.springframework.data.domain.PageRequest
+                .of(pageRequest.page(), pageRequest.size(), sorting);
 
-        Page<SpringBlogArticle> limitedNumberOfArticles = articleDao.findAll(pageable);
-        return dbToDomain(limitedNumberOfArticles.getContent());
+        Page<SpringBlogArticle> page = articleDao.findAll(pageable);
+        return PageResult.of(
+            dbToDomain(page.getContent()),
+            pageRequest.page(),
+            pageRequest.size(),
+            page.getTotalElements()
+        );
     }
 
     @Override
@@ -63,8 +71,10 @@ class BlogArticleSpringDataSource implements BlogArticleRepository {
     }
 
     private Sort getSorting() {
+        // The id makes the order deterministic, so pages never overlap.
         return Sort.by("creationDateTime")
-                .descending();
+                .descending()
+                .and(Sort.by("id"));
     }
 
     private SpringBlogArticle domainToDb(BlogArticle article) {
