@@ -128,9 +128,10 @@ public class SimpleRssFeedFetcher implements RssFeedFetcher {
     }
 
     private void validateEntries(Collection<SyndEntry> entries, URL rssFeedUrl) {
-        for (var entry : entries) {
+        entries.removeIf(entry -> {
             try {
                 validateEntry(entry);
+                return false;
             } catch (IllegalArgumentException e) {
                 log.warn(
                     "The RSS entry from feed '{}' and with title '{}' does not"
@@ -138,9 +139,9 @@ public class SimpleRssFeedFetcher implements RssFeedFetcher {
                     rssFeedUrl,
                     entry.getTitle()
                 );
-                continue;
+                return true;
             }
-        }
+        });
     }
 
     private void validateEntry(SyndEntry entry) {
