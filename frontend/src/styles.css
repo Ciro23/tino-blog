@@ -20,6 +20,12 @@ router-outlet + * > * {
   width: 100%;
 }
 
+/* For simplicity, the footer is hidden while there's a loading happening.
+   It prevents an awful "flash" when loading a page. */
+app-root:has(app-loading-spinner) app-footer {
+  visibility: hidden;
+}
+
 a {
   color: inherit;
 }
