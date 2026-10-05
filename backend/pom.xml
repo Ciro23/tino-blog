@@ -97,6 +97,13 @@
             <artifactId>caffeine</artifactId>
             <version>3.2.4</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.21.1</version>
+        </dependency>
     </dependencies>
 
     <build>

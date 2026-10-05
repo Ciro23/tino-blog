@@ -14,25 +14,27 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndLink;
 
+import it.tino.blog.util.Html;
+
 @Component
 class RssMapper {
 
     public RssFeed feedToDto(String url, SyndFeed feed) {
-        List<RssEntry> entryDtoList = entryToDtoList(feed.getEntries());
+        List<RssEntry> entryDtoList = entryToDtoList(url, feed.getEntries());
         return new RssFeed(url, entryDtoList);
     }
 
-    private List<RssEntry> entryToDtoList(Collection<SyndEntry> entries) {
+    private List<RssEntry> entryToDtoList(String feedUrl, Collection<SyndEntry> entries) {
         List<RssEntry> dtoList = new ArrayList<>();
         for (var syndEntry : entries) {
-            var dto = entryToDto(syndEntry);
+            var dto = entryToDto(feedUrl, syndEntry);
             dtoList.add(dto);
         }
 
         return dtoList;
     }
 
-    private RssEntry entryToDto(SyndEntry entry) {
+    private RssEntry entryToDto(String feedUrl, SyndEntry entry) {
         String content = parseEntryContent(entry);
         if (content == null) {
             content = "";
@@ -44,6 +46,10 @@ class RssMapper {
         }
 
         String link = parseEntryLink(entry);
+
+        // Relative URLs (e.g. images) must point to the original website.
+        String baseUrl = !link.isBlank() ? link : feedUrl;
+        content = Html.resolveRelativeUrls(content, baseUrl);
 
         Instant updatedDate = null;
         if (entry.getUpdatedDate() != null) {
@@ -82,7 +88,8 @@ class RssMapper {
         ) {
             SyndContent description = entry.getDescription();
             if (isPlainText(description) && description.getValue() != null) {
-                // Plain text must be wrapped to be styled like any other paragraph.
+                // Plain text must be wrapped to be styled like any other
+                // paragraph.
                 return "<p>" + HtmlUtils.htmlEscape(description.getValue()) + "</p>";
             }
 

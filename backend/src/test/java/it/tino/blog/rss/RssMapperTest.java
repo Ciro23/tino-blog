@@ -90,6 +90,30 @@ class RssMapperTest {
         assertEquals("Short", entry.description());
     }
 
+    @Test
+    void relativeUrlsInContentAreResolvedAgainstEntryLink() throws Exception {
+        String xml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <rss version="2.0">
+              <channel>
+                <title>Some blog</title>
+                <link>https://example.com</link>
+                <description>Blog</description>
+                <item>
+                  <title>Post</title>
+                  <link>https://example.com/blog/post</link>
+                  <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+                  <description>&lt;p&gt;&lt;img src="/images/a.png"&gt;&lt;/p&gt;</description>
+                </item>
+              </channel>
+            </rss>
+            """;
+
+        RssEntry entry = parse(xml);
+
+        assertEquals("<p><img src=\"https://example.com/images/a.png\"></p>", entry.content());
+    }
+
     private RssEntry parse(String xml) throws Exception {
         SyndFeed feed = new SyndFeedInput().build(new StringReader(xml.strip()));
         // Mirrors SimpleRssFeedFetcher.validateEntry.
