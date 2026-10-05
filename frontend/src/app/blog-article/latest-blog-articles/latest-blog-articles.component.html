@@ -3,7 +3,7 @@
   <span class="w-100 d-flex flex-column gap-4 flex-grow-1">
     <app-article-list
       class="w-100 d-flex flex-column"
-      [class.flex-grow-1]="loadingArticles"
+      [class.flex-grow-1]="loadingArticles || !articles?.length"
       [articles]="articles"
       [loadingArticles]="loadingArticles"
       [onViewArticle]="onViewArticle"></app-article-list>
