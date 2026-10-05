@@ -44,10 +44,12 @@ class SitemapGenerator {
         xml.append("</url>");
 
         // Blog articles homepage.
-        xml.append("  <url>\n");
-        xml.append("    <loc>" + blogArticlesUrl + "</loc>\n");
-        xml.append("    <priority>0.6</priority>\n");
-        xml.append("  </url>\n");
+        xml.append("<url>");
+        xml.append("<loc>");
+        xml.append(blogArticlesUrl);
+        xml.append("</loc>");
+        xml.append("<priority>0.6</priority>");
+        xml.append("</url>");
 
         // All blog articles.
         // RSS articles should not be indexed, as they are not published
