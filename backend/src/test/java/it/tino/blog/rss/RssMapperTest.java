@@ -114,6 +114,125 @@ class RssMapperTest {
         assertEquals("<p><img src=\"https://example.com/images/a.png\"></p>", entry.content());
     }
 
+    @Test
+    void atomPlainTextContentIsEscapedAndWrapped() throws Exception {
+        String xml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <feed xmlns="http://www.w3.org/2005/Atom">
+              <title>Blog</title>
+              <id>https://example.com/feed</id>
+              <updated>2026-09-15T00:00:00Z</updated>
+              <entry>
+                <title>Post</title>
+                <link href="https://example.com/post"/>
+                <id>https://example.com/post</id>
+                <updated>2026-09-15T00:00:00Z</updated>
+                <content type="text">Use &lt;b&gt; for bold &amp; more.</content>
+              </entry>
+            </feed>
+            """;
+
+        RssEntry entry = parse(xml);
+
+        assertEquals("<p>Use &lt;b&gt; for bold &amp; more.</p>", entry.content());
+    }
+
+    @Test
+    void atomContentWithoutTypeIsPlainText() throws Exception {
+        String xml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <feed xmlns="http://www.w3.org/2005/Atom">
+              <title>Blog</title>
+              <id>https://example.com/feed</id>
+              <updated>2026-09-15T00:00:00Z</updated>
+              <entry>
+                <title>Post</title>
+                <link href="https://example.com/post"/>
+                <id>https://example.com/post</id>
+                <updated>2026-09-15T00:00:00Z</updated>
+                <content>Use &lt;b&gt; for bold.</content>
+              </entry>
+            </feed>
+            """;
+
+        RssEntry entry = parse(xml);
+
+        assertEquals("<p>Use &lt;b&gt; for bold.</p>", entry.content());
+    }
+
+    @Test
+    void summaryOnlyAtomEntryWithoutTypeUsesSummaryAsContentAndDescription() throws Exception {
+        String xml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <feed xmlns="http://www.w3.org/2005/Atom">
+              <title>Blog</title>
+              <id>https://example.com/feed</id>
+              <updated>2026-09-15T00:00:00Z</updated>
+              <entry>
+                <title>Post</title>
+                <link href="https://example.com/post"/>
+                <id>https://example.com/post</id>
+                <updated>2026-09-15T00:00:00Z</updated>
+                <summary>Language &amp; tooling.</summary>
+              </entry>
+            </feed>
+            """;
+
+        RssEntry entry = parse(xml);
+
+        assertEquals("<p>Language &amp; tooling.</p>", entry.content());
+        assertEquals("Language & tooling.", entry.description());
+    }
+
+    @Test
+    void atomHtmlContentIsKeptAsHtml() throws Exception {
+        String xml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <feed xmlns="http://www.w3.org/2005/Atom">
+              <title>Blog</title>
+              <id>https://example.com/feed</id>
+              <updated>2026-09-15T00:00:00Z</updated>
+              <entry>
+                <title>Post</title>
+                <link href="https://example.com/post"/>
+                <id>https://example.com/post</id>
+                <updated>2026-09-15T00:00:00Z</updated>
+                <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Hi</p></div></content>
+              </entry>
+            </feed>
+            """;
+
+        RssEntry entry = parse(xml);
+
+        assertEquals("<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Hi</p></div>", entry.content());
+    }
+
+    @Test
+    void rssContentEncodedIsKeptAsHtml() throws Exception {
+        String xml = """
+            <?xml version="1.0" encoding="utf-8"?>
+            <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+              <channel>
+                <title>Some blog</title>
+                <link>https://example.com</link>
+                <description>Blog</description>
+                <item>
+                  <title>Post</title>
+                  <link>https://example.com/post</link>
+                  <pubDate>Mon, 01 Sep 2025 00:00:00 GMT</pubDate>
+                  <description>Short</description>
+                  <content:encoded>&lt;p&gt;Long&lt;/p&gt;</content:encoded>
+                </item>
+              </channel>
+            </rss>
+            """;
+
+        RssEntry entry = parse(xml);
+
+        assertEquals("<p>Long</p>", entry.content());
+        assertEquals("Short", entry.description());
+    }
+
     private RssEntry parse(String xml) throws Exception {
         SyndFeed feed = new SyndFeedInput().build(new StringReader(xml.strip()));
         // Mirrors SimpleRssFeedFetcher.validateEntry.

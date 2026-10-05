@@ -18,27 +18,33 @@ import com.rometools.rome.feed.synd.SyndLink;
 class RssMapper {
 
     public RssFeed feedToDto(String url, SyndFeed feed) {
-        List<RssEntry> entryDtoList = entryToDtoList(url, feed.getEntries());
+        boolean isAtom = feed.getFeedType() != null && feed.getFeedType()
+                .startsWith("atom");
+        List<RssEntry> entryDtoList = entryToDtoList(url, isAtom, feed.getEntries());
         return new RssFeed(url, entryDtoList);
     }
 
-    private List<RssEntry> entryToDtoList(String feedUrl, Collection<SyndEntry> entries) {
+    private List<RssEntry> entryToDtoList(
+        String feedUrl,
+        boolean isAtom,
+        Collection<SyndEntry> entries
+    ) {
         List<RssEntry> dtoList = new ArrayList<>();
         for (var syndEntry : entries) {
-            var dto = entryToDto(feedUrl, syndEntry);
+            var dto = entryToDto(feedUrl, isAtom, syndEntry);
             dtoList.add(dto);
         }
 
         return dtoList;
     }
 
-    private RssEntry entryToDto(String feedUrl, SyndEntry entry) {
-        String content = parseEntryContent(entry);
+    private RssEntry entryToDto(String feedUrl, boolean isAtom, SyndEntry entry) {
+        String content = parseEntryContent(entry, isAtom);
         if (content == null) {
             content = "";
         }
 
-        String description = parseEntryDescription(entry);
+        String description = parseEntryDescription(entry, isAtom);
         if (description == null) {
             description = "";
         }
@@ -70,28 +76,20 @@ class RssMapper {
      * Some RSS feeds put the content inside the <content> tag, while others in
      * <description>.
      */
-    private @Nullable String parseEntryContent(SyndEntry entry) {
+    private @Nullable String parseEntryContent(SyndEntry entry, boolean isAtom) {
         if (
             !entry.getContents()
                     .isEmpty()
         ) {
-            return entry.getContents()
-                    .getFirst()
-                    .getValue();
+            return toHtml(
+                entry.getContents()
+                        .getFirst(),
+                isAtom
+            );
         }
 
-        if (
-            entry.getContents()
-                    .isEmpty() && entry.getDescription() != null
-        ) {
-            SyndContent description = entry.getDescription();
-            if (isPlainText(description) && description.getValue() != null) {
-                // Plain text must be wrapped to be styled like any other
-                // paragraph.
-                return "<p>" + HtmlUtils.htmlEscape(description.getValue()) + "</p>";
-            }
-
-            return description.getValue();
+        if (entry.getDescription() != null) {
+            return toHtml(entry.getDescription(), isAtom);
         }
 
         return null;
@@ -101,7 +99,7 @@ class RssMapper {
      * Some feeds are "summary only", meaning they have no content, just a plain
      * text <summary>. In that case it's used as content and as description.
      */
-    private @Nullable String parseEntryDescription(SyndEntry entry) {
+    private @Nullable String parseEntryDescription(SyndEntry entry, boolean isAtom) {
         SyndContent description = entry.getDescription();
         if (description == null) {
             return null;
@@ -109,7 +107,7 @@ class RssMapper {
 
         if (
             !entry.getContents()
-                    .isEmpty() || isPlainText(description)
+                    .isEmpty() || isPlainText(description, isAtom)
         ) {
             return description.getValue();
         }
@@ -117,8 +115,26 @@ class RssMapper {
         return null;
     }
 
-    private boolean isPlainText(SyndContent content) {
+    private @Nullable String toHtml(SyndContent content, boolean isAtom) {
+        if (isPlainText(content, isAtom) && content.getValue() != null) {
+            // Plain text must be escaped, and wrapped to be styled like any
+            // other paragraph.
+            return "<p>" + HtmlUtils.htmlEscape(content.getValue()) + "</p>";
+        }
+
+        return content.getValue();
+    }
+
+    /**
+     * In Atom feeds, a missing type means plain text, but ROME leaves it null.
+     * In RSS feeds, instead, it usually means HTML.
+     */
+    private boolean isPlainText(SyndContent content, boolean isAtom) {
         String type = content.getType();
+        if (type == null) {
+            return isAtom;
+        }
+
         return "text".equals(type) || "text/plain".equals(type);
     }
 
