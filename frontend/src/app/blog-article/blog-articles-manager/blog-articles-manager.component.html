@@ -1,26 +1,21 @@
-@if (loadingArticles) {
-  <div
-    class="d-flex flex-column gap-4">
+<div
+  class="d-flex flex-column gap-4">
+  <div class="d-flex flex-wrap gap-2 justify-content-between">
     <h4>Articles manager</h4>
 
-    <app-loading-spinner></app-loading-spinner>
+    <a routerLink="/articles/new" class="ms-auto">
+      <button class="btn btn-primary bi bi-plus"> Add Article</button>
+    </a>
   </div>
-} @else {
 
-  <div
-    class="d-flex flex-column gap-4">
-    <div class="d-flex flex-wrap gap-2 justify-content-between">
-      <h4>Articles manager</h4>
-
-      <a routerLink="/articles/new" class="ms-auto">
-        <button class="btn btn-primary bi bi-plus"> Add Article</button>
-      </a>
-    </div>
-
-    <app-article-list
-      [articles]="articles"
-      [onViewArticle]="onViewArticle"
-      [onEditArticle]="onEditArticle"
-      [onDeleteArticle]="openDeleteConfirmationDialog"></app-article-list>
-  </div>
-}
+  <app-article-list
+    [articles]="articles"
+    [loadingArticles]="loadingArticles"
+    [onViewArticle]="onViewArticle"
+    [onEditArticle]="onEditArticle"
+    [onDeleteArticle]="openDeleteConfirmationDialog"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [totalElements]="totalElements"
+    [onPageChange]="onPageChange"></app-article-list>
+</div>

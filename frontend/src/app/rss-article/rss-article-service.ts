@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { RssArticle } from "./rss-article";
 import { RssArticleSummary } from './rss-article-summary';
-import { MAX_PAGE_SIZE, PageResult } from '../utilities/page-result';
+import { PageResult } from '../utilities/page-result';
 
 @Injectable({
   providedIn: 'root'
@@ -17,18 +17,18 @@ export class RssArticleService {
   /**
    * The RSS articles are cached to improve user experience and
    * reduce the server's workload!<br>
-   * Use {@link reloadRssArticles} to evict the cache.<br>
-   * Only the first {@link MAX_PAGE_SIZE} articles are loaded,
-   * since there is no pagination UI yet.
+   * Use {@link reloadRssArticles} to evict the cache.
+   * @param page The 0-based index of the page to load.
    */
-  fetchRssArticles(): Observable<RssArticleSummary[]> {
-    return this.http.get<PageResult<RssArticleSummary>>(`${this.apiUrl}?page=0&size=${MAX_PAGE_SIZE}`).pipe(
-      map(page =>
-        page.content.map(a => ({
+  fetchRssArticles(page: number, size: number): Observable<PageResult<RssArticleSummary>> {
+    return this.http.get<PageResult<RssArticleSummary>>(`${this.apiUrl}?page=${page}&size=${size}`).pipe(
+      map(result => ({
+        ...result,
+        content: result.content.map(a => ({
           ...a,
           id: a.slug
         }))
-      )
+      }))
     );
   }
 

@@ -4,7 +4,7 @@ import { map, Observable } from "rxjs";
 import { SaveArticle } from "./save-article";
 import { BlogArticle } from "./blog-article";
 import { BlogArticleSummary } from "./blog-article-summary";
-import { MAX_PAGE_SIZE, PageResult } from "../utilities/page-result";
+import { PageResult } from "../utilities/page-result";
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +16,10 @@ export class BlogArticleService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Only the first {@link MAX_PAGE_SIZE} articles are loaded,
-   * since there is no pagination UI yet.
+   * @param page The 0-based index of the page to load.
    */
-  fetchArticles(): Observable<BlogArticleSummary[]> {
-    return this.http.get<PageResult<BlogArticleSummary>>(`${this.apiUrl}?page=0&size=${MAX_PAGE_SIZE}`).pipe(
-      map(page => page.content)
-    );
+  fetchArticles(page: number, size: number): Observable<PageResult<BlogArticleSummary>> {
+    return this.http.get<PageResult<BlogArticleSummary>>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
 
   fetchLatestArticles(limit: number): Observable<BlogArticleSummary[]> {

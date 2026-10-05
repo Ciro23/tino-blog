@@ -23,5 +23,23 @@
           [onDelete]="onDeleteArticle"></app-article-snippet>
       </div>
     }
+
+    @if (onPageChange && totalElements > pageSize) {
+      <ngb-pagination
+        class="app-pagination d-flex justify-content-center"
+        [collectionSize]="totalElements"
+        [pageSize]="pageSize"
+        [page]="currentPage + 1"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        [ellipses]="false"
+        (pageChange)="changePage($event)">
+        <ng-template ngbPaginationFirst><i class="bi bi-chevron-double-left"></i></ng-template>
+        <ng-template ngbPaginationPrevious><i class="bi bi-chevron-left"></i></ng-template>
+        <ng-template ngbPaginationNext><i class="bi bi-chevron-right"></i></ng-template>
+        <ng-template ngbPaginationLast><i class="bi bi-chevron-double-right"></i></ng-template>
+      </ngb-pagination>
+    }
   </div>
 }
