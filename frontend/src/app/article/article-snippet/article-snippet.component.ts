@@ -7,6 +7,7 @@ import { ArticleSummary } from '../article-summary';
   selector: 'app-article-snippet',
   standalone: true,
   templateUrl: './article-snippet.component.html',
+  styleUrl: './article-snippet.component.css',
   imports: []
 })
 export class ArticleSnippetComponent {

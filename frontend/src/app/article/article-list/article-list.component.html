@@ -12,7 +12,7 @@
   </p>
 } @else {
   <div
-    class="d-flex flex-column gap-4">
+    class="d-flex flex-column gap-2">
     @for (article of articles; track $index) {
       <div>
         <app-article-snippet
@@ -26,7 +26,7 @@
 
     @if (onPageChange && totalElements > pageSize) {
       <ngb-pagination
-        class="app-pagination d-flex justify-content-center"
+        class="app-pagination d-flex justify-content-center mt-4"
         [collectionSize]="totalElements"
         [pageSize]="pageSize"
         [page]="currentPage + 1"

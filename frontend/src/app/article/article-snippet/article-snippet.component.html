@@ -1,48 +1,45 @@
-<div
-  class="d-flex rounded border">
-  <div
-    (click)="onView(article.slug)"
-    class="card border-0 shadow bg-primary w-100"
-    style="cursor: pointer">
-    <article
-      class="p-3 card-body">
-      <div class="d-flex">
-        <p class="card-text text-secondary-emphasis mb-1 small">
-          {{ getFormattedCreationDateTime(article.createdAt) }}
-        </p>
+<article
+  (click)="onView(article.slug)"
+  class="article-block">
+  <div class="article-block-meta">
+    <span>
+      {{ getFormattedCreationDateTime(article.createdAt) }}
+      @if (categoryName !== undefined) {
+        · {{ categoryName }}
+      }
+      @if (article.minutesToRead > 0) {
+        · {{ article.minutesToRead }} min read
+      }
+    </span>
 
-        @if (categoryName !== undefined) {
-          <p class="card-text text-secondary-emphasis mb-1 small">&#160;• {{ categoryName }}</p>
+    @if (authService.isTokenValid() && (onDelete != null || onEdit != null)) {
+      <div class="article-block-actions">
+        @if (onEdit !== undefined) {
+          <button
+            type="button"
+            (click)="$event.stopPropagation(); onEdit(article.id)"
+            class="article-block-action"
+            aria-label="Edit article">
+            <i class="bi bi-pencil"></i>
+          </button>
+        }
+
+        @if (onDelete !== undefined) {
+          <button
+            type="button"
+            (click)="$event.stopPropagation(); onDelete(article.id)"
+            class="article-block-action article-block-action-danger"
+            aria-label="Delete article">
+            <i class="bi bi-trash3"></i>
+          </button>
         }
       </div>
-
-      <h5 class="card-title">{{ article.title }}</h5>
-      <p class="card-text small text-secondary-emphasis">{{ article.shortDescription }}</p>
-    </article>
+    }
   </div>
 
-  @if (authService.isTokenValid() && (onDelete != null || onEdit != null)) {
-    <div
-      class="d-flex flex-column justify-content-between"
-      style="cursor: pointer; min-width: 5%">
+  <h2 class="article-block-title">{{ article.title }}</h2>
 
-      @if (onDelete !== undefined) {
-        <button
-          (click)="onDelete(article.id)"
-          class="flex-grow-1 btn btn-danger"
-          style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-          <i class="bi bi-trash3-fill"></i>
-        </button>
-      }
-
-      @if (onEdit !== undefined) {
-        <button
-          (click)="onEdit(article.id)"
-          class="flex-grow-1 btn btn-secondary"
-          style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0">
-          <i class="bi bi-pencil-square"></i>
-        </button>
-      }
-    </div>
+  @if (article.shortDescription) {
+    <p class="article-block-description">{{ article.shortDescription }}</p>
   }
-</div>
+</article>
