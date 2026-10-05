@@ -95,7 +95,6 @@ public class BlogArticleController {
         return articleRepository.findById(id)
                 .map(a -> {
                     a.setTitle(article.getTitle());
-                    a.setCreationDateTime(a.getCreationDateTime());
                     a.setShortDescription(article.getShortDescription());
                     a.setContent(article.getContent());
 
