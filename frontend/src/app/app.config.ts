@@ -24,13 +24,10 @@ export const appConfig: ApplicationConfig = {
           buttonComponent: ClipboardButtonComponent,
         },
       },
-    }), provideServiceWorker('ngsw-worker.js', {
+    }),
+    provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
-    }), provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-
+    }),
   ]
 };
