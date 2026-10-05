@@ -60,9 +60,7 @@ public class RssArticle implements Article, Comparable<RssArticle> {
 
     @Override
     public void setContent(String content) {
-        // Don't let the user exits this beautiful website!
-        String parsedContent = content.replaceAll("<a", "<a target=\"_blank\" ");
-        this.content = parsedContent;
+        this.content = content;
     }
 
     public String getLink() {

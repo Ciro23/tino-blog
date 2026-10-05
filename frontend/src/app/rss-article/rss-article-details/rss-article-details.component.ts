@@ -40,10 +40,7 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
         this.article = article;
         this.title.setTitle(article.title + " - Tino Blog");
 
-        const htmlWithNoStyle = this.stripInlineStyles(this.article.content);
-        const htmlWithNoVideoSizeAttributs = this.stripVideoSizeAttributes(htmlWithNoStyle);
-        const cleanedUpHtml = this.fixVideoFullscreenOnMobile(htmlWithNoVideoSizeAttributs);
-        this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(cleanedUpHtml);
+        this.articleContent = this.domSanitizer.bypassSecurityTrustHtml(article.content);
       },
       error: () => {
         void this.router.navigate(['/404'], { skipLocationChange: true });
@@ -69,43 +66,6 @@ export class RssArticleDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.handleAnchors();
-  }
-
-  /**
-   * RSS articles should not dare trying to override my style.
-   */
-  private stripInlineStyles(html: string): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    doc.querySelectorAll('[style]').forEach(el => el.removeAttribute('style'));
-    doc.querySelectorAll('style').forEach(el => el.remove());
-
-    return doc.body.innerHTML;
-  }
-
-  private stripVideoSizeAttributes(html: string): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    doc.querySelectorAll('video').forEach(video => {
-      video.removeAttribute('width');
-      video.removeAttribute('height');
-    });
-
-    return doc.body.innerHTML;
-  }
-
-  private fixVideoFullscreenOnMobile(html: string): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    doc.querySelectorAll('video').forEach(video => {
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-    });
-
-    return doc.body.innerHTML;
   }
 
   /**

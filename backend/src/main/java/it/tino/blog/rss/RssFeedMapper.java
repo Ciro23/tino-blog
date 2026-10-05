@@ -14,8 +14,6 @@ import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndLink;
 
-import it.tino.blog.util.Html;
-
 @Component
 class RssMapper {
 
@@ -49,7 +47,7 @@ class RssMapper {
 
         // Relative URLs (e.g. images) must point to the original website.
         String baseUrl = !link.isBlank() ? link : feedUrl;
-        content = Html.resolveRelativeUrls(content, baseUrl);
+        content = RssContentCleaner.clean(content, baseUrl);
 
         Instant updatedDate = null;
         if (entry.getUpdatedDate() != null) {
