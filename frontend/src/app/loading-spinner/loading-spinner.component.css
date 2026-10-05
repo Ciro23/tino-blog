@@ -1,0 +1,10 @@
+.loading-spinner-delayed {
+  opacity: 0;
+  animation: loading-spinner-appear 150ms ease-in 300ms forwards;
+}
+
+@keyframes loading-spinner-appear {
+  to {
+    opacity: 1;
+  }
+}
