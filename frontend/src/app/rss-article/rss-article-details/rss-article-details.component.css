@@ -100,9 +100,13 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   margin-top: 1.5rem;
 }
 
+/* Like code blocks, iframes can grow wider than the text, following their
+width attribute. The height comes from the aspect ratio set by the backend,
+if any. */
 .content iframe {
-  max-width: 100%;
   display: block;
+  min-width: 700px;
+  max-width: 1000px;
   margin-bottom: 2rem;
 }
 
@@ -124,6 +128,12 @@ this makes the code blocks a bit more readable. */
 @media screen and (max-width: 767px) {
   .content pre {
     min-width: auto;
+    width: 100%;
+  }
+
+  .content iframe {
+    min-width: auto;
+    max-width: 100%;
     width: 100%;
   }
 

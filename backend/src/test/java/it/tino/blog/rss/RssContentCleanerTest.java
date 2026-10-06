@@ -119,6 +119,46 @@ public class RssContentCleanerTest {
     }
 
     @Test
+    public void shouldReplaceIframeSizeWithAspectRatio() {
+        String html = "<iframe width=\"560\" height=\"315\" src=\"https://other.com/embed\"></iframe>";
+        String actual = RssContentCleaner.clean(html, BASE_URL);
+        Assertions.assertEquals(
+            "<iframe width=\"560\" src=\"https://other.com/embed\" style=\"aspect-ratio: 560 / 315\"></iframe>",
+            actual
+        );
+    }
+
+    @Test
+    public void shouldReplaceIframeInlineStyleWithAspectRatio() {
+        String html = "<iframe width=\"560\" height=\"315\" style=\"width: 560px\"></iframe>";
+        String actual = RssContentCleaner.clean(html, BASE_URL);
+        Assertions.assertEquals("<iframe width=\"560\" style=\"aspect-ratio: 560 / 315\"></iframe>", actual);
+    }
+
+    @Test
+    public void shouldKeepFixedIframeHeight() {
+        String html = "<iframe width=\"100%\" height=\"152\"></iframe>";
+        String actual = RssContentCleaner.clean(html, BASE_URL);
+        Assertions.assertEquals("<iframe width=\"100%\" height=\"152\"></iframe>", actual);
+    }
+
+    @Test
+    public void shouldStripIframeHeightWithoutPixels() {
+        Assertions.assertEquals(
+            "<iframe width=\"100%\"></iframe>",
+            RssContentCleaner.clean("<iframe width=\"100%\"></iframe>", BASE_URL)
+        );
+        Assertions.assertEquals(
+            "<iframe width=\"560\"></iframe>",
+            RssContentCleaner.clean("<iframe width=\"560\" height=\"50%\"></iframe>", BASE_URL)
+        );
+        Assertions.assertEquals(
+            "<iframe width=\"560\"></iframe>",
+            RssContentCleaner.clean("<iframe width=\"560\" height=\"0\"></iframe>", BASE_URL)
+        );
+    }
+
+    @Test
     public void shouldOnlyCleanUpWithInvalidBaseUrl() {
         String html = "<img src=\"/a.png\" style=\"width: 10px\">";
         Assertions.assertEquals("<img src=\"/a.png\">", RssContentCleaner.clean(html, ""));

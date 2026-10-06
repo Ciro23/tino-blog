@@ -3,6 +3,7 @@ package it.tino.blog.rss;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
 import org.jsoup.internal.StringUtil;
@@ -16,6 +17,7 @@ import org.jsoup.nodes.Element;
 class RssContentCleaner {
 
     private static final List<String> URL_ATTRIBUTES = List.of("src", "poster", "href");
+    private static final Pattern PIXEL_SIZE = Pattern.compile("[1-9]\\d*");
 
     /**
      * Cleans up the HTML content of an RSS article:
@@ -24,6 +26,7 @@ class RssContentCleaner {
      * URL;</li>
      * <li>Inline styles are removed.</li>
      * <li>Videos lose their fixed size and play inline on mobile.</li>
+     * <li>Iframes keep their proportions when resized.</li>
      * <li>Links open in a new tab.</li>
      * </ul>
      * @param html The HTML fragment to clean up.
@@ -46,6 +49,7 @@ class RssContentCleaner {
 
         stripInlineStyles(document);
         stripVideoSizeAttributes(document);
+        normalizeIframeSizes(document);
         fixVideoFullscreenOnMobile(document);
         openLinksInNewTab(document);
 
@@ -124,6 +128,29 @@ class RssContentCleaner {
         document.select("video")
                 .removeAttr("width")
                 .removeAttr("height");
+    }
+
+    private static void normalizeIframeSizes(Document document) {
+        for (Element iframe : document.select("iframe")) {
+            String width = iframe.attr("width")
+                    .strip();
+            String height = iframe.attr("height")
+                    .strip();
+            boolean isWidthInPixels = PIXEL_SIZE.matcher(width)
+                    .matches();
+            boolean isHeightInPixels = PIXEL_SIZE.matcher(height)
+                    .matches();
+
+            if (isWidthInPixels && isHeightInPixels) {
+                iframe.removeAttr("height");
+                iframe.attr("style", "aspect-ratio: " + width + " / " + height);
+            } else if (!isHeightInPixels) {
+                iframe.removeAttr("height");
+            }
+            // Otherwise it's a fixed height widget (e.g. width="100%"
+            // height="152"),
+            // so the height is kept.
+        }
     }
 
     private static void fixVideoFullscreenOnMobile(Document document) {
